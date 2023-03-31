@@ -1,21 +1,53 @@
 {
-  "name": "apidocpro-ui",
-  "version": "0.1.0",
-  "private": true,
+  "name": "apidocpro-openapi-ui-render",
+  "version": "1.0.0",
+  "description": "API Doc Pro UI the best choice for dynamically rendering any spec SwaggerAPI, OpenAPI or AsyncAPI, all in one with one design. By Reallexi LLC @ Apidocpro.com ",
+  "author": "Sam Ayouv",
+  "keywords": [
+    "react",
+    "components",
+    "ui"
+  ],
+  "license": "MIT License",
+  "private": false,
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ddkits/apidocpro-ui"
+  },
   "dependencies": {
+    "@babel/polyfill": "^7.12.1",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "bootstrap": "^5.2.3",
+    "font-awesome": "^4.7.0",
+    "js-beautify": "^1.14.7",
+    "js-yaml": "^4.1.0",
+    "polyfills": "^2.1.1",
+    "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-scripts": "5.0.1",
+    "react-router-dom": "^6.9.0",
+    "react-scripts": "^5.0.1",
+    "react-scroll": "^1.8.9",
+    "sass": "^1.59.3",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "buildp": "rm -rf dist && NODE_ENV=production babel src/lib --out-dir dist --copy-files",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix",
+    "format": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc"
   },
   "eslintConfig": {
     "extends": [
@@ -34,5 +66,19 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.21.0",
+    "@babel/core": "^7.21.3",
+    "@babel/preset-env": "^7.20.2",
+    "eslint": "^8.36.0",
+    "eslint-config-prettier": "^8.7.0",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-n": "^15.6.1",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-promise": "^6.1.1",
+    "eslint-plugin-react": "^7.32.2",
+    "prettier": "^2.8.4"
   }
 }
