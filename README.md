@@ -17,14 +17,14 @@ Features:
 ...
 
 
-![apidocpro UI openapi render](./screenshots/APIDocpro-UIat%2010.17.25%20PM.png)
-![apidocpro UI openapi render](./screenshots/APIDocpro-UIat%2010.17.43%20PM.png)
-![apidocpro UI openapi render](./screenshots/APIDocpro-UIat%2010.17.53%20PM.png)
-![apidocpro UI openapi render](./screenshots/APIDocpro-UIat%2010.17.58%20PM.png)
-![apidocpro UI openapi render](./screenshots/APIDocpro-UIat%2010.18.04%20PM.png)
-![apidocpro UI openapi render](./screenshots/APIDocpro-UIat%2010.18.21%20PM.png)
-![apidocpro UI openapi render](./screenshots/APIDocpro-UIat%2010.18.43%20PM.png)
-![apidocpro UI openapi render](./screenshots/APIDocpro-UIat%2010.19.00%20PM.png)
+![apidocpro UI openapi render](https://github.com/ddkits/apidocpro-openapi-ui-render/tree/main/screenshots/APIDocpro-UIat%2010.17.25%20PM.png)
+![apidocpro UI openapi render](https://github.com/ddkits/apidocpro-openapi-ui-render/tree/main/screenshots/APIDocpro-UIat%2010.17.43%20PM.png)
+![apidocpro UI openapi render](https://github.com/ddkits/apidocpro-openapi-ui-render/tree/main/screenshots/APIDocpro-UIat%2010.17.53%20PM.png)
+![apidocpro UI openapi render](https://github.com/ddkits/apidocpro-openapi-ui-render/tree/main/screenshots/APIDocpro-UIat%2010.17.58%20PM.png)
+![apidocpro UI openapi render](https://github.com/ddkits/apidocpro-openapi-ui-render/tree/main/screenshots/APIDocpro-UIat%2010.18.04%20PM.png)
+![apidocpro UI openapi render](https://github.com/ddkits/apidocpro-openapi-ui-render/tree/main/screenshots/APIDocpro-UIat%2010.18.21%20PM.png)
+![apidocpro UI openapi render](https://github.com/ddkits/apidocpro-openapi-ui-render/tree/main/screenshots/APIDocpro-UIat%2010.18.43%20PM.png)
+![apidocpro UI openapi render](https://github.com/ddkits/apidocpro-openapi-ui-render/tree/main/screenshots/APIDocpro-UIat%2010.19.00%20PM.png)
 
 
 
