@@ -2,8 +2,35 @@
 
 API Doc Pro UI is the best choice for dynamically rendering any spec SwaggerAPI, OpenAPI, or AsyncAPI, all in one with one design. By Reallexi LLC @ Apidocpro.com
 
-### !!!!Soon full docmumention
+### Get started
 
+```
+npm i openapi-asyncapi-ui-render 
+```
+- React 
+```
+...
+// React Component
+import { ApiDocPro } from 'openapi-asyncapi-ui-render';
+// Custom Theme can be clones from Default example when needed
+import * as THEME from './lib/components/templates/theme/default/apidocpro';
+// Styles import
+import './lib/components/templates/theme/default/assets/styles/apidocpro-styles.scss';
+...
+
+   <ApiDocPro
+        title="APIDocPro OpenAPI/AysncAPI UI"
+        rightRegion // Bool default true
+        leftRegion // Bool default true
+        header // Bool default true
+        theme={THEME} // Object of const default can be clones for new theme design or contribute
+        spec={spec} // string
+      />
+...
+```
+- CDN 
+```
+```
 
 ### Funding / sponsors
 https://opencollective.com/reallexi
@@ -48,7 +75,7 @@ https://opencollective.com/reallexi
 // import logo from './logo.svg';
 import { useEffect, useState } from 'react';
 import './App.css';
-import { ApiDocPro } from './lib/components';
+import { ApiDocPro } from 'openapi-asyncapi-ui-render';
 // Custom Theme can be clones from Default example when needed
 import * as THEME from './lib/components/templates/theme/default/apidocpro';
 // Styles import
