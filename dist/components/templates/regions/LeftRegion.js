@@ -22,11 +22,14 @@ function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && 
 // eslint-disable-next-line no-unused-vars
 function LeftRegion(props) {
   const {
-    data
+    data,
+    spectype
   } = props;
   const [menuData, setMenuData] = (0, _react.useState)([]);
   (0, _react.useEffect)(() => {
-    setMenuData((0, _leftside.createMenuItems)(data));
+    if (data && spectype === 'openapi') {
+      setMenuData((0, _leftside.createMenuItems)(data));
+    }
   }, [data]);
   return /*#__PURE__*/_react.default.createElement("div", {
     className: " pt-5 mt-5 sticky-top",
@@ -62,7 +65,8 @@ function LeftRegion(props) {
   }))));
 }
 LeftRegion.propTypes = {
-  data: _propTypes.default.object,
+  data: _propTypes.default.any,
+  spectype: _propTypes.default.string,
   resolved: _propTypes.default.any,
   theme: _propTypes.default.object
 };

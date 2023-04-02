@@ -9,6 +9,7 @@ require("core-js/modules/web.dom-collections.iterator.js");
 require("core-js/modules/es.promise.js");
 require("core-js/modules/es.json.stringify.js");
 var _react = _interopRequireWildcard(require("react"));
+var _helpers = require("../helpers");
 function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function _getRequireWildcardCache(nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 /* eslint-disable react/prop-types */
@@ -23,8 +24,9 @@ function FileUploadPage(props) {
     const reader = new FileReader();
     reader.onload = async e => {
       const text = e.target.result;
-      localStorage.setItem('spec', JSON.stringify(text));
-      props === null || props === void 0 ? void 0 : props.handleFileCallback(text);
+      const ob = (0, _helpers.yamlToJson)(text) ? (0, _helpers.yamlToJson)(text) : text;
+      localStorage.setItem('spec', JSON.stringify(ob));
+      props === null || props === void 0 ? void 0 : props.handleFileCallback(ob);
     };
     reader.readAsText(file);
   };

@@ -9,7 +9,6 @@ require("core-js/modules/es.regexp.exec.js");
 require("core-js/modules/es.string.match.js");
 require("core-js/modules/web.dom-collections.iterator.js");
 require("core-js/modules/es.json.stringify.js");
-/* eslint-disable no-prototype-builtins */
 function resolveRefs(document) {
   const regex = /^#\/([a-zA-Z0-9-_/]+)$/;
   const resolveRef = (obj, ref) => {

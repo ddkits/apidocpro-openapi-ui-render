@@ -1,12 +1,14 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import propTypes from 'prop-types';
-import beautify from 'js-beautify';
 import { curlSnippet } from '../../core/codesnippets/langs/CurlSnippet';
+import { codeRequestSetup } from '../../core/codesnippets/codeRequestSetup';
+import { jsonViewer } from '../../helpers';
+import { jsonViewerAsync } from '../../helpers/async';
 
 export default function RightRegion(props) {
   // eslint-disable-next-line no-unused-vars
-  const { data } = props;
+  const { data, spectype, theme } = props;
   const [codeSnippetsPaths, setCodeSnippetsPaths] = useState([]);
   const [codeSnippets, setCodeSnippets] = useState('');
   const [pathChange, setpathChange] = useState('');
@@ -18,12 +20,18 @@ export default function RightRegion(props) {
     let pathsList = [];
 
     await Object.keys(paths).forEach((path) => {
+      if (path.split('').length < 2) {
+        path = typeof path.toUpperCase();
+      }
       pathsList.push({ key: path, methods: [] });
     });
     await pathsList.forEach((x) => {
-      const p = x.key;
+      let p = x.key;
+      if (p.split('').length < 2) {
+        p = typeof p.toUpperCase();
+      }
       Object.keys(paths[p]).forEach((key) => {
-        x.methods.push({ method: key, code: curlSnippet(data, p, key) });
+        x.methods.push({ method: key, code: curlSnippet(data, p, key, spectype, theme) });
       });
     });
 
@@ -32,28 +40,65 @@ export default function RightRegion(props) {
     setCodeSnippets(pathsList[0].methods[0].code);
     return;
   };
+  const createAsyncCodeRequests = async (data) => {
+    const channels = data?.channels || {};
+    let componentsList = [];
+    await Object.keys(channels).forEach((item) => {
+      componentsList.push({ key: item, methods: [] });
+    });
+    await componentsList.forEach((x) => {
+      const p = x.key;
+      Object.keys(channels[p]).forEach((key) => {
+        const nowKey = channels[p][key]?.parameters || channels[p][key];
+        x.methods.push({ method: key, code: nowKey });
+      });
+    });
+
+    setCodeSnippetsPaths(componentsList);
+    setCodeSnippetsMethods(componentsList[0].methods);
+    setCodeSnippets(jsonViewerAsync(componentsList[0].methods, true, theme));
+    return;
+  };
+
   useEffect(() => {
-    createCodeRequests(data);
-  }, []);
+    if (spectype === 'openapi' || spectype === 'swagger') {
+      createCodeRequests(data);
+    } else if (spectype === 'asyncapi') {
+      createAsyncCodeRequests(data);
+    }
+  }, [data]);
   useEffect(() => {
-    if (pathChange !== '') {
+    if (pathChange !== '' && spectype !== 'asyncapi') {
+      const results = codeSnippetsPaths[pathChange].methods[0]?.code;
       setCodeSnippetsMethods(codeSnippetsPaths[pathChange].methods);
-      setCodeSnippets(codeSnippetsPaths[pathChange].methods[0]?.code);
+      setCodeSnippets(results);
+    } else if (pathChange !== '') {
+      const results = jsonViewerAsync(codeSnippetsPaths[pathChange].methods, true, theme);
+      setCodeSnippets(results);
     }
   }, [pathChange]);
   useEffect(() => {
-    if (pathChange !== '') {
+    if (pathChange !== '' && spectype !== 'asyncapi') {
+      const results = codeSnippetsPaths[pathChange].methods[methodChange]?.code;
       setCodeSnippetsMethods(codeSnippetsPaths[pathChange].methods);
-      setCodeSnippets(codeSnippetsPaths[pathChange].methods[methodChange]?.code);
+      setCodeSnippets(results);
+    } else if (pathChange !== '') {
+      const results = jsonViewerAsync(codeSnippetsPaths[pathChange].methods, true, theme);
+      setCodeSnippets(results);
     }
   }, [methodChange]);
-
   return (
     <div className=" pt-5 mt-5  sticky-top  bg-dark text-light ">
       <div id="apidocpro-codesnippet" className="shadow-sm maxw-100 rounded">
-        <h3>Request Example(s)</h3>
+        <h3>
+          {spectype === 'openapi'
+            ? `Request Example(s)`
+            : spectype === 'asyncapi'
+            ? `Channel(s)`
+            : 'RightRegion'}
+        </h3>
 
-        <div className="d-flex ">
+        <div className="d-flex">
           <select
             className="col"
             value={pathChange}
@@ -61,27 +106,36 @@ export default function RightRegion(props) {
             {codeSnippetsPaths.length &&
               Object.keys(codeSnippetsPaths).map((xx) => {
                 return (
-                  <option key={codeSnippetsPaths[xx].key} value={xx}>
+                  <option className=" maxw-100" key={codeSnippetsPaths[xx].key} value={xx}>
                     {codeSnippetsPaths[xx].key}
                   </option>
                 );
               })}
           </select>
-          <select
-            className="col"
-            value={methodChange}
-            onChange={(e) => setMethodChange(e.target.value)}>
-            {codeSnippetsMethods.length &&
-              Object.keys(codeSnippetsMethods).map((xx) => {
-                return (
-                  <option key={codeSnippetsMethods[xx].method} value={xx}>
-                    {codeSnippetsMethods[xx].method}
-                  </option>
-                );
-              })}
-          </select>
+          {spectype !== 'asyncapi' ? (
+            <select
+              className="col"
+              value={methodChange}
+              onChange={(e) => setMethodChange(e.target.value)}>
+              {codeSnippetsMethods.length &&
+                Object.keys(codeSnippetsMethods).map((xx) => {
+                  return (
+                    <option key={codeSnippetsMethods[xx].method} value={xx}>
+                      {codeSnippetsMethods[xx].method}
+                    </option>
+                  );
+                })}
+            </select>
+          ) : (
+            ''
+          )}
         </div>
-        <div className="json" dangerouslySetInnerHTML={{ __html: codeSnippets }} />
+        <div
+          className="json"
+          dangerouslySetInnerHTML={{
+            __html: codeSnippets
+          }}
+        />
       </div>
     </div>
   );
@@ -89,6 +143,7 @@ export default function RightRegion(props) {
 RightRegion.propTypes = {
   data: propTypes.any,
   path: propTypes.string,
+  spectype: propTypes.string,
   theme: propTypes.object,
   resolved: propTypes.any
 };

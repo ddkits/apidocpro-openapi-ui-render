@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react';
+import { yamlToJson } from '../helpers';
 
 export default function FileUploadPage(props) {
   const [file, setFile] = useState('');
@@ -12,8 +13,9 @@ export default function FileUploadPage(props) {
     const reader = new FileReader();
     reader.onload = async (e) => {
       const text = e.target.result;
-      localStorage.setItem('spec', JSON.stringify(text));
-      props?.handleFileCallback(text);
+      const ob = yamlToJson(text) ? yamlToJson(text) : text;
+      localStorage.setItem('spec', JSON.stringify(ob));
+      props?.handleFileCallback(ob);
     };
     reader.readAsText(file);
   };

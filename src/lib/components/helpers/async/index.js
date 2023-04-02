@@ -1,39 +1,33 @@
+/* eslint-disable no-unused-vars */
 /**
  * API Doc Pro helpers
  * By Sam Ayoub
  */
 import yaml from 'js-yaml';
-import { TEMPLATES, REQUESTBODY, JSONTEMPLATES } from '../templates/theme/default/apidocpro';
-import Body from '../templates/regions/middle/Body';
-import Header from '../templates/regions/middle/Header';
-import { jsonExample, yamlExample } from './examples';
-import { loopInNestedObjectPaths } from './pathsHelper';
-import { resolveRef } from './resolver';
+import {
+  TEMPLATESASYNC,
+  REQUESTBODY,
+  JSONTEMPLATES
+} from '../../templates/theme/default/apidocpro';
+import Body from '../../templates/regions/middle/Body';
+import Header from '../../templates/regions/middle/Header';
+import { resolveRef } from './../resolver';
 
 const yamlToJson = (yamlString) => {
   const obj = yaml.load(yamlString);
   return obj;
 };
 
-const loopInNestedObject = (json = {}, collapsible = false, theme = {}) => {
+const loopInNestedAsyncObject = (json = {}, collapsible = false, theme = {}) => {
   const schemas = json.components;
-  const custom = [
-    'tags',
-    'operationId',
-    'description',
-    'summary',
-    'responses',
-    'method',
-    'schema',
-    '[[Prototype]]',
-    ''
-  ];
-  const TEMPLATESNOW = theme.TEMPLATES ? theme.TEMPLATES : TEMPLATES;
+  const custom = ['[[Prototype]]', ''];
+  const TEMPLATESNOW = theme.TEMPLATESASYNC ? theme.TEMPLATESASYNC : TEMPLATESASYNC;
+
   function createItem(key, value, type) {
-    let element = TEMPLATESNOW.item.replaceAll(
-      '%KEY%',
-      value?.title || value?.name || value?.summary || value?.description || key
-    );
+    if (key.split('').length < 2) {
+      key = type.toUpperCase();
+    }
+    let element = TEMPLATESNOW.item.replaceAll('%KEY%', key);
     if (type == 'string') {
       element = element.replaceAll('%VALUE%', '"' + value + '"').replaceAll('%KEY%', key);
     } else {
@@ -49,6 +43,9 @@ const loopInNestedObject = (json = {}, collapsible = false, theme = {}) => {
   }
 
   function createCollapsibleItem(key, value, type, children) {
+    if (key.split('').length < 2) {
+      key = type.toUpperCase();
+    }
     var tpl = 'itemCollapsible';
     if (key === '$ref') {
       value = resolveRef(key, schemas);
@@ -57,10 +54,7 @@ const loopInNestedObject = (json = {}, collapsible = false, theme = {}) => {
       tpl = 'itemCollapsibleOpen';
     }
 
-    var element = TEMPLATES[tpl].replaceAll(
-      '%KEY%',
-      value?.title || value?.name || value?.summary || value?.description || key || ''
-    );
+    var element = TEMPLATESNOW[tpl].replaceAll('%KEY%', key);
 
     element = element.replaceAll('%VALUE%', type).replaceAll('%KEY%', key);
     element = element.replaceAll('%TYPE%', type);
@@ -70,6 +64,9 @@ const loopInNestedObject = (json = {}, collapsible = false, theme = {}) => {
   }
 
   function handleChildren(key, value, type) {
+    if (key.split('').length < 2) {
+      key = type.toUpperCase();
+    }
     var html = '';
 
     for (var item in value) {
@@ -84,52 +81,13 @@ const loopInNestedObject = (json = {}, collapsible = false, theme = {}) => {
 
   function handleItem(key, value) {
     var type = typeof value;
-    let paths = '';
-
-    if (key == 'info') {
-      return {
-        title: value['title'] || '',
-        version: value['version'] || '',
-        contact: value['contact'] || [],
-        description: value['description'] || '',
-        summary: value['summary'] || '',
-        servers: value['servers'] || [],
-        license: value['license'] || ''
-      };
+    if (typeof value === 'object') {
+      return handleChildren(key, value, type);
+    }
+    if (!custom.includes(key)) {
+      return createItem(key, value, type);
     } else {
-      switch (key) {
-        case 'openapi':
-        case 'swagger':
-        case 'async':
-        case '':
-          return;
-        case 'tags':
-          return;
-        case 'components':
-          return;
-        case 'paths':
-          paths = '';
-          if (typeof value === 'object') {
-            for (var item in value) {
-              let key1 = item,
-                value1 = value[item];
-
-              const res = loopInNestedObjectPaths(value1, collapsible, key1, schemas, theme);
-
-              paths += `${res}`;
-            }
-          }
-          return paths;
-        default:
-          if (typeof value === 'object') {
-            return handleChildren(key, value, type);
-          }
-          if (!custom.includes(key)) {
-            return createItem(key, value, type);
-          } else {
-            return;
-          }
-      }
+      return;
     }
   }
 
@@ -137,7 +95,7 @@ const loopInNestedObject = (json = {}, collapsible = false, theme = {}) => {
     if (obj.length === 0) {
       return;
     }
-    let result = '<section class="apidocpro">';
+    let result = '<section>';
     let title, version, description, contact, servers, license, specType, summary, externalDocs;
     for (var item in obj) {
       let key = item,
@@ -179,18 +137,6 @@ const loopInNestedObject = (json = {}, collapsible = false, theme = {}) => {
     result += '</section>';
     return (
       <div className="apidocpro-details">
-        <Header
-          spectitle={title}
-          specversion={version}
-          specdescription={description}
-          specType={specType}
-          speccontact={contact}
-          spec={json}
-          specservers={servers || []}
-          speclicense={license}
-          specsummary={summary}
-          specexternaldocs={externalDocs || []}
-        />
         <Body data={result} servers={servers} spec={json} collapsible={collapsible} />
       </div>
     );
@@ -199,15 +145,14 @@ const loopInNestedObject = (json = {}, collapsible = false, theme = {}) => {
   return parseObject(json);
 };
 
-function jsonViewer(json, collapsible = false, theme) {
+function jsonViewerAsync(json, collapsible = false, theme) {
   const TEMPLATESNOW = theme.JSONTEMPLATES ? theme.JSONTEMPLATES : JSONTEMPLATES;
 
   function createItem(key, value, type) {
+    var element = TEMPLATESNOW.item.replaceAll('%KEY%', key);
     if (key.split('').length < 2) {
       key = type.toUpperCase();
     }
-    var element = TEMPLATESNOW.item.replaceAll('%KEY%', key);
-
     if (type == 'string') {
       element = element.replaceAll('%VALUE%', '"' + value + '"');
     } else {
@@ -220,11 +165,10 @@ function jsonViewer(json, collapsible = false, theme) {
   }
 
   function createCollapsibleItem(key, value, type, children) {
+    var tpl = 'itemCollapsible';
     if (key.split('').length < 2) {
       key = type.toUpperCase();
     }
-    var tpl = 'itemCollapsible';
-
     if (collapsible) {
       tpl = 'itemCollapsibleOpen';
     }
@@ -239,11 +183,10 @@ function jsonViewer(json, collapsible = false, theme) {
   }
 
   function handleChildren(key, value, type) {
+    var html = '';
     if (key.split('').length < 2) {
       key = type.toUpperCase();
     }
-    var html = '';
-
     for (var item in value) {
       var _key = item,
         _val = value[item];
@@ -256,9 +199,7 @@ function jsonViewer(json, collapsible = false, theme) {
 
   function handleItem(key, value) {
     var type = typeof value;
-    if (key.split('').length < 2) {
-      key = type.toUpperCase();
-    }
+
     if (typeof value === 'object') {
       return handleChildren(key, value, type);
     } else if (typeof value === 'string') {
@@ -283,7 +224,7 @@ function jsonViewer(json, collapsible = false, theme) {
 
   return parseObject(json);
 }
-function requestBodyViewer(json, collapsible = false, theme = {}) {
+function requestBodyViewerAsync(json, collapsible = false, theme = {}) {
   const custom = ['type', '[[Prototype]]', 'tags'];
   const TEMPLATESNOW = theme.REQUESTBODY ? theme.REQUESTBODY : REQUESTBODY;
 
@@ -395,4 +336,4 @@ function requestBodyViewer(json, collapsible = false, theme = {}) {
   });
   return _result;
 }
-export { yamlToJson, jsonExample, yamlExample, loopInNestedObject, jsonViewer, requestBodyViewer };
+export { yamlToJson, loopInNestedAsyncObject, jsonViewerAsync, requestBodyViewerAsync };

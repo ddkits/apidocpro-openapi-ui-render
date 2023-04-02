@@ -1,20 +1,28 @@
 # Getting Started with APIDocPro UI renderrer for Swagger, OpenAPI and AsyncAPI
 
+API Doc Pro UI is the best choice for dynamically rendering any spec SwaggerAPI, OpenAPI, or AsyncAPI, all in one with one design. By Reallexi LLC @ Apidocpro.com
 
 ### !!!!Soon full docmumention
 
-Code Base:
-1- ReactS
-2- Bootstrap
 
-Features: 
-1- Codesnipets
-2- Logical design of parameters
-3- Auto generate Examples from Paramters 
-4- Easy control of design
-5- Custom theming is simpler than ever, no need to be an expert in React to redesign 
-6- 3,2,1 columns by need
-...
+### Funding / sponsors
+https://opencollective.com/reallexi
+
+### Based on:
+- 1- ReactS
+- 2- Bootstrap
+
+### Features
+
+- Features: 
+- 1- Code snippets
+- 2- Logical design of parameters
+- 3- Auto generate Examples from Parameters 
+- 4- Easy control of the design
+- 5- Custom theming is simpler than ever, no need to be an expert in React to redesign 
+- 6- 3,2,1 columns by the need
+
+
 
 ![apidocpro UI openapi render](https://github.com/ddkits/apidocpro-openapi-ui-render/raw/main/screenshots/APIDocpro-UIat%2010.17.25%20PM.png)
 ![apidocpro UI openapi render](https://github.com/ddkits/apidocpro-openapi-ui-render/raw/main/screenshots/APIDocpro-UIat%2010.17.43%20PM.png)
@@ -48,6 +56,12 @@ function App() {
   );
 
 ```
+
+### Theming
+
+
+
+
 
 #### By Sam Ayoub
 ##### APIDocPro.com

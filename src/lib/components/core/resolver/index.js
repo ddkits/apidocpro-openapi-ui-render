@@ -1,4 +1,3 @@
-/* eslint-disable no-prototype-builtins */
 function resolveRefs(document) {
   const regex = /^#\/([a-zA-Z0-9-_/]+)$/;
 

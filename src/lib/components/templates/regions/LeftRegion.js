@@ -14,11 +14,13 @@ import {
 
 // eslint-disable-next-line no-unused-vars
 export default function LeftRegion(props) {
-  const { data } = props;
+  const { data, spectype } = props;
   const [menuData, setMenuData] = useState([]);
 
   useEffect(() => {
-    setMenuData(createMenuItems(data));
+    if (data && spectype === 'openapi') {
+      setMenuData(createMenuItems(data));
+    }
   }, [data]);
   return (
     <div className=" pt-5 mt-5 sticky-top" id="nav-bar">
@@ -69,7 +71,8 @@ export default function LeftRegion(props) {
   );
 }
 LeftRegion.propTypes = {
-  data: propTypes.object,
+  data: propTypes.any,
+  spectype: propTypes.string,
   resolved: propTypes.any,
   theme: propTypes.object
 };

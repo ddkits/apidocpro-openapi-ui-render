@@ -77,7 +77,7 @@ export default function Header(props) {
 Header.propTypes = {
   specdata: propTypes.any,
   specsummary: propTypes.string,
-  speccontact: propTypes.object,
+  speccontact: propTypes.any,
   spectitle: propTypes.string,
   specversion: propTypes.string,
   specdescription: propTypes.string,

@@ -3,36 +3,23 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-Object.defineProperty(exports, "jsonExample", {
-  enumerable: true,
-  get: function get() {
-    return _examples.jsonExample;
-  }
-});
-exports.jsonViewer = jsonViewer;
-exports.loopInNestedObject = void 0;
-exports.requestBodyViewer = requestBodyViewer;
-Object.defineProperty(exports, "yamlExample", {
-  enumerable: true,
-  get: function get() {
-    return _examples.yamlExample;
-  }
-});
+exports.jsonViewerAsync = jsonViewerAsync;
+exports.loopInNestedAsyncObject = void 0;
+exports.requestBodyViewerAsync = requestBodyViewerAsync;
 exports.yamlToJson = void 0;
 require("core-js/modules/es.regexp.exec.js");
 require("core-js/modules/es.string.replace.js");
 require("core-js/modules/esnext.string.replace-all.js");
-require("core-js/modules/es.symbol.description.js");
 require("core-js/modules/es.array.includes.js");
+require("core-js/modules/es.symbol.description.js");
 require("core-js/modules/es.json.stringify.js");
 var _jsYaml = _interopRequireDefault(require("js-yaml"));
-var _apidocpro = require("../templates/theme/default/apidocpro");
-var _Body = _interopRequireDefault(require("../templates/regions/middle/Body"));
-var _Header = _interopRequireDefault(require("../templates/regions/middle/Header"));
-var _examples = require("./examples");
-var _pathsHelper = require("./pathsHelper");
-var _resolver = require("./resolver");
+var _apidocpro = require("../../templates/theme/default/apidocpro");
+var _Body = _interopRequireDefault(require("../../templates/regions/middle/Body"));
+var _Header = _interopRequireDefault(require("../../templates/regions/middle/Header"));
+var _resolver = require("./../resolver");
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+/* eslint-disable no-unused-vars */
 /**
  * API Doc Pro helpers
  * By Sam Ayoub
@@ -43,15 +30,18 @@ const yamlToJson = yamlString => {
   return obj;
 };
 exports.yamlToJson = yamlToJson;
-const loopInNestedObject = function loopInNestedObject() {
+const loopInNestedAsyncObject = function loopInNestedAsyncObject() {
   let json = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   let collapsible = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
   let theme = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
   const schemas = json.components;
-  const custom = ['tags', 'operationId', 'description', 'summary', 'responses', 'method', 'schema', '[[Prototype]]', ''];
-  const TEMPLATESNOW = theme.TEMPLATES ? theme.TEMPLATES : _apidocpro.TEMPLATES;
+  const custom = ['[[Prototype]]', ''];
+  const TEMPLATESNOW = theme.TEMPLATESASYNC ? theme.TEMPLATESASYNC : _apidocpro.TEMPLATESASYNC;
   function createItem(key, value, type) {
-    let element = TEMPLATESNOW.item.replaceAll('%KEY%', (value === null || value === void 0 ? void 0 : value.title) || (value === null || value === void 0 ? void 0 : value.name) || (value === null || value === void 0 ? void 0 : value.summary) || (value === null || value === void 0 ? void 0 : value.description) || key);
+    if (key.split('').length < 2) {
+      key = type.toUpperCase();
+    }
+    let element = TEMPLATESNOW.item.replaceAll('%KEY%', key);
     if (type == 'string') {
       element = element.replaceAll('%VALUE%', '"' + value + '"').replaceAll('%KEY%', key);
     } else {
@@ -65,7 +55,9 @@ const loopInNestedObject = function loopInNestedObject() {
     return element;
   }
   function createCollapsibleItem(key, value, type, children) {
-    var _value, _value2, _value3, _value4;
+    if (key.split('').length < 2) {
+      key = type.toUpperCase();
+    }
     var tpl = 'itemCollapsible';
     if (key === '$ref') {
       value = (0, _resolver.resolveRef)(key, schemas);
@@ -73,13 +65,16 @@ const loopInNestedObject = function loopInNestedObject() {
     if (collapsible) {
       tpl = 'itemCollapsibleOpen';
     }
-    var element = _apidocpro.TEMPLATES[tpl].replaceAll('%KEY%', ((_value = value) === null || _value === void 0 ? void 0 : _value.title) || ((_value2 = value) === null || _value2 === void 0 ? void 0 : _value2.name) || ((_value3 = value) === null || _value3 === void 0 ? void 0 : _value3.summary) || ((_value4 = value) === null || _value4 === void 0 ? void 0 : _value4.description) || key || '');
+    var element = TEMPLATESNOW[tpl].replaceAll('%KEY%', key);
     element = element.replaceAll('%VALUE%', type).replaceAll('%KEY%', key);
     element = element.replaceAll('%TYPE%', type);
     element = element.replaceAll('%CHILDREN%', children);
     return element;
   }
   function handleChildren(key, value, type) {
+    if (key.split('').length < 2) {
+      key = type.toUpperCase();
+    }
     var html = '';
     for (var item in value) {
       var _key = item,
@@ -90,56 +85,20 @@ const loopInNestedObject = function loopInNestedObject() {
   }
   function handleItem(key, value) {
     var type = typeof value;
-    let paths = '';
-    if (key == 'info') {
-      return {
-        title: value['title'] || '',
-        version: value['version'] || '',
-        contact: value['contact'] || [],
-        description: value['description'] || '',
-        summary: value['summary'] || '',
-        servers: value['servers'] || [],
-        license: value['license'] || ''
-      };
+    if (typeof value === 'object') {
+      return handleChildren(key, value, type);
+    }
+    if (!custom.includes(key)) {
+      return createItem(key, value, type);
     } else {
-      switch (key) {
-        case 'openapi':
-        case 'swagger':
-        case 'async':
-        case '':
-          return;
-        case 'tags':
-          return;
-        case 'components':
-          return;
-        case 'paths':
-          paths = '';
-          if (typeof value === 'object') {
-            for (var item in value) {
-              let key1 = item,
-                value1 = value[item];
-              const res = (0, _pathsHelper.loopInNestedObjectPaths)(value1, collapsible, key1, schemas, theme);
-              paths += "".concat(res);
-            }
-          }
-          return paths;
-        default:
-          if (typeof value === 'object') {
-            return handleChildren(key, value, type);
-          }
-          if (!custom.includes(key)) {
-            return createItem(key, value, type);
-          } else {
-            return;
-          }
-      }
+      return;
     }
   }
   function parseObject(obj) {
     if (obj.length === 0) {
       return;
     }
-    let result = '<section class="apidocpro">';
+    let result = '<section>';
     let title, version, description, contact, servers, license, specType, summary, externalDocs;
     for (var item in obj) {
       let key = item,
@@ -181,18 +140,7 @@ const loopInNestedObject = function loopInNestedObject() {
     result += '</section>';
     return /*#__PURE__*/React.createElement("div", {
       className: "apidocpro-details"
-    }, /*#__PURE__*/React.createElement(_Header.default, {
-      spectitle: title,
-      specversion: version,
-      specdescription: description,
-      specType: specType,
-      speccontact: contact,
-      spec: json,
-      specservers: servers || [],
-      speclicense: license,
-      specsummary: summary,
-      specexternaldocs: externalDocs || []
-    }), /*#__PURE__*/React.createElement(_Body.default, {
+    }, /*#__PURE__*/React.createElement(_Body.default, {
       data: result,
       servers: servers,
       spec: json,
@@ -201,16 +149,16 @@ const loopInNestedObject = function loopInNestedObject() {
   }
   return parseObject(json);
 };
-exports.loopInNestedObject = loopInNestedObject;
-function jsonViewer(json) {
+exports.loopInNestedAsyncObject = loopInNestedAsyncObject;
+function jsonViewerAsync(json) {
   let collapsible = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
   let theme = arguments.length > 2 ? arguments[2] : undefined;
   const TEMPLATESNOW = theme.JSONTEMPLATES ? theme.JSONTEMPLATES : _apidocpro.JSONTEMPLATES;
   function createItem(key, value, type) {
+    var element = TEMPLATESNOW.item.replaceAll('%KEY%', key);
     if (key.split('').length < 2) {
       key = type.toUpperCase();
     }
-    var element = TEMPLATESNOW.item.replaceAll('%KEY%', key);
     if (type == 'string') {
       element = element.replaceAll('%VALUE%', '"' + value + '"');
     } else {
@@ -220,10 +168,10 @@ function jsonViewer(json) {
     return element;
   }
   function createCollapsibleItem(key, value, type, children) {
+    var tpl = 'itemCollapsible';
     if (key.split('').length < 2) {
       key = type.toUpperCase();
     }
-    var tpl = 'itemCollapsible';
     if (collapsible) {
       tpl = 'itemCollapsibleOpen';
     }
@@ -234,10 +182,10 @@ function jsonViewer(json) {
     return element;
   }
   function handleChildren(key, value, type) {
+    var html = '';
     if (key.split('').length < 2) {
       key = type.toUpperCase();
     }
-    var html = '';
     for (var item in value) {
       var _key = item,
         _val = value[item];
@@ -247,9 +195,6 @@ function jsonViewer(json) {
   }
   function handleItem(key, value) {
     var type = typeof value;
-    if (key.split('').length < 2) {
-      key = type.toUpperCase();
-    }
     if (typeof value === 'object') {
       return handleChildren(key, value, type);
     } else if (typeof value === 'string') {
@@ -268,7 +213,7 @@ function jsonViewer(json) {
   }
   return parseObject(json);
 }
-function requestBodyViewer(json) {
+function requestBodyViewerAsync(json) {
   let collapsible = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
   let theme = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
   const custom = ['type', '[[Prototype]]', 'tags'];

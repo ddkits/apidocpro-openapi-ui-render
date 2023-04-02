@@ -10,6 +10,8 @@ require("core-js/modules/esnext.string.replace-all.js");
 require("core-js/modules/es.symbol.description.js");
 require("core-js/modules/es.json.stringify.js");
 var _react = _interopRequireDefault(require("react"));
+var _helpers = require("../../../helpers");
+var _codeRequestSetup = require("../codeRequestSetup");
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
@@ -18,11 +20,10 @@ const curlSnippet = function curlSnippet() {
   let spec = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   let path = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
   let method = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+  let type = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 'openapi';
+  let theme = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : {};
   let id = '';
   let desc = '';
-  if (!method || !path) {
-    return '';
-  }
   const generateCurl = () => {
     var _spec$servers$, _operation$requestBod, _operation$requestBod2, _operation$requestBod3;
     if (!method === '') {
@@ -51,7 +52,21 @@ const curlSnippet = function curlSnippet() {
     const curlCommand = "curl --location --request ".concat(method, " \n '").concat(url, "' \n ").concat(JSON.stringify(headers, null, 2), " \n    \n ").concat(body ? "--data-raw  ".concat(JSON.stringify(body, null, 2)) : '');
     return curlCommand;
   };
-  const result = "".concat(generateCurl());
+  if (!method || !path) {
+    return '';
+  }
+  let result;
+  switch (type) {
+    case 'openapi':
+    case 'swagger':
+      result = "".concat(generateCurl());
+      break;
+    case 'asyncapi':
+      result = "".concat((0, _codeRequestSetup.codeRequestSetup)(spec, theme));
+      break;
+    default:
+      break;
+  }
   const final = "<div class=\"col-md-12 maxw-100 text-left\"><b>".concat(path, " CuRL Example</b><p>").concat(desc, "</p><div class=\"shadow-sm bg-dark text-light maxw-100 rounded \"><pre class=\"border  text-left\" >").concat(result, "</pre></div></div>");
 
   //   const parentElement = document.getElementById('apidocpro-rightregion');

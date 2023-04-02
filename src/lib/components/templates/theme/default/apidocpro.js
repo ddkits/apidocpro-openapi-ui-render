@@ -1,12 +1,22 @@
 let TEMPLATES = {
-  item: `<div class="bold apidocpro__method--%KEY%">%KEY%<span class="apidocpro__value apidocpro__value--%TYPE%">%VALUE%</span></div> `,
+  item: `<div class="bold apidocpro__method--%KEY%"><b>%KEY%</b> <span class="apidocpro__value apidocpro__value--%TYPE%">%VALUE%</span></div> `,
   itemCollapsible:
-    '<details id="%KEY%" class="p-2"><summary class="apidocpro__key apidocpro__method--%KEY%">%KEY%<span class="apidocpro__value apidocpro__value--type-%TYPE%">%VALUE%</span></summary>%CHILDREN%</details>',
+    '<details id="%KEY%" class="p-2"><summary class="apidocpro__key apidocpro__method--%KEY%"><b>%KEY%</b> <span class="apidocpro__value apidocpro__value--type-%TYPE%">%VALUE%</span></summary>%CHILDREN%</details>',
   itemCollapsibleOpen:
-    '<details id="%KEY%" class="p-2" open><summary class="apidocpro__key apidocpro__method--%KEY%">%KEY%<span class="apidocpro__value apidocpro__value--type-%TYPE%">%VALUE%</span></summary>%CHILDREN%</details>',
+    '<details id="%KEY%" class="p-2" open><summary class="apidocpro__key apidocpro__method--%KEY%"><b>%KEY%</b> <span class="apidocpro__value apidocpro__value--type-%TYPE%">%VALUE%</span></summary>%CHILDREN%</details>',
   infoCollapsible: '<details  id="%KEY%" class="p-2" ><summary>%KEY%</summary>%CHILDREN%</details>',
   infoCollapsibleOpen:
-    '<details id="%KEY%" class=" p-2" open><summary class="apidocpro__key apidocpro__method--%KEY%">%KEY% <span class="apidocpro__value apidocpro__value--type-%TYPE%">%VALUE%</span></summary>%CHILDREN%</details>'
+    '<details id="%KEY%" class=" p-2" open><summary class="apidocpro__key apidocpro__method--%KEY%"><b>%KEY%</b><span class="apidocpro__value apidocpro__value--type-%TYPE%">%VALUE%</span></summary>%CHILDREN%</details>'
+};
+let TEMPLATESASYNC = {
+  item: `<div class="bold apidocpro__method--%KEY% "><b>%KEY%</b> <span class="apidocpro__value apidocpro__value--%TYPE%">%VALUE%</span></div> `,
+  itemCollapsible:
+    '<details id="%KEY%" class="p-2 border"><summary class="apidocpro__key apidocpro__method--%KEY%"><b>%KEY%</b> <span class="apidocpro__value apidocpro__value--type-%TYPE%">%VALUE%</span></summary>%CHILDREN%</details>',
+  itemCollapsibleOpen:
+    '<details id="%KEY%" class="p-2 border" open><summary class="apidocpro__key apidocpro__method--%KEY%"><b>%KEY%</b> <span class="apidocpro__value apidocpro__value--type-%TYPE%">%VALUE%</span></summary>%CHILDREN%</details>',
+  infoCollapsible: '<details  id="%KEY%" class="p-2" ><summary>%KEY%</summary>%CHILDREN%</details>',
+  infoCollapsibleOpen:
+    '<details id="%KEY%" class=" p-2 border" open><summary class="apidocpro__key apidocpro__method--%KEY%"><b>%KEY%</b><span class="apidocpro__value apidocpro__value--type-%TYPE%">%VALUE%</span></summary>%CHILDREN%</details>'
 };
 let PATHS = {
   item: `<div class="bold apidocpro__method--%KEY%">%KEY%<span class="apidocpro__value apidocpro__value--%TYPE%">%VALUE%</span></div> `,
@@ -45,4 +55,4 @@ var JSONTEMPLATES = {
   itemCollapsibleOpen:
     '<label class="json__item json__item--collapsible"><input type="checkbox" checked class="json__toggle"/><div class="json__key">%KEY%</div><div class="json__value json__value--type-%TYPE%">%VALUE%</div>%CHILDREN%</label>'
 };
-export { TEMPLATES, PATHS, TABS, REQUESTBODY, JSONTEMPLATES };
+export { TEMPLATES, PATHS, TABS, REQUESTBODY, JSONTEMPLATES, TEMPLATESASYNC };

@@ -1,13 +1,18 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import React from 'react';
+import { jsonViewer } from '../../../helpers';
+import { codeRequestSetup } from '../codeRequestSetup';
 
-export const curlSnippet = (spec = {}, path = false, method = false) => {
+export const curlSnippet = (
+  spec = {},
+  path = false,
+  method = false,
+  type = 'openapi',
+  theme = {}
+) => {
   let id = '';
   let desc = '';
-  if (!method || !path) {
-    return '';
-  }
   const generateCurl = () => {
     if (!method === '') {
       return '';
@@ -52,7 +57,21 @@ export const curlSnippet = (spec = {}, path = false, method = false) => {
     \n ${body ? `--data-raw  ${JSON.stringify(body, null, 2)}` : ''}`;
     return curlCommand;
   };
-  const result = `${generateCurl()}`;
+  if (!method || !path) {
+    return '';
+  }
+  let result;
+  switch (type) {
+    case 'openapi':
+    case 'swagger':
+      result = `${generateCurl()}`;
+      break;
+    case 'asyncapi':
+      result = `${codeRequestSetup(spec, theme)}`;
+      break;
+    default:
+      break;
+  }
   const final = `<div class="col-md-12 maxw-100 text-left"><b>${path} CuRL Example</b><p>${desc}</p><div class="shadow-sm bg-dark text-light maxw-100 rounded "><pre class="border  text-left" >${result}</pre></div></div>`;
 
   //   const parentElement = document.getElementById('apidocpro-rightregion');

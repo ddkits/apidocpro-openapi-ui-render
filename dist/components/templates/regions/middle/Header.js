@@ -73,7 +73,7 @@ function Header(props) {
 Header.propTypes = {
   specdata: _propTypes.default.any,
   specsummary: _propTypes.default.string,
-  speccontact: _propTypes.default.object,
+  speccontact: _propTypes.default.any,
   spectitle: _propTypes.default.string,
   specversion: _propTypes.default.string,
   specdescription: _propTypes.default.string,

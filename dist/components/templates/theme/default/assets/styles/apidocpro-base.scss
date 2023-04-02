@@ -10,10 +10,13 @@ body {
     height: 100%;
     text-align: left;
 }
-// #apidocpro-codesnippet {
-//     // border: 1px solid lightgray;
-   
-// }
+select{
+        display: inline-block;
+        max-width: 100%;
+        background-color: var(--dark);
+        color: white;
+        margin: 0;
+}
 pre{
     max-height: 300px;
     overflow: auto;
@@ -22,6 +25,7 @@ pre{
     text-align: left;
     position: relative;
     font-size: 10px;
+    padding: 15px;
     &::before {
         counter-increment: line;
         content: counter(line);
@@ -36,30 +40,35 @@ pre{
 }
  
 .apidocpro {
+    details {
+        // border-left: 1px solid black;
+        summary {
+            padding: 10px;
+            // border-left: 1px solid gray;
+            
+        }
+        summary[class^="apidocpro__method--"] {
+            text-transform: uppercase;
+            margin: 5px;
+            line-height: 150%;
+            color: white;
+            padding: 5px;
+            background-color: var(--bs-blue);
+            border-color: var(--bs-blue);
+        }
+    }
     min-height: 80vh;
     scroll-behavior: smooth;
     font-family: 'Source Code Pro', monospace;
     font-size: 16px;
+    text-align: left;
     transition: all 2s;
     overflow-x: hidden;
     word-wrap: break-word;
   
-    pre {
+    
 
-        display: block;
-        overflow: auto;
-    }
-
-    details {
-        div {}
-
-        // border-left: 1px solid black;
-
-        summary {
-            div {}
-
-        }
-    }
+    
 
     pre {
         height: 250px;
@@ -246,10 +255,12 @@ footer {
 
 .json {
     font-family: 'Source Code Pro', monospace;
-    font-size: 16px;
-    
+    font-size: 12px;text-align: left;
+   
     & > {
+        
         .json__item {
+            
             display: block;
         }
     }
@@ -268,10 +279,16 @@ footer {
     position: relative;
     
     &::before {
-        content: '+';
+        counter-increment: line;
+        content: counter(line);
+        display: inline-block;
         position: absolute;
+        width: 5px;
+        top: 0;
         left: 5px;
-    }
+        text-align: right;
+        color: gray;
+      }
     
     &::after {
         background-color: lightgrey;
@@ -323,3 +340,8 @@ footer {
 .json__value--boolean {
     color: lightgoldenrodyellow;
 }
+
+// Async styles
+// .accordion-body{
+//     border-left: 1px solid gray;
+// }

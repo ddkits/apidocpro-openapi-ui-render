@@ -3,15 +3,23 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.TEMPLATES = exports.TABS = exports.REQUESTBODY = exports.PATHS = exports.JSONTEMPLATES = void 0;
+exports.TEMPLATESASYNC = exports.TEMPLATES = exports.TABS = exports.REQUESTBODY = exports.PATHS = exports.JSONTEMPLATES = void 0;
 let TEMPLATES = {
-  item: "<div class=\"bold apidocpro__method--%KEY%\">%KEY%<span class=\"apidocpro__value apidocpro__value--%TYPE%\">%VALUE%</span></div> ",
-  itemCollapsible: '<details id="%KEY%" class="p-2"><summary class="apidocpro__key apidocpro__method--%KEY%">%KEY%<span class="apidocpro__value apidocpro__value--type-%TYPE%">%VALUE%</span></summary>%CHILDREN%</details>',
-  itemCollapsibleOpen: '<details id="%KEY%" class="p-2" open><summary class="apidocpro__key apidocpro__method--%KEY%">%KEY%<span class="apidocpro__value apidocpro__value--type-%TYPE%">%VALUE%</span></summary>%CHILDREN%</details>',
+  item: "<div class=\"bold apidocpro__method--%KEY%\"><b>%KEY%</b> <span class=\"apidocpro__value apidocpro__value--%TYPE%\">%VALUE%</span></div> ",
+  itemCollapsible: '<details id="%KEY%" class="p-2"><summary class="apidocpro__key apidocpro__method--%KEY%"><b>%KEY%</b> <span class="apidocpro__value apidocpro__value--type-%TYPE%">%VALUE%</span></summary>%CHILDREN%</details>',
+  itemCollapsibleOpen: '<details id="%KEY%" class="p-2" open><summary class="apidocpro__key apidocpro__method--%KEY%"><b>%KEY%</b> <span class="apidocpro__value apidocpro__value--type-%TYPE%">%VALUE%</span></summary>%CHILDREN%</details>',
   infoCollapsible: '<details  id="%KEY%" class="p-2" ><summary>%KEY%</summary>%CHILDREN%</details>',
-  infoCollapsibleOpen: '<details id="%KEY%" class=" p-2" open><summary class="apidocpro__key apidocpro__method--%KEY%">%KEY% <span class="apidocpro__value apidocpro__value--type-%TYPE%">%VALUE%</span></summary>%CHILDREN%</details>'
+  infoCollapsibleOpen: '<details id="%KEY%" class=" p-2" open><summary class="apidocpro__key apidocpro__method--%KEY%"><b>%KEY%</b><span class="apidocpro__value apidocpro__value--type-%TYPE%">%VALUE%</span></summary>%CHILDREN%</details>'
 };
 exports.TEMPLATES = TEMPLATES;
+let TEMPLATESASYNC = {
+  item: "<div class=\"bold apidocpro__method--%KEY% \"><b>%KEY%</b> <span class=\"apidocpro__value apidocpro__value--%TYPE%\">%VALUE%</span></div> ",
+  itemCollapsible: '<details id="%KEY%" class="p-2 border"><summary class="apidocpro__key apidocpro__method--%KEY%"><b>%KEY%</b> <span class="apidocpro__value apidocpro__value--type-%TYPE%">%VALUE%</span></summary>%CHILDREN%</details>',
+  itemCollapsibleOpen: '<details id="%KEY%" class="p-2 border" open><summary class="apidocpro__key apidocpro__method--%KEY%"><b>%KEY%</b> <span class="apidocpro__value apidocpro__value--type-%TYPE%">%VALUE%</span></summary>%CHILDREN%</details>',
+  infoCollapsible: '<details  id="%KEY%" class="p-2" ><summary>%KEY%</summary>%CHILDREN%</details>',
+  infoCollapsibleOpen: '<details id="%KEY%" class=" p-2 border" open><summary class="apidocpro__key apidocpro__method--%KEY%"><b>%KEY%</b><span class="apidocpro__value apidocpro__value--type-%TYPE%">%VALUE%</span></summary>%CHILDREN%</details>'
+};
+exports.TEMPLATESASYNC = TEMPLATESASYNC;
 let PATHS = {
   item: "<div class=\"bold apidocpro__method--%KEY%\">%KEY%<span class=\"apidocpro__value apidocpro__value--%TYPE%\">%VALUE%</span></div> ",
   itemCollapsible: '<details id="%KEY%" class="p-2 "><summary class="apidocpro__key"><b class="apidocpro__method--%KEY%">%KEY%</b><span class="apidocpro__value apidocpro__value--type-%TYPE%">%VALUE%</span></summary>%CHILDREN%</details>',
