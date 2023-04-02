@@ -39,7 +39,7 @@ function App() {
         leftRegion // Bool default true
         header // Bool default true
         theme={THEME} // Object of const default can be clones for new theme design or contribute
-        // spec={spec} // string
+        spec={spec} // string
       />
     </div>
   );

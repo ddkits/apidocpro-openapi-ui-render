@@ -23,7 +23,7 @@ https://opencollective.com/reallexi
 - 6- 3,2,1 columns by the need
 
 
-
+## OpenAPI 
 ![apidocpro UI openapi render](https://github.com/ddkits/apidocpro-openapi-ui-render/raw/main/screenshots/APIDocpro-UIat%2010.17.25%20PM.png)
 ![apidocpro UI openapi render](https://github.com/ddkits/apidocpro-openapi-ui-render/raw/main/screenshots/APIDocpro-UIat%2010.17.43%20PM.png)
 ![apidocpro UI openapi render](https://github.com/ddkits/apidocpro-openapi-ui-render/raw/main/screenshots/APIDocpro-UIat%2010.17.53%20PM.png)
@@ -32,34 +32,72 @@ https://opencollective.com/reallexi
 ![apidocpro UI openapi render](https://github.com/ddkits/apidocpro-openapi-ui-render/raw/main/screenshots/APIDocpro-UIat%2010.18.21%20PM.png)
 ![apidocpro UI openapi render](https://github.com/ddkits/apidocpro-openapi-ui-render/raw/main/screenshots/APIDocpro-UIat%2010.18.43%20PM.png)
 ![apidocpro UI openapi render](https://github.com/ddkits/apidocpro-openapi-ui-render/raw/main/screenshots/APIDocpro-UIat%2010.19.00%20PM.png)
+![apidocpro UI swagger render](https://github.com/ddkits/apidocpro-openapi-ui-render/raw/main/screenshots/swagger.png)
+![apidocpro UI openapi example 1 render](https://github.com/ddkits/apidocpro-openapi-ui-render/raw/main/screenshots/example2.png)
+![apidocpro UI openapi example 2 render](https://github.com/ddkits/apidocpro-openapi-ui-render/raw/main/screenshots/example1.png)
+
+## AsyncAPI
+![apidocpro UI Asyncapi render](https://github.com/ddkits/apidocpro-openapi-ui-render/raw/main/screenshots/asyncapi1.png)
+![apidocpro UI Asyncapi Kafka render](https://github.com/ddkits/apidocpro-openapi-ui-render/raw/main/screenshots/kafka-asyncapi.png)
 
 
 
 
 ```
-import { ApiDocPro } from '....';
+/* eslint-disable no-unused-vars */
+// import logo from './logo.svg';
+import { useEffect, useState } from 'react';
+import './App.css';
+import { ApiDocPro } from './lib/components';
 // Custom Theme can be clones from Default example when needed
 import * as THEME from './lib/components/templates/theme/default/apidocpro';
+// Styles import
+import './lib/components/templates/theme/default/assets/styles/apidocpro-styles.scss';
 
 function App() {
-  return (
+  const [spec, setSpec] = useState('');
+  const [loading, setLoading] = useState(true);
+  const fetchAPIFile = (url) => {
+    fetch(url)
+      .then((response) => response.text())
+      .then((data) => {
+        setSpec(data);
+        setLoading(false);
+      });
+  };
+  useEffect(() => {
+    setLoading(true);
+    fetchAPIFile('/examples/asyncapi.json');
+  }, []);
+
+  return loading ? (
+    <div className="App">
+      {' '}
+      <div className="container justify-content-middle">
+        <i className="fa-solid fa-sync fa-spin"></i>
+      </div>
+    </div>
+  ) : (
     <div className="App">
       <ApiDocPro
-        title="APIDocPro OpenAPI UI"
+        title="APIDocPro OpenAPI/AysncAPI UI"
         rightRegion // Bool default true
         leftRegion // Bool default true
         header // Bool default true
         theme={THEME} // Object of const default can be clones for new theme design or contribute
-        spec={`openapi.json || openapi.yaml`}
+        spec={spec} // string
       />
     </div>
   );
+}
+
+export default App;
 
 ```
 
 ### Theming
 
-
+Coming soon!!!
 
 
 
