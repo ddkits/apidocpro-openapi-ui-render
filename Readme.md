@@ -2,6 +2,9 @@
 
 API Doc Pro UI is the best choice for dynamically rendering any spec SwaggerAPI, OpenAPI, or AsyncAPI, all in one with one design. By Reallexi LLC @ Apidocpro.com
 
+## Documentation and live demo
+https://ui.apidocpro.com
+
 ### Get started
 
 ```
@@ -127,9 +130,6 @@ export default App;
 
 ```
 
-### Theming
-
-Coming soon!!!
 
 #### By Sam Ayoub
 
