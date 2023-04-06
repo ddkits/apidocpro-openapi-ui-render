@@ -1,5 +1,5 @@
 CodeRequestSetup Code
 
-```js { "file": "../CodeRequestSetup.js" }
+```js { "file": "../codeRequestSetup.js" }
 
 ```
