@@ -63,7 +63,7 @@
     "format": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc",
     "guide": "npx styleguidist server",
     "guideb": "npx styleguidist build",
-    "ready": "react-scripts build && npm run buildp && npm run guideb"
+    "ready": "npm run build && npm run buildp && npm run guideb"
   },
   "eslintConfig": {
     "extends": [
