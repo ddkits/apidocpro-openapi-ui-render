@@ -10,12 +10,27 @@ require("core-js/modules/esnext.string.replace-all.js");
 require("core-js/modules/es.symbol.description.js");
 require("core-js/modules/es.json.stringify.js");
 var _react = _interopRequireDefault(require("react"));
-var _helpers = require("../../../helpers");
 var _codeRequestSetup = require("../codeRequestSetup");
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-/* eslint-disable react/prop-types */
+/**
+ * ApiDocPro UI render, for AsyncAPI, Swagger and OpenApi
+ * Built by Sam Ayoub, DDKits.com
+ * https://github.com/ddkits
+ * APIdocPro UI render based on React and Bootstrap, with the ability to contribute, modify and create different themes to be used.
+ * Important: To use this code please leave the copyright in place
+ * Reallexi LLC, https://reallexi.com
+ */
 /* eslint-disable no-unused-vars */
 
+/**
+ * curlSnippet
+ * @param {spec} spec
+ * @param {string} path
+ * @param {string} method
+ * @param {string} type
+ * @param {object} theme
+ * @returns
+ */
 const curlSnippet = function curlSnippet() {
   let spec = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   let path = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;

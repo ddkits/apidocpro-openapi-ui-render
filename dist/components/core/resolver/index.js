@@ -9,6 +9,14 @@ require("core-js/modules/es.regexp.exec.js");
 require("core-js/modules/es.string.match.js");
 require("core-js/modules/web.dom-collections.iterator.js");
 require("core-js/modules/es.json.stringify.js");
+/**
+ * ApiDocPro UI render, for AsyncAPI, Swagger and OpenApi
+ * Built by Sam Ayoub, DDKits.com
+ * https://github.com/ddkits
+ * APIdocPro UI render based on React and Bootstrap, with the ability to contribute, modify and create different themes to be used.
+ * Important: To use this code please leave the copyright in place
+ * Reallexi LLC, https://reallexi.com
+ */
 function resolveRefs(document) {
   const regex = /^#\/([a-zA-Z0-9-_/]+)$/;
   const resolveRef = (obj, ref) => {

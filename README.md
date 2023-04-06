@@ -5,9 +5,11 @@ API Doc Pro UI is the best choice for dynamically rendering any spec SwaggerAPI,
 ### Get started
 
 ```
-npm i openapi-asyncapi-ui-render 
+npm i openapi-asyncapi-ui-render
 ```
-- React 
+
+- React
+
 ```
 ...
 // React Component
@@ -28,29 +30,34 @@ import './lib/components/templates/theme/default/assets/styles/apidocpro-styles.
       />
 ...
 ```
-- CDN 
+
+- CDN
+
 ```
+
 ```
 
 ### Funding / sponsors
+
 https://opencollective.com/reallexi
 
 ### Based on:
+
 - 1- ReactS
 - 2- Bootstrap
 
 ### Features
 
-- Features: 
+- Features:
 - 1- Code snippets
 - 2- Logical design of parameters
-- 3- Auto generate Examples from Parameters 
+- 3- Auto generate Examples from Parameters
 - 4- Easy control of the design
-- 5- Custom theming is simpler than ever, no need to be an expert in React to redesign 
+- 5- Custom theming is simpler than ever, no need to be an expert in React to redesign
 - 6- 3,2,1 columns by the need
 
+## OpenAPI
 
-## OpenAPI 
 ![apidocpro UI openapi render](https://github.com/ddkits/apidocpro-openapi-ui-render/raw/main/screenshots/APIDocpro-UIat%2010.17.25%20PM.png)
 ![apidocpro UI openapi render](https://github.com/ddkits/apidocpro-openapi-ui-render/raw/main/screenshots/APIDocpro-UIat%2010.17.43%20PM.png)
 ![apidocpro UI openapi render](https://github.com/ddkits/apidocpro-openapi-ui-render/raw/main/screenshots/APIDocpro-UIat%2010.17.53%20PM.png)
@@ -64,11 +71,9 @@ https://opencollective.com/reallexi
 ![apidocpro UI openapi example 2 render](https://github.com/ddkits/apidocpro-openapi-ui-render/raw/main/screenshots/example1.png)
 
 ## AsyncAPI
+
 ![apidocpro UI Asyncapi render](https://github.com/ddkits/apidocpro-openapi-ui-render/raw/main/screenshots/asyncapi1.png)
 ![apidocpro UI Asyncapi Kafka render](https://github.com/ddkits/apidocpro-openapi-ui-render/raw/main/screenshots/kafka-asyncapi.png)
-
-
-
 
 ```
 /* eslint-disable no-unused-vars */
@@ -126,7 +131,6 @@ export default App;
 
 Coming soon!!!
 
-
-
 #### By Sam Ayoub
+
 ##### APIDocPro.com

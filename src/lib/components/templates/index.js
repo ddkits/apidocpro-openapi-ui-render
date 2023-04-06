@@ -1,3 +1,11 @@
+/**
+ * ApiDocPro UI render, for AsyncAPI, Swagger and OpenApi
+ * Built by Sam Ayoub, DDKits.com
+ * https://github.com/ddkits
+ * APIdocPro UI render based on React and Bootstrap, with the ability to contribute, modify and create different themes to be used.
+ * Important: To use this code please leave the copyright in place
+ * Reallexi LLC, https://reallexi.com
+ */
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import propTypes from 'prop-types';
@@ -12,20 +20,12 @@ import ErrorBoundary from '../core/ErrorBoundary';
 function ApiDocPro(props) {
   // eslint-disable-next-line react/prop-types
   //   collapse, search, codesnippet
-  const [left, setLeft] = useState(true);
-  const [right, setRight] = useState(true);
+  const [left, setLeft] = useState();
+  const [right, setRight] = useState();
   // eslint-disable-next-line no-unused-vars
   const [obj, setObj] = useState();
   const [resolved, setResolved] = useState();
-  const {
-    title = '',
-    spec,
-    leftRegion = true,
-    rightRegion = true,
-    collapse = false,
-    theme,
-    header = true
-  } = props;
+  const { title = '', spec, collapse, theme } = props;
   const [openCollapse, setopenCollapse] = useState(false);
   const [head, setHead] = useState(true);
   const [spectype, setspectype] = useState('');
@@ -34,9 +34,6 @@ function ApiDocPro(props) {
 
   const rebuild = async (e = false) => {
     setopenCollapse(collapse || false);
-    setLeft(leftRegion || true);
-    setRight(rightRegion || true);
-    setHead(header || true);
     setResolved(null);
     setObj(null);
     setspectype('');
@@ -87,11 +84,26 @@ function ApiDocPro(props) {
   };
   useEffect(() => {
     setLoading(true);
-    rebuild();
+    rebuild(spec);
   }, [spec]);
   useEffect(() => {
     setLoading(true);
-    rebuild();
+    rebuild(spec);
+    if (props?.leftregion) {
+      setLeft(props?.leftregion);
+    } else {
+      setLeft(false);
+    }
+    if (props?.rightregion) {
+      setRight(props?.rightregion);
+    } else {
+      setRight(false);
+    }
+    if (props?.header) {
+      setHead(props?.header);
+    } else {
+      setHead(false);
+    }
   }, []);
   const handleFileCallback = (e) => {
     setLoading(true);
@@ -135,12 +147,12 @@ function ApiDocPro(props) {
           <i className="fa-solid fa-sync fa-spin"></i>
         </div>
       ) : (
-        <main className="d-flex m-0">
+        <main className="d-flex m-0 col-sx-12">
           <ErrorBoundary>
-            {left && (
+            {left ? (
               <div
                 id="apidocpro-leftsidemenu"
-                className="sidenav d-none d-md-block col-2 sticky-top m-0"
+                className="sidenav d-none d-md-block col-2 m-0"
                 data-mdb-hidden="false">
                 <LeftRegion
                   data={resolved}
@@ -150,17 +162,19 @@ function ApiDocPro(props) {
                   spectype={spectype}
                 />
               </div>
+            ) : (
+              []
             )}
             <div
               id="apidocpro-middleregion"
               className={
                 right && left
-                  ? 'col-7'
+                  ? 'col-12 col-sm-12 col-md-7 '
                   : right && !left
-                  ? 'col-9'
+                  ? 'col-12 col-sm-12 col-md-9 '
                   : left && !right
-                  ? 'col-10'
-                  : 'col-12'
+                  ? 'col-12 col-sm-12 col-md-10 '
+                  : 'col-12 col-sm-12 col-md-12 '
               }>
               <MiddleRegion
                 data={resolved}
@@ -170,7 +184,7 @@ function ApiDocPro(props) {
                 spectype={spectype}
               />
             </div>
-            {right && (
+            {right ? (
               <div
                 id="apidocpro-rightregion"
                 className="d-none d-md-block  bg-dark text-light col-3 pt-3 minh-100 m-0">
@@ -182,6 +196,8 @@ function ApiDocPro(props) {
                   spectype={spectype}
                 />
               </div>
+            ) : (
+              []
             )}
           </ErrorBoundary>
         </main>
@@ -197,11 +213,11 @@ function ApiDocPro(props) {
 }
 
 ApiDocPro.propTypes = {
-  spec: propTypes.string,
+  spec: propTypes.oneOfType([propTypes.string, propTypes.object]),
   resolved: propTypes.any,
   title: propTypes.string,
-  leftRegion: propTypes.bool,
-  rightRegion: propTypes.bool,
+  leftregion: propTypes.bool,
+  rightregion: propTypes.bool,
   collapse: propTypes.bool,
   header: propTypes.bool,
   theme: propTypes.object

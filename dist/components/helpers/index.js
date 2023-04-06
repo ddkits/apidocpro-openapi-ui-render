@@ -11,6 +11,7 @@ Object.defineProperty(exports, "jsonExample", {
 });
 exports.jsonViewer = jsonViewer;
 exports.loopInNestedObject = void 0;
+exports.merge = merge;
 exports.requestBodyViewer = requestBodyViewer;
 Object.defineProperty(exports, "yamlExample", {
   enumerable: true,
@@ -19,12 +20,14 @@ Object.defineProperty(exports, "yamlExample", {
   }
 });
 exports.yamlToJson = void 0;
+require("core-js/modules/es.array.reduce.js");
 require("core-js/modules/es.regexp.exec.js");
 require("core-js/modules/es.string.replace.js");
 require("core-js/modules/esnext.string.replace-all.js");
 require("core-js/modules/es.symbol.description.js");
 require("core-js/modules/es.array.includes.js");
 require("core-js/modules/es.json.stringify.js");
+var _react = _interopRequireDefault(require("react"));
 var _jsYaml = _interopRequireDefault(require("js-yaml"));
 var _apidocpro = require("../templates/theme/default/apidocpro");
 var _Body = _interopRequireDefault(require("../templates/regions/middle/Body"));
@@ -33,16 +36,45 @@ var _examples = require("./examples");
 var _pathsHelper = require("./pathsHelper");
 var _resolver = require("./resolver");
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return typeof key === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (typeof input !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (typeof res !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
 /**
- * API Doc Pro helpers
- * By Sam Ayoub
+ * yamlToJson
+ * @param {string/object} yamlString
+ * @returns
  */
-
 const yamlToJson = yamlString => {
   const obj = _jsYaml.default.load(yamlString);
   return obj;
 };
 exports.yamlToJson = yamlToJson;
+function merge(schema) {
+  if (schema !== null && schema !== void 0 && schema.allOf || schema !== null && schema !== void 0 && schema.oneOf) {
+    const sch = (schema === null || schema === void 0 ? void 0 : schema.allOf) || (schema === null || schema === void 0 ? void 0 : schema.oneOf);
+    // merge all properties
+    const properties = sch.reduce((acc, curr) => {
+      var _merge;
+      const result = (_merge = merge(curr)) === null || _merge === void 0 ? void 0 : _merge.properties;
+      return _objectSpread(_objectSpread({}, acc), result);
+    });
+    return {
+      properties
+    };
+  } else {
+    return schema;
+  }
+}
+
+/**
+ * loopInNestedObject
+ * @param {spec} json
+ * @param {boolean} collapsible
+ * @param {object} theme
+ * @returns
+ */
 const loopInNestedObject = function loopInNestedObject() {
   let json = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   let collapsible = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
@@ -83,7 +115,7 @@ const loopInNestedObject = function loopInNestedObject() {
     var html = '';
     for (var item in value) {
       var _key = item,
-        _val = value[item];
+        _val = merge(value[item]);
       html += handleItem(_key, _val);
     }
     return createCollapsibleItem(key, value, type, html);
@@ -179,9 +211,9 @@ const loopInNestedObject = function loopInNestedObject() {
       }
     }
     result += '</section>';
-    return /*#__PURE__*/React.createElement("div", {
+    return /*#__PURE__*/_react.default.createElement("div", {
       className: "apidocpro-details"
-    }, /*#__PURE__*/React.createElement(_Header.default, {
+    }, /*#__PURE__*/_react.default.createElement(_Header.default, {
       spectitle: title,
       specversion: version,
       specdescription: description,
@@ -192,8 +224,8 @@ const loopInNestedObject = function loopInNestedObject() {
       speclicense: license,
       specsummary: summary,
       specexternaldocs: externalDocs || []
-    }), /*#__PURE__*/React.createElement(_Body.default, {
-      data: result,
+    }), /*#__PURE__*/_react.default.createElement(_Body.default, {
+      data: result.replaceAll('undefined', ''),
       servers: servers,
       spec: json,
       collapsible: collapsible
@@ -201,6 +233,14 @@ const loopInNestedObject = function loopInNestedObject() {
   }
   return parseObject(json);
 };
+
+/**
+ * jsonViewer
+ * @param {spec} json
+ * @param {boolean} collapsible
+ * @param {object} theme
+ * @returns
+ */
 exports.loopInNestedObject = loopInNestedObject;
 function jsonViewer(json) {
   let collapsible = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
@@ -240,7 +280,7 @@ function jsonViewer(json) {
     var html = '';
     for (var item in value) {
       var _key = item,
-        _val = value[item];
+        _val = merge(value[item]);
       html += handleItem(_key, _val);
     }
     return createCollapsibleItem(key, value, type, html);
@@ -268,6 +308,14 @@ function jsonViewer(json) {
   }
   return parseObject(json);
 }
+
+/**
+ * requestBodyViewer
+ * @param {spec} json
+ * @param {boolean} collapsible
+ * @param {object} theme
+ * @returns
+ */
 function requestBodyViewer(json) {
   let collapsible = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
   let theme = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
@@ -306,7 +354,7 @@ function requestBodyViewer(json) {
     var result = '';
     for (var item in value) {
       var _key = item,
-        _val = value[item];
+        _val = merge(value[item]);
       if (_val !== '') {
         html += handleItem(_key, _val);
       }

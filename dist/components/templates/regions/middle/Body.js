@@ -7,8 +7,16 @@ exports.default = Body;
 var _react = _interopRequireDefault(require("react"));
 var _propTypes = _interopRequireDefault(require("prop-types"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+/**
+ * ApiDocPro UI render, for AsyncAPI, Swagger and OpenApi
+ * Built by Sam Ayoub, DDKits.com
+ * https://github.com/ddkits
+ * APIdocPro UI render based on React and Bootstrap, with the ability to contribute, modify and create different themes to be used.
+ * Important: To use this code please leave the copyright in place
+ * Reallexi LLC, https://reallexi.com
+ */
+
 function Body(props) {
-  // const { title, version, description, type, contact, spec} = props;
   const {
     data
   } = props;
@@ -20,11 +28,6 @@ function Body(props) {
   }));
 }
 Body.propTypes = {
-  data: _propTypes.default.string,
-  title: _propTypes.default.string,
-  version: _propTypes.default.string,
-  description: _propTypes.default.string,
-  type: _propTypes.default.string,
-  contact: _propTypes.default.any,
-  spec: _propTypes.default.any
+  /** Data is where the spec we are going to use, must be string, can include HTML tags */
+  data: _propTypes.default.string
 };

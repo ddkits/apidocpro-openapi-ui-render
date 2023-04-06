@@ -4,6 +4,14 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.TEMPLATESASYNC = exports.TEMPLATES = exports.TABS = exports.REQUESTBODY = exports.PATHS = exports.JSONTEMPLATES = void 0;
+/**
+ * ApiDocPro UI render, for AsyncAPI, Swagger and OpenApi
+ * Built by Sam Ayoub, DDKits.com
+ * https://github.com/ddkits
+ * APIdocPro UI render based on React and Bootstrap, with the ability to contribute, modify and create different themes to be used.
+ * Important: To use this code please leave the copyright in place
+ * Reallexi LLC, https://reallexi.com
+ */
 let TEMPLATES = {
   item: "<div class=\"bold apidocpro__method--%KEY%\"><b>%KEY%</b> <span class=\"apidocpro__value apidocpro__value--%TYPE%\">%VALUE%</span></div> ",
   itemCollapsible: '<details id="%KEY%" class="p-2"><summary class="apidocpro__key apidocpro__method--%KEY%"><b>%KEY%</b> <span class="apidocpro__value apidocpro__value--type-%TYPE%">%VALUE%</span></summary>%CHILDREN%</details>',

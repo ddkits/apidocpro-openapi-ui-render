@@ -1,8 +1,17 @@
+/**
+ * ApiDocPro UI render, for AsyncAPI, Swagger and OpenApi
+ * Built by Sam Ayoub, DDKits.com
+ * https://github.com/ddkits
+ * APIdocPro UI render based on React and Bootstrap, with the ability to contribute, modify and create different themes to be used.
+ * Important: To use this code please leave the copyright in place
+ * Reallexi LLC, https://reallexi.com
+ */
 /* eslint-disable no-unused-vars */
 /**
  * API Doc Pro helpers
  * By Sam Ayoub
  */
+import React from 'react';
 import yaml from 'js-yaml';
 import {
   TEMPLATESASYNC,
@@ -12,6 +21,7 @@ import {
 import Body from '../../templates/regions/middle/Body';
 import Header from '../../templates/regions/middle/Header';
 import { resolveRef } from './../resolver';
+import { merge } from '..';
 
 const yamlToJson = (yamlString) => {
   const obj = yaml.load(yamlString);
@@ -71,7 +81,7 @@ const loopInNestedAsyncObject = (json = {}, collapsible = false, theme = {}) => 
 
     for (var item in value) {
       var _key = item,
-        _val = value[item];
+        _val = merge(value[item]);
 
       html += handleItem(_key, _val);
     }
@@ -189,7 +199,7 @@ function jsonViewerAsync(json, collapsible = false, theme) {
     }
     for (var item in value) {
       var _key = item,
-        _val = value[item];
+        _val = merge(value[item]);
 
       html += handleItem(_key, _val);
     }
@@ -265,10 +275,8 @@ function requestBodyViewerAsync(json, collapsible = false, theme = {}) {
     var result = '';
     for (var item in value) {
       var _key = item,
-        _val = value[item];
-      if (_val !== '') {
-        html += handleItem(_key, _val);
-      }
+        _val = merge(value[item]);
+      html += handleItem(_key, _val);
     }
 
     result += createCollapsibleItem(key, value, type, html);

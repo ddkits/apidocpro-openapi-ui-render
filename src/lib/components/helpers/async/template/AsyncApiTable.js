@@ -1,8 +1,16 @@
+/**
+ * ApiDocPro UI render, for AsyncAPI, Swagger and OpenApi
+ * Built by Sam Ayoub, DDKits.com
+ * https://github.com/ddkits
+ * APIdocPro UI render based on React and Bootstrap, with the ability to contribute, modify and create different themes to be used.
+ * Important: To use this code please leave the copyright in place
+ * Reallexi LLC, https://reallexi.com
+ */
 /* eslint-disable no-unused-vars */
-/* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
 import { loopInNestedAsyncObject } from '..';
 import Header from '../../../templates/regions/middle/Header';
+import propTypes from 'prop-types';
 
 export default function AsyncApiTable(props) {
   const { data } = props;
@@ -73,3 +81,8 @@ export default function AsyncApiTable(props) {
     </div>
   );
 }
+
+AsyncApiTable.propTypes = {
+  /** Spec contents as object, to validate AsyncAPI */
+  data: propTypes.any
+};

@@ -1,3 +1,11 @@
+/**
+ * ApiDocPro UI render, for AsyncAPI, Swagger and OpenApi
+ * Built by Sam Ayoub, DDKits.com
+ * https://github.com/ddkits
+ * APIdocPro UI render based on React and Bootstrap, with the ability to contribute, modify and create different themes to be used.
+ * Important: To use this code please leave the copyright in place
+ * Reallexi LLC, https://reallexi.com
+ */
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import propTypes from 'prop-types';
@@ -10,7 +18,7 @@ export default function RightRegion(props) {
   // eslint-disable-next-line no-unused-vars
   const { data, spectype, theme } = props;
   const [codeSnippetsPaths, setCodeSnippetsPaths] = useState([]);
-  const [codeSnippets, setCodeSnippets] = useState('');
+  const [codeSnippets, setCodeSnippets] = useState([]);
   const [pathChange, setpathChange] = useState('');
   const [methodChange, setMethodChange] = useState('');
   const [codeSnippetsMethods, setCodeSnippetsMethods] = useState([]);
@@ -88,7 +96,7 @@ export default function RightRegion(props) {
     }
   }, [methodChange]);
   return (
-    <div className=" pt-5 mt-5  sticky-top  bg-dark text-light ">
+    <div className=" pt-5 mt-5 bg-dark text-light ">
       <div id="apidocpro-codesnippet" className="shadow-sm maxw-100 rounded">
         <h3>
           {spectype === 'openapi'

@@ -1,8 +1,9 @@
 {
   "name": "openapi-asyncapi-ui-render",
-  "version": "1.0.03",
+  "version": "1.0.04",
   "description": "API Doc Pro UI is the best choice for dynamically rendering any spec SwaggerAPI, OpenAPI, or AsyncAPI, all in one with one design. By Reallexi LLC @ Apidocpro.com",
   "author": "Sam Ayoub",
+  "url": "https://ui.apidocpro.com",
   "funding": {
     "type": "opencollective",
     "url": "https://opencollective.com/reallexi"
@@ -59,7 +60,10 @@
     "buildp": "rm -rf dist && NODE_ENV=production babel src/lib --out-dir dist --copy-files",
     "lint": "eslint .",
     "lint:fix": "eslint --fix",
-    "format": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc"
+    "format": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc",
+    "guide": "npx styleguidist server",
+    "guideb": "npx styleguidist build",
+    "ready": "react-scripts build && npm run buildp && npm run guideb"
   },
   "eslintConfig": {
     "extends": [
@@ -83,6 +87,7 @@
     "@babel/cli": "^7.21.0",
     "@babel/core": "^7.21.3",
     "@babel/preset-env": "^7.20.2",
+    "core-js": "^3.30.0",
     "eslint": "^8.36.0",
     "eslint-config-prettier": "^8.7.0",
     "eslint-config-standard": "^17.0.0",
@@ -91,6 +96,9 @@
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-promise": "^6.1.1",
     "eslint-plugin-react": "^7.32.2",
-    "prettier": "^2.8.4"
+    "prettier": "^2.8.4",
+    "react-styleguide-generator": "^1.4.0",
+    "react-styleguidist": "^13.1.1",
+    "sass-loader": "^13.2.2"
   }
 }

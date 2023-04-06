@@ -1,7 +1,16 @@
 /**
+ * ApiDocPro UI render, for AsyncAPI, Swagger and OpenApi
+ * Built by Sam Ayoub, DDKits.com
+ * https://github.com/ddkits
+ * APIdocPro UI render based on React and Bootstrap, with the ability to contribute, modify and create different themes to be used.
+ * Important: To use this code please leave the copyright in place
+ * Reallexi LLC, https://reallexi.com
+ */
+/**
  * API Doc Pro helpers
  * By Sam Ayoub
  */
+import React from 'react';
 import yaml from 'js-yaml';
 import { TEMPLATES, REQUESTBODY, JSONTEMPLATES } from '../templates/theme/default/apidocpro';
 import Body from '../templates/regions/middle/Body';
@@ -9,12 +18,37 @@ import Header from '../templates/regions/middle/Header';
 import { jsonExample, yamlExample } from './examples';
 import { loopInNestedObjectPaths } from './pathsHelper';
 import { resolveRef } from './resolver';
-
+/**
+ * yamlToJson
+ * @param {string/object} yamlString
+ * @returns
+ */
 const yamlToJson = (yamlString) => {
   const obj = yaml.load(yamlString);
   return obj;
 };
 
+function merge(schema) {
+  if (schema?.allOf || schema?.oneOf) {
+    const sch = schema?.allOf || schema?.oneOf;
+    // merge all properties
+    const properties = sch.reduce((acc, curr) => {
+      const result = merge(curr)?.properties;
+      return { ...acc, ...result };
+    });
+    return { properties };
+  } else {
+    return schema;
+  }
+}
+
+/**
+ * loopInNestedObject
+ * @param {spec} json
+ * @param {boolean} collapsible
+ * @param {object} theme
+ * @returns
+ */
 const loopInNestedObject = (json = {}, collapsible = false, theme = {}) => {
   const schemas = json.components;
   const custom = [
@@ -74,7 +108,7 @@ const loopInNestedObject = (json = {}, collapsible = false, theme = {}) => {
 
     for (var item in value) {
       var _key = item,
-        _val = value[item];
+        _val = merge(value[item]);
 
       html += handleItem(_key, _val);
     }
@@ -191,7 +225,12 @@ const loopInNestedObject = (json = {}, collapsible = false, theme = {}) => {
           specsummary={summary}
           specexternaldocs={externalDocs || []}
         />
-        <Body data={result} servers={servers} spec={json} collapsible={collapsible} />
+        <Body
+          data={result.replaceAll('undefined', '')}
+          servers={servers}
+          spec={json}
+          collapsible={collapsible}
+        />
       </div>
     );
   }
@@ -199,6 +238,13 @@ const loopInNestedObject = (json = {}, collapsible = false, theme = {}) => {
   return parseObject(json);
 };
 
+/**
+ * jsonViewer
+ * @param {spec} json
+ * @param {boolean} collapsible
+ * @param {object} theme
+ * @returns
+ */
 function jsonViewer(json, collapsible = false, theme) {
   const TEMPLATESNOW = theme.JSONTEMPLATES ? theme.JSONTEMPLATES : JSONTEMPLATES;
 
@@ -246,7 +292,7 @@ function jsonViewer(json, collapsible = false, theme) {
 
     for (var item in value) {
       var _key = item,
-        _val = value[item];
+        _val = merge(value[item]);
 
       html += handleItem(_key, _val);
     }
@@ -283,6 +329,14 @@ function jsonViewer(json, collapsible = false, theme) {
 
   return parseObject(json);
 }
+
+/**
+ * requestBodyViewer
+ * @param {spec} json
+ * @param {boolean} collapsible
+ * @param {object} theme
+ * @returns
+ */
 function requestBodyViewer(json, collapsible = false, theme = {}) {
   const custom = ['type', '[[Prototype]]', 'tags'];
   const TEMPLATESNOW = theme.REQUESTBODY ? theme.REQUESTBODY : REQUESTBODY;
@@ -324,7 +378,7 @@ function requestBodyViewer(json, collapsible = false, theme = {}) {
     var result = '';
     for (var item in value) {
       var _key = item,
-        _val = value[item];
+        _val = merge(value[item]);
       if (_val !== '') {
         html += handleItem(_key, _val);
       }
@@ -395,4 +449,12 @@ function requestBodyViewer(json, collapsible = false, theme = {}) {
   });
   return _result;
 }
-export { yamlToJson, jsonExample, yamlExample, loopInNestedObject, jsonViewer, requestBodyViewer };
+export {
+  yamlToJson,
+  jsonExample,
+  yamlExample,
+  loopInNestedObject,
+  jsonViewer,
+  requestBodyViewer,
+  merge
+};

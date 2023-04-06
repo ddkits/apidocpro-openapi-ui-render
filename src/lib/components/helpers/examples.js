@@ -791,7 +791,7 @@ components:
       type: apiKey
       name: api_key
       in: header`;
-const jsonExample = `{
+const jsonExample = {
   openapi: '3.1.0',
   info: {
     title: 'Apidocpro Petstore',
@@ -1941,6 +1941,6 @@ const jsonExample = `{
       }
     }
   }
-}`;
+};
 
 export { jsonExample, yamlExample };

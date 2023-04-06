@@ -9,11 +9,22 @@ require("core-js/modules/es.string.replace.js");
 require("core-js/modules/esnext.string.replace-all.js");
 require("core-js/modules/es.array.includes.js");
 require("core-js/modules/es.symbol.description.js");
+var _react = _interopRequireDefault(require("react"));
+var _ = require(".");
 var _methodRequestBody = require("../core/codesnippets/methodRequestBody");
 var _methodResponses = require("../core/codesnippets/methodResponses");
 var _apidocpro = require("../templates/theme/default/apidocpro");
 var _parameters = require("./assets/parameters");
 var _resolver = require("./resolver");
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+/**
+ * ApiDocPro UI render, for AsyncAPI, Swagger and OpenApi
+ * Built by Sam Ayoub, DDKits.com
+ * https://github.com/ddkits
+ * APIdocPro UI render based on React and Bootstrap, with the ability to contribute, modify and create different themes to be used.
+ * Important: To use this code please leave the copyright in place
+ * Reallexi LLC, https://reallexi.com
+ */
 /* eslint-disable no-unused-vars */
 // import { responsesFromPath } from '../core/codesnippets';
 
@@ -25,7 +36,7 @@ const loopInNestedObjectPaths = function loopInNestedObjectPaths() {
   let mainKey = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '';
   let schemas = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {};
   let theme = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : {};
-  const custom = ['tags', 'components', 'description', 'summary', 'methods', 'method', 'parameters', 'responses', 'requestBody', 'paths', 'x-examples', 'security', 'method', 'operationId'];
+  const custom = ['tags', 'components', 'description', 'summary', 'methods', 'method', 'parameters', 'responses', 'requestBody', 'paths', 'x-examples', 'examples', 'security', 'method', 'operationId'];
   const PATHSNOW = theme.PATHS ? theme.PATHS : _apidocpro.PATHS;
   const TABSNOW = theme.TABS ? theme.TABS : _apidocpro.TABS;
   function createItem(key, value, type) {
@@ -64,7 +75,7 @@ const loopInNestedObjectPaths = function loopInNestedObjectPaths() {
     let html = '';
     for (var item in value) {
       let _key = item,
-        _val = value[item];
+        _val = (0, _.merge)(value[item]);
       if (_key == 'parameters') {
         const res = (0, _parameters.parametersTable)(_val);
         html += "<hr><h4 class=\"p-3\">Parameters</h4>".concat(res);
@@ -125,7 +136,7 @@ const loopInNestedObjectPaths = function loopInNestedObjectPaths() {
       if (!custom.includes(key1)) {
         responses = handleItem(key1, value1);
       }
-      let content = " <div >\n    <div  class=\"bold apidocpro__method--".concat(item, "\">").concat(item, "\n    </div><b>Summary</b> ").concat(obj[item].summary || '', "\n    <div class=\"bold smaller \" >").concat(((_obj$item5 = obj[item]) === null || _obj$item5 === void 0 ? void 0 : _obj$item5.description) || '', "\n    ").concat(responses, "\n    </div></div  class=\" shadow-sm p-3 mb-1 col-md-12 pt-3 rounded \">");
+      let content = " <div >\n    <div  class=\"bold apidocpro__method--".concat(item, "\">").concat(item, "\n    </div><b>Summary</b> ").concat(obj[item].summary || '', "\n    <div class=\"bold smaller \" >").concat(((_obj$item5 = obj[item]) === null || _obj$item5 === void 0 ? void 0 : _obj$item5.description) || '', "\n    ").concat(responses ? responses : '', "\n    </div></div  class=\" shadow-sm p-3 mb-1 col-md-12 pt-3 rounded \">");
       _result += TABSNOW.tabContent.replaceAll('%TABID%', href).replaceAll('%ACTIVE%', active).replaceAll('%TABCONTENT%', content.replaceAll(' , ', '').replaceAll('\n,\n', ''));
       active = '';
     });

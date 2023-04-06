@@ -6,6 +6,14 @@ Object.defineProperty(exports, "__esModule", {
 exports.parametersTable = parametersTable;
 require("core-js/modules/es.json.stringify.js");
 require("core-js/modules/es.symbol.description.js");
+/**
+ * ApiDocPro UI render, for AsyncAPI, Swagger and OpenApi
+ * Built by Sam Ayoub, DDKits.com
+ * https://github.com/ddkits
+ * APIdocPro UI render based on React and Bootstrap, with the ability to contribute, modify and create different themes to be used.
+ * Important: To use this code please leave the copyright in place
+ * Reallexi LLC, https://reallexi.com
+ */
 /* eslint-disable no-unused-vars */
 function parametersTable() {
   let parameters = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};

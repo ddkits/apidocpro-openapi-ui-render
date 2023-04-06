@@ -1,5 +1,15 @@
+/**
+ * ApiDocPro UI render, for AsyncAPI, Swagger and OpenApi
+ * Built by Sam Ayoub, DDKits.com
+ * https://github.com/ddkits
+ * APIdocPro UI render based on React and Bootstrap, with the ability to contribute, modify and create different themes to be used.
+ * Important: To use this code please leave the copyright in place
+ * Reallexi LLC, https://reallexi.com
+ */
 /* eslint-disable no-unused-vars */
 // import { responsesFromPath } from '../core/codesnippets';
+import React from 'react';
+import { merge } from '.';
 import { methodRequestBody } from '../core/codesnippets/methodRequestBody';
 import { methodResponses } from '../core/codesnippets/methodResponses';
 import { PATHS, TABS } from '../templates/theme/default/apidocpro';
@@ -27,6 +37,7 @@ const loopInNestedObjectPaths = (
     'requestBody',
     'paths',
     'x-examples',
+    'examples',
     'security',
     'method',
     'operationId'
@@ -80,7 +91,8 @@ const loopInNestedObjectPaths = (
 
     for (var item in value) {
       let _key = item,
-        _val = value[item];
+        _val = merge(value[item]);
+
       if (_key == 'parameters') {
         const res = parametersTable(_val);
         html += `<hr><h4 class="p-3">Parameters</h4>${res}`;
@@ -186,7 +198,7 @@ const loopInNestedObjectPaths = (
     <div  class="bold apidocpro__method--${item}">${item}
     </div><b>Summary</b> ${obj[item].summary || ''}
     <div class="bold smaller " >${obj[item]?.description || ''}
-    ${responses}
+    ${responses ? responses : ''}
     </div></div  class=" shadow-sm p-3 mb-1 col-md-12 pt-3 rounded ">`;
       _result += TABSNOW.tabContent
         .replaceAll('%TABID%', href)

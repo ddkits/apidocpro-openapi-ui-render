@@ -10,10 +10,27 @@ require("core-js/modules/esnext.string.replace-all.js");
 require("core-js/modules/es.symbol.description.js");
 var _apidocpro = require("../../templates/theme/default/apidocpro");
 var _helpers = require("../../helpers");
+/**
+ * ApiDocPro UI render, for AsyncAPI, Swagger and OpenApi
+ * Built by Sam Ayoub, DDKits.com
+ * https://github.com/ddkits
+ * APIdocPro UI render based on React and Bootstrap, with the ability to contribute, modify and create different themes to be used.
+ * Important: To use this code please leave the copyright in place
+ * Reallexi LLC, https://reallexi.com
+ */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 
+/**
+ * methodResponses
+ * @param {object|string} spec
+ * @param {object} theme
+ * @param {object} schemas
+ * @param {string} mainKey
+ * @returns
+ */
 function methodResponses(spec, theme, schemas, mainKey) {
+  /** Const of theme to use, by default is the default unless theme provided */
   const TABSNOW = theme.TABS ? theme.TABS : _apidocpro.TABS;
   let contents = [];
   let activeTab = 'active',

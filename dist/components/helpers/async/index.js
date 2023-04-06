@@ -13,12 +13,22 @@ require("core-js/modules/esnext.string.replace-all.js");
 require("core-js/modules/es.array.includes.js");
 require("core-js/modules/es.symbol.description.js");
 require("core-js/modules/es.json.stringify.js");
+var _react = _interopRequireDefault(require("react"));
 var _jsYaml = _interopRequireDefault(require("js-yaml"));
 var _apidocpro = require("../../templates/theme/default/apidocpro");
 var _Body = _interopRequireDefault(require("../../templates/regions/middle/Body"));
 var _Header = _interopRequireDefault(require("../../templates/regions/middle/Header"));
 var _resolver = require("./../resolver");
+var _ = require("..");
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+/**
+ * ApiDocPro UI render, for AsyncAPI, Swagger and OpenApi
+ * Built by Sam Ayoub, DDKits.com
+ * https://github.com/ddkits
+ * APIdocPro UI render based on React and Bootstrap, with the ability to contribute, modify and create different themes to be used.
+ * Important: To use this code please leave the copyright in place
+ * Reallexi LLC, https://reallexi.com
+ */
 /* eslint-disable no-unused-vars */
 /**
  * API Doc Pro helpers
@@ -78,7 +88,7 @@ const loopInNestedAsyncObject = function loopInNestedAsyncObject() {
     var html = '';
     for (var item in value) {
       var _key = item,
-        _val = value[item];
+        _val = (0, _.merge)(value[item]);
       html += handleItem(_key, _val);
     }
     return createCollapsibleItem(key, value, type, html);
@@ -138,9 +148,9 @@ const loopInNestedAsyncObject = function loopInNestedAsyncObject() {
       }
     }
     result += '</section>';
-    return /*#__PURE__*/React.createElement("div", {
+    return /*#__PURE__*/_react.default.createElement("div", {
       className: "apidocpro-details"
-    }, /*#__PURE__*/React.createElement(_Body.default, {
+    }, /*#__PURE__*/_react.default.createElement(_Body.default, {
       data: result,
       servers: servers,
       spec: json,
@@ -188,7 +198,7 @@ function jsonViewerAsync(json) {
     }
     for (var item in value) {
       var _key = item,
-        _val = value[item];
+        _val = (0, _.merge)(value[item]);
       html += handleItem(_key, _val);
     }
     return createCollapsibleItem(key, value, type, html);
@@ -251,10 +261,8 @@ function requestBodyViewerAsync(json) {
     var result = '';
     for (var item in value) {
       var _key = item,
-        _val = value[item];
-      if (_val !== '') {
-        html += handleItem(_key, _val);
-      }
+        _val = (0, _.merge)(value[item]);
+      html += handleItem(_key, _val);
     }
     result += createCollapsibleItem(key, value, type, html);
     return result;

@@ -19,24 +19,29 @@ var _ErrorBoundary = _interopRequireDefault(require("../core/ErrorBoundary"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function _getRequireWildcardCache(nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+/**
+ * ApiDocPro UI render, for AsyncAPI, Swagger and OpenApi
+ * Built by Sam Ayoub, DDKits.com
+ * https://github.com/ddkits
+ * APIdocPro UI render based on React and Bootstrap, with the ability to contribute, modify and create different themes to be used.
+ * Important: To use this code please leave the copyright in place
+ * Reallexi LLC, https://reallexi.com
+ */
 /* eslint-disable no-unused-vars */
 
 function ApiDocPro(props) {
   // eslint-disable-next-line react/prop-types
   //   collapse, search, codesnippet
-  const [left, setLeft] = (0, _react.useState)(true);
-  const [right, setRight] = (0, _react.useState)(true);
+  const [left, setLeft] = (0, _react.useState)();
+  const [right, setRight] = (0, _react.useState)();
   // eslint-disable-next-line no-unused-vars
   const [obj, setObj] = (0, _react.useState)();
   const [resolved, setResolved] = (0, _react.useState)();
   const {
     title = '',
     spec,
-    leftRegion = true,
-    rightRegion = true,
-    collapse = false,
-    theme,
-    header = true
+    collapse,
+    theme
   } = props;
   const [openCollapse, setopenCollapse] = (0, _react.useState)(false);
   const [head, setHead] = (0, _react.useState)(true);
@@ -46,9 +51,6 @@ function ApiDocPro(props) {
   const rebuild = async function rebuild() {
     let e = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
     setopenCollapse(collapse || false);
-    setLeft(leftRegion || true);
-    setRight(rightRegion || true);
-    setHead(header || true);
     setResolved(null);
     setObj(null);
     setspectype('');
@@ -93,11 +95,26 @@ function ApiDocPro(props) {
   };
   (0, _react.useEffect)(() => {
     setLoading(true);
-    rebuild();
+    rebuild(spec);
   }, [spec]);
   (0, _react.useEffect)(() => {
     setLoading(true);
-    rebuild();
+    rebuild(spec);
+    if (props !== null && props !== void 0 && props.leftregion) {
+      setLeft(props === null || props === void 0 ? void 0 : props.leftregion);
+    } else {
+      setLeft(false);
+    }
+    if (props !== null && props !== void 0 && props.rightregion) {
+      setRight(props === null || props === void 0 ? void 0 : props.rightregion);
+    } else {
+      setRight(false);
+    }
+    if (props !== null && props !== void 0 && props.header) {
+      setHead(props === null || props === void 0 ? void 0 : props.header);
+    } else {
+      setHead(false);
+    }
   }, []);
   const _handleFileCallback = e => {
     setLoading(true);
@@ -141,10 +158,10 @@ function ApiDocPro(props) {
   }, /*#__PURE__*/_react.default.createElement("i", {
     className: "fa-solid fa-sync fa-spin"
   })) : /*#__PURE__*/_react.default.createElement("main", {
-    className: "d-flex m-0"
-  }, /*#__PURE__*/_react.default.createElement(_ErrorBoundary.default, null, left && /*#__PURE__*/_react.default.createElement("div", {
+    className: "d-flex m-0 col-sx-12"
+  }, /*#__PURE__*/_react.default.createElement(_ErrorBoundary.default, null, left ? /*#__PURE__*/_react.default.createElement("div", {
     id: "apidocpro-leftsidemenu",
-    className: "sidenav d-none d-md-block col-2 sticky-top m-0",
+    className: "sidenav d-none d-md-block col-2 m-0",
     "data-mdb-hidden": "false"
   }, /*#__PURE__*/_react.default.createElement(_LeftRegion.default, {
     data: resolved,
@@ -152,16 +169,16 @@ function ApiDocPro(props) {
     menuClicked: () => console.log('menu clicked'),
     theme: theme,
     spectype: spectype
-  })), /*#__PURE__*/_react.default.createElement("div", {
+  })) : [], /*#__PURE__*/_react.default.createElement("div", {
     id: "apidocpro-middleregion",
-    className: right && left ? 'col-7' : right && !left ? 'col-9' : left && !right ? 'col-10' : 'col-12'
+    className: right && left ? 'col-12 col-sm-12 col-md-7 ' : right && !left ? 'col-12 col-sm-12 col-md-9 ' : left && !right ? 'col-12 col-sm-12 col-md-10 ' : 'col-12 col-sm-12 col-md-12 '
   }, /*#__PURE__*/_react.default.createElement(_MiddleRegion.default, {
     data: resolved,
     resolved: resolved,
     openCollapse: openCollapse,
     theme: theme,
     spectype: spectype
-  })), right && /*#__PURE__*/_react.default.createElement("div", {
+  })), right ? /*#__PURE__*/_react.default.createElement("div", {
     id: "apidocpro-rightregion",
     className: "d-none d-md-block  bg-dark text-light col-3 pt-3 minh-100 m-0"
   }, /*#__PURE__*/_react.default.createElement(_RightRegion.default, {
@@ -170,7 +187,7 @@ function ApiDocPro(props) {
     theme: theme,
     openCollapse: openCollapse,
     spectype: spectype
-  })))), /*#__PURE__*/_react.default.createElement("footer", {
+  })) : [])), /*#__PURE__*/_react.default.createElement("footer", {
     className: "sticky-bottom bg-white p-2 m-0"
   }, /*#__PURE__*/_react.default.createElement("div", {
     id: "copyright",
@@ -182,11 +199,11 @@ function ApiDocPro(props) {
   }, "RealLexi LLC"))));
 }
 ApiDocPro.propTypes = {
-  spec: _propTypes.default.string,
+  spec: _propTypes.default.oneOfType([_propTypes.default.string, _propTypes.default.object]),
   resolved: _propTypes.default.any,
   title: _propTypes.default.string,
-  leftRegion: _propTypes.default.bool,
-  rightRegion: _propTypes.default.bool,
+  leftregion: _propTypes.default.bool,
+  rightregion: _propTypes.default.bool,
   collapse: _propTypes.default.bool,
   header: _propTypes.default.bool,
   theme: _propTypes.default.object

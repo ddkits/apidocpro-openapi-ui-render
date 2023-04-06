@@ -6,6 +6,14 @@ Object.defineProperty(exports, "__esModule", {
 exports.createMenuItems = void 0;
 require("core-js/modules/web.dom-collections.iterator.js");
 require("core-js/modules/es.symbol.description.js");
+/**
+ * ApiDocPro UI render, for AsyncAPI, Swagger and OpenApi
+ * Built by Sam Ayoub, DDKits.com
+ * https://github.com/ddkits
+ * APIdocPro UI render based on React and Bootstrap, with the ability to contribute, modify and create different themes to be used.
+ * Important: To use this code please leave the copyright in place
+ * Reallexi LLC, https://reallexi.com
+ */
 /* eslint-disable no-unused-vars */
 const groupedMenu = function groupedMenu() {
   let dataNow = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
