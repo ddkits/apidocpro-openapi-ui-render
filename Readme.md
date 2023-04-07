@@ -16,11 +16,11 @@ npm i openapi-asyncapi-ui-render
 ```
 ...
 // React Component
-import { ApiDocPro } from 'openapi-asyncapi-ui-render';
+import {ApiDocPro, APIDOCPROTHEME} from 'openapi-asyncapi-ui-render'
 // Custom Theme can be clones from Default example when needed
-import * as THEME from './lib/components/templates/theme/default/apidocpro';
+import { APIDOCPROTHEME } from 'openapi-asyncapi-ui-render'
 // Styles import
-import './lib/components/templates/theme/default/assets/styles/apidocpro-styles.scss';
+import 'openapi-asyncapi-ui-render/templates/theme/default/assets/styles/apidocpro-styles.scss';
 ...
 
    <ApiDocPro
@@ -28,7 +28,7 @@ import './lib/components/templates/theme/default/assets/styles/apidocpro-styles.
         rightRegion // Bool default true
         leftRegion // Bool default true
         header // Bool default true
-        theme={THEME} // Object of const default can be clones for new theme design or contribute
+        theme={APIDOCPROTHEME} // Object of const default can be clones for new theme design or contribute
         spec={spec} // string
       />
 ...

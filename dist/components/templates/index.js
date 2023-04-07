@@ -4,7 +4,7 @@ require("core-js/modules/es.weak-map.js");
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports.default = ApiDocPro;
 require("core-js/modules/web.dom-collections.iterator.js");
 require("core-js/modules/es.promise.js");
 var _react = _interopRequireWildcard(require("react"));
@@ -208,5 +208,3 @@ ApiDocPro.propTypes = {
   header: _propTypes.default.bool,
   theme: _propTypes.default.object
 };
-var _default = ApiDocPro;
-exports.default = _default;

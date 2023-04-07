@@ -6,9 +6,9 @@
  * Important: To use this code please leave the copyright in place
  * Reallexi LLC, https://reallexi.com
  */
-import ApiDocPro from './templates';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'font-awesome/css/font-awesome.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
-
-export { ApiDocPro };
+import * as APIDOCPROTHEME from './templates/theme/default/apidocpro';
+import ApiDocPro from './templates';
+export { ApiDocPro, APIDOCPROTHEME };

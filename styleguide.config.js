@@ -96,14 +96,39 @@ module.exports = {
   },
   theme: {
     color: {
-      link: 'firebrick',
-      linkHover: 'salmon'
+      base: '#000',
+      light: '#f8f9fa',
+      lightest: '#ccc',
+      link: '#f8f9fa',
+      linkHover: '#343a40',
+      focus: 'rgba(22, 115, 177, 0.25)',
+      border: '#e8e8e8',
+      name: '#f8f9fa',
+      type: '#905',
+      error: '#c00',
+      baseBackground: '#fff',
+      codeBackground: '#000',
+      sidebarBackground: '#648cff',
+      ribbonBackground: '#648cff',
+      ribbonText: '#fff',
+      // Based on default Prism theme
+      codeBase: '#fff',
+      codeComment: '#6d6d6d',
+      codePunctuation: '#999',
+      codeProperty: '#905',
+      codeDeleted: '#905',
+      codeString: '#690',
+      codeInserted: '#690',
+      codeOperator: '#9a6e3a',
+      codeKeyword: '#1673b1',
+      codeFunction: '#DD4A68',
+      codeVariable: '#e90'
     },
     spaceFactor: 10,
     sidebarWidth: 300,
     maxWidth: 1400,
     fontFamily: {
-      base: '"Comic Sans MS", "Comic Sans", cursive'
+      base: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"'
     }
   },
   styles: {}

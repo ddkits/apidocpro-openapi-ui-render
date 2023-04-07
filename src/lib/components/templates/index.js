@@ -17,7 +17,7 @@ import { resolveRefs } from '../core/resolver';
 import FileUploadPage from '../core/FileUploadPage';
 import ErrorBoundary from '../core/ErrorBoundary';
 
-function ApiDocPro(props) {
+export default function ApiDocPro(props) {
   // eslint-disable-next-line react/prop-types
   //   collapse, search, codesnippet
   const [left, setLeft] = useState();
@@ -222,5 +222,3 @@ ApiDocPro.propTypes = {
   header: propTypes.bool,
   theme: propTypes.object
 };
-
-export default ApiDocPro;
