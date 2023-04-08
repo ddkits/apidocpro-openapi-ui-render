@@ -60,7 +60,7 @@ function LeftRegion(props) {
     }, Object.keys(menuData[key]).map((menuItem, xds) => {
       var _menuData$key$menuIte, _menuData$key$menuIte2, _menuData$key$menuIte3;
       const idLabel = ((_menuData$key$menuIte = menuData[key][menuItem]) === null || _menuData$key$menuIte === void 0 ? void 0 : _menuData$key$menuIte.summary) || ((_menuData$key$menuIte2 = menuData[key][menuItem]) === null || _menuData$key$menuIte2 === void 0 ? void 0 : _menuData$key$menuIte2.description) || ((_menuData$key$menuIte3 = menuData[key][menuItem]) === null || _menuData$key$menuIte3 === void 0 ? void 0 : _menuData$key$menuIte3.operationId) || key;
-      const href = idLabel.replaceAll(' ', '_').replaceAll('.', '').replaceAll('{', '').replaceAll('}', '');
+      const href = idLabel.replaceAll(' ', '_').replaceAll('.', '').replaceAll('{', '').replaceAll('}', '').replaceAll('/', '_');
       return /*#__PURE__*/_react.default.createElement(_reactScroll.Link, {
         activeClass: "active",
         smooth: true,

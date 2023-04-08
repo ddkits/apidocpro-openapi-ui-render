@@ -33,14 +33,20 @@ module.exports = {
       //   defaultExample: true,
     },
     {
-      name: 'OpenAPI AsyncAPI UI Render',
-      components: 'src/lib/**/*.js',
-      defaultExample: true
-    },
-    {
       name: 'Contributors',
       content: 'docs/contributors.md'
       //   defaultExample: true,
+    },
+    {
+      name: 'Themes',
+      components: 'src/lib/components/templates/theme/**/*.js',
+      defaultExample: false
+    },
+    {
+      name: 'OpenAPI AsyncAPI UI Render',
+      components: 'src/lib/**/*.js',
+      exclude: 'src/lib/components/templates/theme/**/*.js',
+      defaultExample: true
     }
   ],
   moduleAliases: {

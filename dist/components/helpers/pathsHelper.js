@@ -112,7 +112,7 @@ const loopInNestedObjectPaths = function loopInNestedObjectPaths() {
   function parseObject(obj) {
     let opIdKeyBefore = Math.random();
     let opIdKey = 0 + opIdKeyBefore;
-    const idLabel = obj ? obj !== null && obj !== void 0 && obj.summary ? obj === null || obj === void 0 ? void 0 : obj.summary : obj !== null && obj !== void 0 && obj.description ? obj === null || obj === void 0 ? void 0 : obj.description : obj !== null && obj !== void 0 && obj.operationId ? obj === null || obj === void 0 ? void 0 : obj.operationId : mainKey + opIdKey : opIdKey;
+    const idLabel = obj ? obj !== null && obj !== void 0 && obj.summary ? obj === null || obj === void 0 ? void 0 : obj.summary : obj !== null && obj !== void 0 && obj.description ? obj === null || obj === void 0 ? void 0 : obj.description : obj !== null && obj !== void 0 && obj.operationId ? obj === null || obj === void 0 ? void 0 : obj.operationId : mainKey : opIdKey;
     const href = idLabel.replaceAll(' ', '_').replaceAll('.', '').replaceAll('{', '').replaceAll('}', '').replaceAll('/', '_');
     let _result = "<section class=\"container-fluid border p-3\" id=\"".concat(href, "\"><details ").concat(collapsible && collapsible ? 'open' : '', "><summary>\n    <b class=\"apidocpro-").concat(mainKey.replaceAll('/', '-'), "-parent\">").concat(mainKey, "</b>\n    <span class=\"pull right\">").concat(obj['summary'] ? obj['summary'] : '', "</span>\n    </summary>\n    <span class=\"apidocpro-").concat(mainKey.replaceAll('/', '-'), "-parent-description\">").concat(obj['description'] ? obj['description'] : '', "</span>\n    <div class=\"container-fluid\">\n    ").concat(TABSNOW.tabsStart.replaceAll('%TABSID%', 'nav-tab'), "\n ");
     let activeTab = 'show active';
@@ -123,7 +123,7 @@ const loopInNestedObjectPaths = function loopInNestedObjectPaths() {
       if (custom.includes(key)) {
         return '';
       }
-      const idLabel = item + opIdKey || opIdKey;
+      const idLabel = (value === null || value === void 0 ? void 0 : value.summary) || (value === null || value === void 0 ? void 0 : value.description) || (value === null || value === void 0 ? void 0 : value.operationId) || item + opIdKey || opIdKey;
       const href = idLabel.replaceAll(' ', '_').replaceAll('.', '').replaceAll('{', '').replaceAll('}', '').replaceAll(',', '');
       _result += TABSNOW.tabLink.replaceAll('%TABID%', href).replaceAll('%ACTIVE%', activeTab).replaceAll('%TABLABEL%', key.toUpperCase().replaceAll(' , ', '').replaceAll('\n,\n', ''));
       activeTab = '';
@@ -137,8 +137,8 @@ const loopInNestedObjectPaths = function loopInNestedObjectPaths() {
       let key1 = item,
         value1 = obj[item];
       let responses;
-      const idLabel = item + opIdKey || opIdKey;
-      const href = idLabel.replaceAll(' ', '_').replaceAll('.', '').replaceAll('{', '').replaceAll('}', '').replaceAll(',', '_');
+      const idLabel = (value1 === null || value1 === void 0 ? void 0 : value1.summary) || (value1 === null || value1 === void 0 ? void 0 : value1.description) || (value1 === null || value1 === void 0 ? void 0 : value1.operationId) || item + opIdKey || opIdKey;
+      const href = idLabel.replaceAll(' ', '_').replaceAll('.', '').replaceAll('{', '').replaceAll('}', '').replaceAll(',', '');
       if (custom.includes(key1) || value1.length === 0) {
         return '';
       }

@@ -137,7 +137,7 @@ const loopInNestedObjectPaths = (
         ? obj?.description
         : obj?.operationId
         ? obj?.operationId
-        : mainKey + opIdKey
+        : mainKey
       : opIdKey;
 
     const href = idLabel
@@ -167,7 +167,8 @@ const loopInNestedObjectPaths = (
       if (custom.includes(key)) {
         return '';
       }
-      const idLabel = item + opIdKey || opIdKey;
+      const idLabel =
+        value?.summary || value?.description || value?.operationId || item + opIdKey || opIdKey;
       const href = idLabel
         .replaceAll(' ', '_')
         .replaceAll('.', '')
@@ -188,13 +189,14 @@ const loopInNestedObjectPaths = (
       let key1 = item,
         value1 = obj[item];
       let responses;
-      const idLabel = item + opIdKey || opIdKey;
+      const idLabel =
+        value1?.summary || value1?.description || value1?.operationId || item + opIdKey || opIdKey;
       const href = idLabel
         .replaceAll(' ', '_')
         .replaceAll('.', '')
         .replaceAll('{', '')
         .replaceAll('}', '')
-        .replaceAll(',', '_');
+        .replaceAll(',', '');
       if (custom.includes(key1) || value1.length === 0) {
         return '';
       }

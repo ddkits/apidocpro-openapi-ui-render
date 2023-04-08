@@ -57,7 +57,8 @@ export default function LeftRegion(props) {
                         .replaceAll(' ', '_')
                         .replaceAll('.', '')
                         .replaceAll('{', '')
-                        .replaceAll('}', '');
+                        .replaceAll('}', '')
+                        .replaceAll('/', '_');
                       return (
                         <Link
                           activeClass="active"
