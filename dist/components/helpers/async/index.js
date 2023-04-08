@@ -45,11 +45,11 @@ const loopInNestedAsyncObject = function loopInNestedAsyncObject() {
   let collapsible = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
   let theme = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
   const schemas = json.components;
-  const custom = ['[[Prototype]]', ''];
+  const custom = ['[[Prototype]]', 'defaultContentType'];
   const TEMPLATESNOW = theme.TEMPLATESASYNC ? theme.TEMPLATESASYNC : _apidocpro.TEMPLATESASYNC;
   function createItem(key, value, type) {
     if (key.split('').length < 2) {
-      key = type.toUpperCase();
+      key = '';
     }
     let element = TEMPLATESNOW.item.replaceAll('%KEY%', key);
     if (type == 'string') {
@@ -183,7 +183,7 @@ exports.loopInNestedAsyncObject = loopInNestedAsyncObject;
 function jsonViewerAsync(json) {
   let collapsible = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
   let theme = arguments.length > 2 ? arguments[2] : undefined;
-  const TEMPLATESNOW = theme.JSONTEMPLATES ? theme.JSONTEMPLATES : _apidocpro.JSONTEMPLATES;
+  const TEMPLATESNOW = theme !== null && theme !== void 0 && theme.JSONTEMPLATES ? theme === null || theme === void 0 ? void 0 : theme.JSONTEMPLATES : _apidocpro.JSONTEMPLATES;
   function createItem(key, value, type) {
     var element = TEMPLATESNOW.item.replaceAll('%KEY%', key);
     if (key.split('').length < 2) {
