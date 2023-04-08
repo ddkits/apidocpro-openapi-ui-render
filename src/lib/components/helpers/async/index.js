@@ -30,12 +30,12 @@ const yamlToJson = (yamlString) => {
 
 const loopInNestedAsyncObject = (json = {}, collapsible = false, theme = {}) => {
   const schemas = json.components;
-  const custom = ['[[Prototype]]', ''];
+  const custom = ['[[Prototype]]', 'defaultContentType'];
   const TEMPLATESNOW = theme.TEMPLATESASYNC ? theme.TEMPLATESASYNC : TEMPLATESASYNC;
 
   function createItem(key, value, type) {
     if (key.split('').length < 2) {
-      key = type.toUpperCase();
+      key = '';
     }
     let element = TEMPLATESNOW.item.replaceAll('%KEY%', key);
     if (type == 'string') {
