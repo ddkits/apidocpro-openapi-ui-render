@@ -8,7 +8,7 @@ require("core-js/modules/es.regexp.exec.js");
 require("core-js/modules/es.string.replace.js");
 require("core-js/modules/esnext.string.replace-all.js");
 require("core-js/modules/es.symbol.description.js");
-var _apidocpro = require("../../templates/theme/default/apidocpro");
+var _apidocpro = require("../../templates/theme/noTheme/apidocpro");
 var _helpers = require("../../helpers");
 /**
  * ApiDocPro UI render, for AsyncAPI, Swagger and OpenApi

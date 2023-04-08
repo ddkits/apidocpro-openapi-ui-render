@@ -73,10 +73,14 @@ function ApiDocPro(props) {
       setspectype('openapi');
     }
     console.log(spectype);
-    if (newSpec && newSpec.length > 0) {
-      setSpecification(newSpec);
+    if (newSpec) {
+      try {
+        setSpecification(JSON.parse(newSpec));
+      } catch (error) {
+        setSpecification(newSpec);
+      }
     } else {
-      setSpecification(_helpers.yamlExample);
+      setSpecification(_helpers.jsonExample);
     }
     const ob = (0, _helpers.yamlToJson)(newSpec) ? (0, _helpers.yamlToJson)(newSpec) : newSpec;
     setObj(ob);
@@ -123,7 +127,7 @@ function ApiDocPro(props) {
   const goToDefault = () => {
     localStorage.removeItem('spec');
     setLoading(true);
-    rebuild();
+    rebuild(specification);
   };
   return /*#__PURE__*/_react.default.createElement("div", {
     className: "container-fluid p-0 m-0"

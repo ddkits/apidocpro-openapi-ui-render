@@ -24,3 +24,12 @@ module.exports = {
     })
   ]
 };
+
+module.exports = {
+  entry: ['./src/lib/components/pro/index.js'],
+  output: {
+    filename: 'bundle.js',
+    path: path.resolve(__dirname, 'dist')
+  }
+  // optimization: { minimize: false },
+};

@@ -17,7 +17,7 @@ import {
   TEMPLATESASYNC,
   REQUESTBODY,
   JSONTEMPLATES
-} from '../../templates/theme/default/apidocpro';
+} from '../../templates/theme/noTheme/apidocpro';
 import Body from '../../templates/regions/middle/Body';
 import Header from '../../templates/regions/middle/Header';
 import { resolveRef } from './../resolver';
@@ -53,9 +53,6 @@ const loopInNestedAsyncObject = (json = {}, collapsible = false, theme = {}) => 
   }
 
   function createCollapsibleItem(key, value, type, children) {
-    if (key.split('').length < 2) {
-      key = type.toUpperCase();
-    }
     var tpl = 'itemCollapsible';
     if (key === '$ref') {
       value = resolveRef(key, schemas);
@@ -75,14 +72,16 @@ const loopInNestedAsyncObject = (json = {}, collapsible = false, theme = {}) => 
 
   function handleChildren(key, value, type) {
     if (key.split('').length < 2) {
-      key = type.toUpperCase();
+      key = '';
     }
     var html = '';
 
     for (var item in value) {
       var _key = item,
         _val = merge(value[item]);
-
+      if (_key.split('').length < 3) {
+        _key = '';
+      }
       html += handleItem(_key, _val);
     }
 
@@ -91,6 +90,9 @@ const loopInNestedAsyncObject = (json = {}, collapsible = false, theme = {}) => 
 
   function handleItem(key, value) {
     var type = typeof value;
+    if (key.split('').length < 3) {
+      key = '';
+    }
     if (typeof value === 'object') {
       return handleChildren(key, value, type);
     }
@@ -106,7 +108,16 @@ const loopInNestedAsyncObject = (json = {}, collapsible = false, theme = {}) => 
       return;
     }
     let result = '<section>';
-    let title, version, description, contact, servers, license, specType, summary, externalDocs;
+    let title,
+      version,
+      description,
+      contact,
+      servers,
+      license,
+      specType,
+      summary,
+      externalDocs,
+      serversNow = [];
     for (var item in obj) {
       let key = item,
         value = obj[item];
@@ -117,7 +128,7 @@ const loopInNestedAsyncObject = (json = {}, collapsible = false, theme = {}) => 
         case 'swagger':
           specType = key.toUpperCase();
           break;
-        case 'async':
+        case 'asyncapi':
           specType = key.toUpperCase();
           break;
         case 'info':
@@ -130,9 +141,6 @@ const loopInNestedAsyncObject = (json = {}, collapsible = false, theme = {}) => 
           break;
         case 'contact':
           contact = value;
-          break;
-        case 'servers':
-          servers = value;
           break;
         case 'externalDocs':
           externalDocs = value;
@@ -147,7 +155,24 @@ const loopInNestedAsyncObject = (json = {}, collapsible = false, theme = {}) => 
     result += '</section>';
     return (
       <div className="apidocpro-details">
-        <Body data={result} servers={servers} spec={json} collapsible={collapsible} />
+        <Header
+          spectitle={title}
+          specversion={version}
+          specdescription={description}
+          specType={specType}
+          speccontact={contact}
+          spec={json}
+          specservers={[]}
+          speclicense={license}
+          specsummary={summary}
+          specexternaldocs={externalDocs || []}
+        />
+        <Body
+          data={result.replaceAll('undefined', '')}
+          servers={servers}
+          spec={json}
+          collapsible={collapsible}
+        />
       </div>
     );
   }
@@ -156,7 +181,7 @@ const loopInNestedAsyncObject = (json = {}, collapsible = false, theme = {}) => 
 };
 
 function jsonViewerAsync(json, collapsible = false, theme) {
-  const TEMPLATESNOW = theme.JSONTEMPLATES ? theme.JSONTEMPLATES : JSONTEMPLATES;
+  const TEMPLATESNOW = theme?.JSONTEMPLATES ? theme?.JSONTEMPLATES : JSONTEMPLATES;
 
   function createItem(key, value, type) {
     var element = TEMPLATESNOW.item.replaceAll('%KEY%', key);
@@ -209,7 +234,9 @@ function jsonViewerAsync(json, collapsible = false, theme) {
 
   function handleItem(key, value) {
     var type = typeof value;
-
+    if (key.split('').length < 3) {
+      key = '';
+    }
     if (typeof value === 'object') {
       return handleChildren(key, value, type);
     } else if (typeof value === 'string') {
@@ -296,7 +323,23 @@ function requestBodyViewerAsync(json, collapsible = false, theme = {}) {
   }
 
   function parseObject(obj) {
-    let _result = '<table class="align-top table table-responsive "><tbody>';
+    const idLabel = obj
+      ? obj?.summary
+        ? obj?.summary
+        : obj?.description
+        ? obj?.description
+        : obj?.operationId
+        ? obj?.operationId
+        : Math.random()
+      : Math.random();
+
+    const href = idLabel
+      .replaceAll(' ', '_')
+      .replaceAll('.', '')
+      .replaceAll('{', '')
+      .replaceAll('}', '')
+      .replaceAll('/', '_');
+    let _result = `<section class="container-fluid border p-3" id="${href}">`;
 
     for (var item in obj) {
       var key = item,
@@ -339,7 +382,7 @@ function requestBodyViewerAsync(json, collapsible = false, theme = {}) {
       });
       result += `</details>`;
     });
-    result += `</details>`;
+    result += `</details></section>`;
     _result += result.replaceAll('%TYPERESULTS%', element);
   });
   return _result;

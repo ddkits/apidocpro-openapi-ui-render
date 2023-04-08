@@ -10,11 +10,14 @@ body {
     height: 100%;
     text-align: left;
 }
+div{
+    max-width: 100%;
+}
 select{
         display: inline-block;
         max-width: 100%;
-        background-color: var(--dark);
-        color: white;
+        background-color: $dark;
+        color: $light;
         margin: 0;
 }
 pre{
@@ -40,12 +43,14 @@ pre{
 }
  
 .apidocpro {
+
     details {
         // border-left: 1px solid black;
+        transition: all 2s;
         summary {
             padding: 10px;
             // border-left: 1px solid gray;
-            
+            transition: all 2s;
         }
         summary[class^="apidocpro__method--"] {
             text-transform: uppercase;
@@ -65,10 +70,6 @@ pre{
     transition: all 2s;
     overflow-x: hidden;
     word-wrap: break-word;
-  
-    
-
-    
 
     pre {
         height: 250px;
@@ -220,13 +221,6 @@ pre{
     }
 
 
-    details {
-        transition: all 2s;
-
-        summary {
-            transition: all 2s;
-        }
-    }
 
     transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0),
     opacity 0.55s ease;

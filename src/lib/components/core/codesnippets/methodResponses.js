@@ -9,7 +9,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 
-import { TABS } from '../../templates/theme/default/apidocpro';
+import { TABS } from '../../templates/theme/noTheme/apidocpro';
 import { jsonViewer } from '../../helpers';
 
 /**

@@ -1,7 +1,3 @@
-$color-dark: #acafb9;
-$color-green: #1a5e23;
-$width-compressed: 10rem;
-
 #apidocpro-leftsidemenu {
     z-index: inherit;
     overflow-y: auto;
@@ -9,11 +5,11 @@ $width-compressed: 10rem;
     text-align: left;
     .active-icon {
         &:hover {
-            background: $color-green;
+            background: $color-dark;
         }
         ul {
             &:hover {
-                background: $color-green;
+                background: $color-dark;
             }
         }
     }
@@ -21,7 +17,7 @@ $width-compressed: 10rem;
         list-style-type: none;
         margin: 64px 0;
         padding: 0;
-        color: #000000;
+        color: $color-light;
         z-index: 1;
         li {
             text-transform: uppercase;
@@ -60,7 +56,7 @@ $width-compressed: 10rem;
                 background-color: lighten($color-dark, 5);
                 cursor: pointer;
                 .fa {
-                    color: lighten($color-green, 16);
+                    color: lighten($color-dark, 16);
                 }
             }
         }

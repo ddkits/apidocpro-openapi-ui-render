@@ -49,11 +49,15 @@ function apidocprocodeViewer(json, collapsible = false) {
 
   function handleChildren(key, value, type) {
     var html = '';
-
+    if (key.split('').length < 3) {
+      key = '';
+    }
     for (var item in value) {
       var _key = item,
         _val = value[item];
-
+      if (_key.split('').length < 3) {
+        _key = '';
+      }
       html += handleItem(_key, _val);
     }
 
@@ -62,6 +66,9 @@ function apidocprocodeViewer(json, collapsible = false) {
 
   function handleItem(key, value) {
     var type = typeof value;
+    if (key.split('').length < 3) {
+      key = '';
+    }
     if (key === 'example') {
       if (typeof value === 'object') {
         return handleChildren(key, value, type);

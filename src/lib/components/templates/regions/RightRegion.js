@@ -106,9 +106,9 @@ export default function RightRegion(props) {
             : 'RightRegion'}
         </h3>
 
-        <div className="d-flex">
+        <div className="col-12 p-1">
           <select
-            className="col"
+            className="col-12 p-1"
             value={pathChange}
             onChange={(e) => setpathChange(e.target.value)}>
             {codeSnippetsPaths.length &&
@@ -122,7 +122,7 @@ export default function RightRegion(props) {
           </select>
           {spectype !== 'asyncapi' ? (
             <select
-              className="col"
+              className="col-12  p-1"
               value={methodChange}
               onChange={(e) => setMethodChange(e.target.value)}>
               {codeSnippetsMethods.length &&

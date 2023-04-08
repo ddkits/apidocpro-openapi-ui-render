@@ -13,7 +13,7 @@ var _react = _interopRequireDefault(require("react"));
 var _ = require(".");
 var _methodRequestBody = require("../core/codesnippets/methodRequestBody");
 var _methodResponses = require("../core/codesnippets/methodResponses");
-var _apidocpro = require("../templates/theme/default/apidocpro");
+var _apidocpro = require("../templates/theme/noTheme/apidocpro");
 var _parameters = require("./assets/parameters");
 var _resolver = require("./resolver");
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -40,7 +40,7 @@ const loopInNestedObjectPaths = function loopInNestedObjectPaths() {
   const PATHSNOW = theme.PATHS ? theme.PATHS : _apidocpro.PATHS;
   const TABSNOW = theme.TABS ? theme.TABS : _apidocpro.TABS;
   function createItem(key, value, type) {
-    if (value !== '' && key !== '') {
+    if (value !== '') {
       var element = PATHSNOW.item.replaceAll('%KEY%', key);
       if (key === '$ref') {
         value = (0, _resolver.resolveRef)(value, schemas);
@@ -73,9 +73,15 @@ const loopInNestedObjectPaths = function loopInNestedObjectPaths() {
   }
   const handleChildren = (key, value, type) => {
     let html = '';
+    if (key.split('').length < 3) {
+      key = '';
+    }
     for (var item in value) {
       let _key = item,
         _val = (0, _.merge)(value[item]);
+      if (_key.split('').length < 3) {
+        _key = '';
+      }
       if (_key == 'parameters') {
         const res = (0, _parameters.parametersTable)(_val);
         html += "<hr><h4 class=\"p-3\">Parameters</h4>".concat(res);
@@ -104,31 +110,34 @@ const loopInNestedObjectPaths = function loopInNestedObjectPaths() {
     }
   }
   function parseObject(obj) {
-    const idLabel = obj ? obj !== null && obj !== void 0 && obj.summary ? obj === null || obj === void 0 ? void 0 : obj.summary : obj !== null && obj !== void 0 && obj.description ? obj === null || obj === void 0 ? void 0 : obj.description : obj !== null && obj !== void 0 && obj.operationId ? obj === null || obj === void 0 ? void 0 : obj.operationId : mainKey : '';
+    let opIdKeyBefore = Math.random();
+    let opIdKey = 0 + opIdKeyBefore;
+    const idLabel = obj ? obj !== null && obj !== void 0 && obj.summary ? obj === null || obj === void 0 ? void 0 : obj.summary : obj !== null && obj !== void 0 && obj.description ? obj === null || obj === void 0 ? void 0 : obj.description : obj !== null && obj !== void 0 && obj.operationId ? obj === null || obj === void 0 ? void 0 : obj.operationId : mainKey + opIdKey : opIdKey;
     const href = idLabel.replaceAll(' ', '_').replaceAll('.', '').replaceAll('{', '').replaceAll('}', '').replaceAll('/', '_');
     let _result = "<section class=\"container-fluid border p-3\" id=\"".concat(href, "\"><details ").concat(collapsible && collapsible ? 'open' : '', "><summary>\n    <b class=\"apidocpro-").concat(mainKey.replaceAll('/', '-'), "-parent\">").concat(mainKey, "</b>\n    <span class=\"pull right\">").concat(obj['summary'] ? obj['summary'] : '', "</span>\n    </summary>\n    <span class=\"apidocpro-").concat(mainKey.replaceAll('/', '-'), "-parent-description\">").concat(obj['description'] ? obj['description'] : '', "</span>\n    <div class=\"container-fluid\">\n    ").concat(TABSNOW.tabsStart.replaceAll('%TABSID%', 'nav-tab'), "\n ");
     let activeTab = 'show active';
     // Create tabs
     Object.keys(obj).map(item => {
-      var _obj$item, _obj$item2;
       let key = item,
         value = obj[item];
       if (custom.includes(key)) {
         return '';
       }
-      const idLabel = ((_obj$item = obj[item]) === null || _obj$item === void 0 ? void 0 : _obj$item.summary) || ((_obj$item2 = obj[item]) === null || _obj$item2 === void 0 ? void 0 : _obj$item2.operationId) || item;
+      const idLabel = item + opIdKey || opIdKey;
       const href = idLabel.replaceAll(' ', '_').replaceAll('.', '').replaceAll('{', '').replaceAll('}', '').replaceAll(',', '');
       _result += TABSNOW.tabLink.replaceAll('%TABID%', href).replaceAll('%ACTIVE%', activeTab).replaceAll('%TABLABEL%', key.toUpperCase().replaceAll(' , ', '').replaceAll('\n,\n', ''));
       activeTab = '';
+      opIdKey++;
     });
     _result += TABSNOW.tabsLinksEnd;
     let active = 'show active';
+    opIdKey = 0 + opIdKeyBefore;
     Object.keys(obj).map(item => {
-      var _obj$item3, _obj$item4, _obj$item5;
+      var _obj$item;
       let key1 = item,
         value1 = obj[item];
       let responses;
-      const idLabel = ((_obj$item3 = obj[item]) === null || _obj$item3 === void 0 ? void 0 : _obj$item3.summary) || ((_obj$item4 = obj[item]) === null || _obj$item4 === void 0 ? void 0 : _obj$item4.operationId) || item;
+      const idLabel = item + opIdKey || opIdKey;
       const href = idLabel.replaceAll(' ', '_').replaceAll('.', '').replaceAll('{', '').replaceAll('}', '').replaceAll(',', '_');
       if (custom.includes(key1) || value1.length === 0) {
         return '';
@@ -136,9 +145,10 @@ const loopInNestedObjectPaths = function loopInNestedObjectPaths() {
       if (!custom.includes(key1)) {
         responses = handleItem(key1, value1);
       }
-      let content = " <div >\n    <div  class=\"bold apidocpro__method--".concat(item, "\">").concat(item, "\n    </div><b>Summary</b> ").concat(obj[item].summary || '', "\n    <div class=\"bold smaller \" >").concat(((_obj$item5 = obj[item]) === null || _obj$item5 === void 0 ? void 0 : _obj$item5.description) || '', "\n    ").concat(responses ? responses : '', "\n    </div></div  class=\" shadow-sm p-3 mb-1 col-md-12 pt-3 rounded \">");
+      let content = " <div >\n    <div  class=\"bold apidocpro__method--".concat(item, "\">").concat(item, "\n    </div><b>Summary</b> ").concat(obj[item].summary || '', "\n    <div class=\"bold smaller \" >").concat(((_obj$item = obj[item]) === null || _obj$item === void 0 ? void 0 : _obj$item.description) || '', "\n    ").concat(responses ? responses : '', "\n    </div></div  class=\" shadow-sm p-3 mb-1 col-md-12 pt-3 rounded \">");
       _result += TABSNOW.tabContent.replaceAll('%TABID%', href).replaceAll('%ACTIVE%', active).replaceAll('%TABCONTENT%', content.replaceAll(' , ', '').replaceAll('\n,\n', ''));
       active = '';
+      opIdKey++;
     });
     _result += TABSNOW.tabsEnd;
     _result += '</div></div></details></section>';

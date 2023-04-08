@@ -9,7 +9,7 @@
 import React, { useEffect, useState } from 'react';
 import propTypes from 'prop-types';
 import { loopInNestedObject } from '../../helpers';
-import AsyncApiTable from '../../helpers/async/template/AsyncApiTable';
+import { loopInNestedAsyncObject } from '../../helpers/async';
 
 export default function MiddleRegion(props) {
   // eslint-disable-next-line react/prop-types
@@ -34,7 +34,7 @@ export default function MiddleRegion(props) {
         spectype === 'openapi' ? (
           loopInNestedObject(resolved, openCollapse ? openCollapse : false, theme)
         ) : (
-          <AsyncApiTable data={data} />
+          loopInNestedAsyncObject(resolved, openCollapse ? openCollapse : false, theme)
         )
       ) : (
         <div className="alert alert-danger">

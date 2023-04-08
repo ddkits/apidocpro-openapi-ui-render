@@ -6,6 +6,8 @@
  * Important: To use this code please leave the copyright in place
  * Reallexi LLC, https://reallexi.com
  */
+import './assets/styles/apidocpro-styles.scss';
+
 let TEMPLATES = {
   item: `<div class="bold apidocpro__method--%KEY%"><b>%KEY%</b> <span class="apidocpro__value apidocpro__value--%TYPE%">%VALUE%</span></div> `,
   itemCollapsible:
@@ -17,14 +19,11 @@ let TEMPLATES = {
     '<details id="%KEY%" class=" p-2" open><summary class="apidocpro__key apidocpro__method--%KEY%"><b>%KEY%</b><span class="apidocpro__value apidocpro__value--type-%TYPE%">%VALUE%</span></summary>%CHILDREN%</details>'
 };
 let TEMPLATESASYNC = {
-  item: `<div class="bold apidocpro__method--%KEY% "><b>%KEY%</b> <span class="apidocpro__value apidocpro__value--%TYPE%">%VALUE%</span></div> `,
+  item: `<div class="bold apidocpro__method--%KEY%"><b>%KEY%</b> <span class="apidocpro__value apidocpro__value--%TYPE%">%VALUE%</span></div> `,
   itemCollapsible:
     '<details id="%KEY%" class="p-2 border"><summary class="apidocpro__key apidocpro__method--%KEY%"><b>%KEY%</b> <span class="apidocpro__value apidocpro__value--type-%TYPE%">%VALUE%</span></summary>%CHILDREN%</details>',
   itemCollapsibleOpen:
-    '<details id="%KEY%" class="p-2 border" open><summary class="apidocpro__key apidocpro__method--%KEY%"><b>%KEY%</b> <span class="apidocpro__value apidocpro__value--type-%TYPE%">%VALUE%</span></summary>%CHILDREN%</details>',
-  infoCollapsible: '<details  id="%KEY%" class="p-2" ><summary>%KEY%</summary>%CHILDREN%</details>',
-  infoCollapsibleOpen:
-    '<details id="%KEY%" class=" p-2 border" open><summary class="apidocpro__key apidocpro__method--%KEY%"><b>%KEY%</b><span class="apidocpro__value apidocpro__value--type-%TYPE%">%VALUE%</span></summary>%CHILDREN%</details>'
+    '<details id="%KEY%" class="p-2 border" open><summary class="apidocpro__key apidocpro__method--%KEY%"><b>%KEY%</b> <span class="apidocpro__value apidocpro__value--type-%TYPE%">%VALUE%</span></summary>%CHILDREN%</details>'
 };
 let PATHS = {
   item: `<div class="bold apidocpro__method--%KEY%">%KEY%<span class="apidocpro__value apidocpro__value--%TYPE%">%VALUE%</span></div> `,

@@ -12,7 +12,7 @@
  */
 import React from 'react';
 import yaml from 'js-yaml';
-import { TEMPLATES, REQUESTBODY, JSONTEMPLATES } from '../templates/theme/default/apidocpro';
+import { TEMPLATES, REQUESTBODY, JSONTEMPLATES } from '../templates/theme/noTheme/apidocpro';
 import Body from '../templates/regions/middle/Body';
 import Header from '../templates/regions/middle/Header';
 import { jsonExample, yamlExample } from './examples';
@@ -91,7 +91,7 @@ const loopInNestedObject = (json = {}, collapsible = false, theme = {}) => {
       tpl = 'itemCollapsibleOpen';
     }
 
-    var element = TEMPLATES[tpl].replaceAll(
+    var element = TEMPLATESNOW[tpl].replaceAll(
       '%KEY%',
       value?.title || value?.name || value?.summary || value?.description || key || ''
     );
@@ -105,11 +105,15 @@ const loopInNestedObject = (json = {}, collapsible = false, theme = {}) => {
 
   function handleChildren(key, value, type) {
     var html = '';
-
+    if (key.split('').length < 3) {
+      key = '';
+    }
     for (var item in value) {
       var _key = item,
         _val = merge(value[item]);
-
+      if (_key.split('').length < 3) {
+        _key = '';
+      }
       html += handleItem(_key, _val);
     }
 
@@ -118,7 +122,8 @@ const loopInNestedObject = (json = {}, collapsible = false, theme = {}) => {
 
   function handleItem(key, value) {
     var type = typeof value;
-    let paths = '';
+    let paths = '',
+      components = '';
 
     if (key == 'info') {
       return {
@@ -135,12 +140,21 @@ const loopInNestedObject = (json = {}, collapsible = false, theme = {}) => {
         case 'openapi':
         case 'swagger':
         case 'async':
-        case '':
-          return;
         case 'tags':
           return;
         case 'components':
-          return;
+          components = '';
+          if (typeof value === 'object') {
+            for (var item1 in value) {
+              let key1 = item1,
+                value1 = value[item1];
+
+              const res = loopInNestedObjectPaths(value1, collapsible, key1, schemas, theme);
+
+              components += `${res}`;
+            }
+          }
+          return components;
         case 'paths':
           paths = '';
           if (typeof value === 'object') {
@@ -155,6 +169,9 @@ const loopInNestedObject = (json = {}, collapsible = false, theme = {}) => {
           }
           return paths;
         default:
+          if (key.split('').length < 3) {
+            key = '';
+          }
           if (typeof value === 'object') {
             return handleChildren(key, value, type);
           }
@@ -249,7 +266,7 @@ function jsonViewer(json, collapsible = false, theme) {
   const TEMPLATESNOW = theme.JSONTEMPLATES ? theme.JSONTEMPLATES : JSONTEMPLATES;
 
   function createItem(key, value, type) {
-    if (key.split('').length < 2) {
+    if (key.split('').length < 3) {
       key = type.toUpperCase();
     }
     var element = TEMPLATESNOW.item.replaceAll('%KEY%', key);
@@ -266,7 +283,7 @@ function jsonViewer(json, collapsible = false, theme) {
   }
 
   function createCollapsibleItem(key, value, type, children) {
-    if (key.split('').length < 2) {
+    if (key.split('').length < 3) {
       key = type.toUpperCase();
     }
     var tpl = 'itemCollapsible';
@@ -285,15 +302,17 @@ function jsonViewer(json, collapsible = false, theme) {
   }
 
   function handleChildren(key, value, type) {
-    if (key.split('').length < 2) {
-      key = type.toUpperCase();
+    if (key.split('').length < 3) {
+      key = '';
     }
     var html = '';
 
     for (var item in value) {
       var _key = item,
         _val = merge(value[item]);
-
+      if (_key.split('').length < 3) {
+        _key = '';
+      }
       html += handleItem(_key, _val);
     }
 
@@ -302,8 +321,8 @@ function jsonViewer(json, collapsible = false, theme) {
 
   function handleItem(key, value) {
     var type = typeof value;
-    if (key.split('').length < 2) {
-      key = type.toUpperCase();
+    if (key.split('').length < 3) {
+      key = '';
     }
     if (typeof value === 'object') {
       return handleChildren(key, value, type);
@@ -343,17 +362,18 @@ function requestBodyViewer(json, collapsible = false, theme = {}) {
 
   function createItem(key, value, type, desc = '') {
     let html = '';
-    if (key !== '') {
-      var element = TEMPLATESNOW.item.replaceAll('%KEY%', key);
-      if (type === 'string') {
-        element = element.replaceAll('%VALUE%', '"' + value + '"');
-      } else {
-        element = element.replaceAll('%VALUE%', value);
-      }
-      element = element.replaceAll('%TYPE%', type);
-      element = element.replaceAll('%DESC%', desc);
-      html += element;
+    if (key.split('').length < 3) {
+      key = '';
     }
+    var element = TEMPLATESNOW.item.replaceAll('%KEY%', key);
+    if (type === 'string') {
+      element = element.replaceAll('%VALUE%', '"' + value + '"');
+    } else {
+      element = element.replaceAll('%VALUE%', value);
+    }
+    element = element.replaceAll('%TYPE%', type);
+    element = element.replaceAll('%DESC%', desc);
+    html += element;
     return html;
   }
 
@@ -376,9 +396,15 @@ function requestBodyViewer(json, collapsible = false, theme = {}) {
   function handleChildren(key, value, type) {
     var html = '';
     var result = '';
+    if (key.split('').length < 3) {
+      key = '';
+    }
     for (var item in value) {
       var _key = item,
         _val = merge(value[item]);
+      if (_key.split('').length < 3) {
+        _key = '';
+      }
       if (_val !== '') {
         html += handleItem(_key, _val);
       }

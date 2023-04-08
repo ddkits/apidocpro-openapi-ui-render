@@ -4,9 +4,7 @@ import React, { useEffect, useState } from 'react';
 import './App.css';
 import { ApiDocPro } from './lib/components';
 // Custom Theme can be clones from Default example when needed
-import * as THEME from './lib/components/templates/theme/default/apidocpro';
-// Styles import
-import './lib/components/templates/theme/default/assets/styles/apidocpro-styles.scss';
+// import * as THEME from './lib/components/templates/theme/default/apidocpro';
 function App() {
   const [spec, setSpec] = useState();
   const [loading, setLoading] = useState(true);
@@ -40,7 +38,7 @@ function App() {
         rightregion={true} // Bool default false
         leftregion={true} // Bool default false
         header={true} // Bool default false
-        theme={THEME} // Object of const default can be clones for new theme design or contribute
+        // theme={THEME} // Object of const default can be clones for new theme design or contribute
         spec={spec} // string/object
       />
     </div>

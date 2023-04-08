@@ -12,7 +12,7 @@ import React from 'react';
 import { merge } from '.';
 import { methodRequestBody } from '../core/codesnippets/methodRequestBody';
 import { methodResponses } from '../core/codesnippets/methodResponses';
-import { PATHS, TABS } from '../templates/theme/default/apidocpro';
+import { PATHS, TABS } from '../templates/theme/noTheme/apidocpro';
 import { parametersTable } from './assets/parameters';
 import { resolveRef } from './resolver';
 
@@ -45,7 +45,7 @@ const loopInNestedObjectPaths = (
   const PATHSNOW = theme.PATHS ? theme.PATHS : PATHS;
   const TABSNOW = theme.TABS ? theme.TABS : TABS;
   function createItem(key, value, type) {
-    if (value !== '' && key !== '') {
+    if (value !== '') {
       var element = PATHSNOW.item.replaceAll('%KEY%', key);
       if (key === '$ref') {
         value = resolveRef(value, schemas);
@@ -88,11 +88,15 @@ const loopInNestedObjectPaths = (
 
   const handleChildren = (key, value, type) => {
     let html = '';
-
+    if (key.split('').length < 3) {
+      key = '';
+    }
     for (var item in value) {
       let _key = item,
         _val = merge(value[item]);
-
+      if (_key.split('').length < 3) {
+        _key = '';
+      }
       if (_key == 'parameters') {
         const res = parametersTable(_val);
         html += `<hr><h4 class="p-3">Parameters</h4>${res}`;
@@ -124,6 +128,8 @@ const loopInNestedObjectPaths = (
   }
 
   function parseObject(obj) {
+    let opIdKeyBefore = Math.random();
+    let opIdKey = 0 + opIdKeyBefore;
     const idLabel = obj
       ? obj?.summary
         ? obj?.summary
@@ -131,8 +137,8 @@ const loopInNestedObjectPaths = (
         ? obj?.description
         : obj?.operationId
         ? obj?.operationId
-        : mainKey
-      : '';
+        : mainKey + opIdKey
+      : opIdKey;
 
     const href = idLabel
       .replaceAll(' ', '_')
@@ -161,7 +167,7 @@ const loopInNestedObjectPaths = (
       if (custom.includes(key)) {
         return '';
       }
-      const idLabel = obj[item]?.summary || obj[item]?.operationId || item;
+      const idLabel = item + opIdKey || opIdKey;
       const href = idLabel
         .replaceAll(' ', '_')
         .replaceAll('.', '')
@@ -173,14 +179,16 @@ const loopInNestedObjectPaths = (
         .replaceAll('%ACTIVE%', activeTab)
         .replaceAll('%TABLABEL%', key.toUpperCase().replaceAll(' , ', '').replaceAll('\n,\n', ''));
       activeTab = '';
+      opIdKey++;
     });
     _result += TABSNOW.tabsLinksEnd;
     let active = 'show active';
+    opIdKey = 0 + opIdKeyBefore;
     Object.keys(obj).map((item) => {
       let key1 = item,
         value1 = obj[item];
       let responses;
-      const idLabel = obj[item]?.summary || obj[item]?.operationId || item;
+      const idLabel = item + opIdKey || opIdKey;
       const href = idLabel
         .replaceAll(' ', '_')
         .replaceAll('.', '')
@@ -205,6 +213,7 @@ const loopInNestedObjectPaths = (
         .replaceAll('%ACTIVE%', active)
         .replaceAll('%TABCONTENT%', content.replaceAll(' , ', '').replaceAll('\n,\n', ''));
       active = '';
+      opIdKey++;
     });
     _result += TABSNOW.tabsEnd;
     _result += '</div></div></details></section>';

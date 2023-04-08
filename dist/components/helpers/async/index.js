@@ -15,7 +15,7 @@ require("core-js/modules/es.symbol.description.js");
 require("core-js/modules/es.json.stringify.js");
 var _react = _interopRequireDefault(require("react"));
 var _jsYaml = _interopRequireDefault(require("js-yaml"));
-var _apidocpro = require("../../templates/theme/default/apidocpro");
+var _apidocpro = require("../../templates/theme/noTheme/apidocpro");
 var _Body = _interopRequireDefault(require("../../templates/regions/middle/Body"));
 var _Header = _interopRequireDefault(require("../../templates/regions/middle/Header"));
 var _resolver = require("./../resolver");
@@ -65,9 +65,6 @@ const loopInNestedAsyncObject = function loopInNestedAsyncObject() {
     return element;
   }
   function createCollapsibleItem(key, value, type, children) {
-    if (key.split('').length < 2) {
-      key = type.toUpperCase();
-    }
     var tpl = 'itemCollapsible';
     if (key === '$ref') {
       value = (0, _resolver.resolveRef)(key, schemas);
@@ -83,18 +80,24 @@ const loopInNestedAsyncObject = function loopInNestedAsyncObject() {
   }
   function handleChildren(key, value, type) {
     if (key.split('').length < 2) {
-      key = type.toUpperCase();
+      key = '';
     }
     var html = '';
     for (var item in value) {
       var _key = item,
         _val = (0, _.merge)(value[item]);
+      if (_key.split('').length < 3) {
+        _key = '';
+      }
       html += handleItem(_key, _val);
     }
     return createCollapsibleItem(key, value, type, html);
   }
   function handleItem(key, value) {
     var type = typeof value;
+    if (key.split('').length < 3) {
+      key = '';
+    }
     if (typeof value === 'object') {
       return handleChildren(key, value, type);
     }
@@ -109,7 +112,16 @@ const loopInNestedAsyncObject = function loopInNestedAsyncObject() {
       return;
     }
     let result = '<section>';
-    let title, version, description, contact, servers, license, specType, summary, externalDocs;
+    let title,
+      version,
+      description,
+      contact,
+      servers,
+      license,
+      specType,
+      summary,
+      externalDocs,
+      serversNow = [];
     for (var item in obj) {
       let key = item,
         value = obj[item];
@@ -120,7 +132,7 @@ const loopInNestedAsyncObject = function loopInNestedAsyncObject() {
         case 'swagger':
           specType = key.toUpperCase();
           break;
-        case 'async':
+        case 'asyncapi':
           specType = key.toUpperCase();
           break;
         case 'info':
@@ -133,9 +145,6 @@ const loopInNestedAsyncObject = function loopInNestedAsyncObject() {
           break;
         case 'contact':
           contact = value;
-          break;
-        case 'servers':
-          servers = value;
           break;
         case 'externalDocs':
           externalDocs = value;
@@ -150,8 +159,19 @@ const loopInNestedAsyncObject = function loopInNestedAsyncObject() {
     result += '</section>';
     return /*#__PURE__*/_react.default.createElement("div", {
       className: "apidocpro-details"
-    }, /*#__PURE__*/_react.default.createElement(_Body.default, {
-      data: result,
+    }, /*#__PURE__*/_react.default.createElement(_Header.default, {
+      spectitle: title,
+      specversion: version,
+      specdescription: description,
+      specType: specType,
+      speccontact: contact,
+      spec: json,
+      specservers: [],
+      speclicense: license,
+      specsummary: summary,
+      specexternaldocs: externalDocs || []
+    }), /*#__PURE__*/_react.default.createElement(_Body.default, {
+      data: result.replaceAll('undefined', ''),
       servers: servers,
       spec: json,
       collapsible: collapsible
@@ -205,6 +225,9 @@ function jsonViewerAsync(json) {
   }
   function handleItem(key, value) {
     var type = typeof value;
+    if (key.split('').length < 3) {
+      key = '';
+    }
     if (typeof value === 'object') {
       return handleChildren(key, value, type);
     } else if (typeof value === 'string') {
@@ -279,7 +302,9 @@ function requestBodyViewerAsync(json) {
     return _result;
   }
   function parseObject(obj) {
-    let _result = '<table class="align-top table table-responsive "><tbody>';
+    const idLabel = obj ? obj !== null && obj !== void 0 && obj.summary ? obj === null || obj === void 0 ? void 0 : obj.summary : obj !== null && obj !== void 0 && obj.description ? obj === null || obj === void 0 ? void 0 : obj.description : obj !== null && obj !== void 0 && obj.operationId ? obj === null || obj === void 0 ? void 0 : obj.operationId : Math.random() : Math.random();
+    const href = idLabel.replaceAll(' ', '_').replaceAll('.', '').replaceAll('{', '').replaceAll('}', '').replaceAll('/', '_');
+    let _result = "<section class=\"container-fluid border p-3\" id=\"".concat(href, "\">");
     for (var item in obj) {
       var key = item,
         value = obj[item];
@@ -306,7 +331,7 @@ function requestBodyViewerAsync(json) {
       });
       result += "</details>";
     });
-    result += "</details>";
+    result += "</details></section>";
     _result += result.replaceAll('%TYPERESULTS%', element);
   });
   return _result;

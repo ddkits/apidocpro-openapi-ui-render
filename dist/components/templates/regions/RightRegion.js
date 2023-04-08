@@ -127,9 +127,9 @@ function RightRegion(props) {
     id: "apidocpro-codesnippet",
     className: "shadow-sm maxw-100 rounded"
   }, /*#__PURE__*/_react.default.createElement("h3", null, spectype === 'openapi' ? "Request Example(s)" : spectype === 'asyncapi' ? "Channel(s)" : 'RightRegion'), /*#__PURE__*/_react.default.createElement("div", {
-    className: "d-flex"
+    className: "col-12 p-1"
   }, /*#__PURE__*/_react.default.createElement("select", {
-    className: "col",
+    className: "col-12 p-1",
     value: pathChange,
     onChange: e => setpathChange(e.target.value)
   }, codeSnippetsPaths.length && Object.keys(codeSnippetsPaths).map(xx => {
@@ -139,7 +139,7 @@ function RightRegion(props) {
       value: xx
     }, codeSnippetsPaths[xx].key);
   })), spectype !== 'asyncapi' ? /*#__PURE__*/_react.default.createElement("select", {
-    className: "col",
+    className: "col-12  p-1",
     value: methodChange,
     onChange: e => setMethodChange(e.target.value)
   }, codeSnippetsMethods.length && Object.keys(codeSnippetsMethods).map(xx => {

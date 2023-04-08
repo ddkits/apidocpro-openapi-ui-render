@@ -5,18 +5,23 @@ require("core-js/modules/web.dom-collections.iterator.js");
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.APIDOCPROTHEME = void 0;
+exports.APIDOCPROTHEMEGREEN = exports.APIDOCPROTHEME = exports.APIDOCPRONOTHEME = void 0;
 Object.defineProperty(exports, "ApiDocPro", {
   enumerable: true,
   get: function get() {
     return _templates.default;
   }
 });
+var React = _interopRequireWildcard(require("react"));
 require("bootstrap/dist/css/bootstrap.min.css");
 require("font-awesome/css/font-awesome.min.css");
 require("bootstrap/dist/js/bootstrap.bundle.min.js");
-var APIDOCPROTHEME = _interopRequireWildcard(require("./templates/theme/default/apidocpro"));
-exports.APIDOCPROTHEME = APIDOCPROTHEME;
+var APIDOCPRONOTHEME = _interopRequireWildcard(require("./templates/theme/default/apidocpro"));
+var APIDOCPROTHEME = APIDOCPRONOTHEME;
+exports.APIDOCPRONOTHEME = APIDOCPRONOTHEME;
+exports.APIDOCPROTHEME = APIDOCPRONOTHEME;
+var APIDOCPROTHEMEGREEN = _interopRequireWildcard(require("./templates/theme/green/apidocpro"));
+exports.APIDOCPROTHEMEGREEN = APIDOCPROTHEMEGREEN;
 var _templates = _interopRequireDefault(require("./templates"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function _getRequireWildcardCache(nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }

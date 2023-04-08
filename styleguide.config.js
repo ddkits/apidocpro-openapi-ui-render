@@ -96,10 +96,10 @@ module.exports = {
   },
   theme: {
     color: {
-      base: '#000',
-      light: '#f8f9fa',
+      base: '#000000',
+      light: '#0f3452',
       lightest: '#ccc',
-      link: '#f8f9fa',
+      link: '#FFFFFF',
       linkHover: '#343a40',
       focus: 'rgba(22, 115, 177, 0.25)',
       border: '#e8e8e8',
@@ -108,8 +108,8 @@ module.exports = {
       error: '#c00',
       baseBackground: '#fff',
       codeBackground: '#000',
-      sidebarBackground: '#648cff',
-      ribbonBackground: '#648cff',
+      sidebarBackground: '#007bff',
+      ribbonBackground: '#007bff',
       ribbonText: '#fff',
       // Based on default Prism theme
       codeBase: '#fff',

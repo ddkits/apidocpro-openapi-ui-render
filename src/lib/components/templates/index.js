@@ -9,7 +9,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import propTypes from 'prop-types';
-import { yamlExample, yamlToJson } from '../helpers';
+import { jsonExample, yamlExample, yamlToJson } from '../helpers';
 import LeftRegion from './regions/LeftRegion';
 import MiddleRegion from './regions/MiddleRegion';
 import RightRegion from './regions/RightRegion';
@@ -61,10 +61,14 @@ export default function ApiDocPro(props) {
     }
     console.log(spectype);
 
-    if (newSpec && newSpec.length > 0) {
-      setSpecification(newSpec);
+    if (newSpec) {
+      try {
+        setSpecification(JSON.parse(newSpec));
+      } catch (error) {
+        setSpecification(newSpec);
+      }
     } else {
-      setSpecification(yamlExample);
+      setSpecification(jsonExample);
     }
     const ob = yamlToJson(newSpec) ? yamlToJson(newSpec) : newSpec;
     setObj(ob);
@@ -112,7 +116,7 @@ export default function ApiDocPro(props) {
   const goToDefault = () => {
     localStorage.removeItem('spec');
     setLoading(true);
-    rebuild();
+    rebuild(specification);
   };
   return (
     <div className="container-fluid p-0 m-0">
