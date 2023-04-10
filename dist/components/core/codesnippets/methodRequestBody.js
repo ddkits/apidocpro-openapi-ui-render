@@ -1,12 +1,3 @@
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.methodRequestBody = methodRequestBody;
-var _helpers = require("../../helpers");
-var _CurlSnippet = _interopRequireDefault(require("./langs/CurlSnippet"));
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 /**
  * ApiDocPro UI render, for AsyncAPI, Swagger and OpenApi
  * Built by Sam Ayoub, DDKits.com
@@ -18,17 +9,19 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 
+import { requestBodyViewer } from '../../helpers';
+import CurlSnippet from './langs/CurlSnippet';
 function methodRequestBody(spec, path, server, reqtype, description, method) {
-  let result = '<section class="container-fluid d-block ">';
-  let properties = [];
-  let typeNow = '';
-  let descriptionNow = description ? description : '';
+  var result = '<section class="container-fluid d-block ">';
+  var properties = [];
+  var typeNow = '';
+  var descriptionNow = description ? description : '';
 
   // Extract the properties from the schema
-  Object.keys(spec).map(key => {
+  Object.keys(spec).map(function (key) {
     switch (key) {
       case 'content':
-        result += (0, _helpers.requestBodyViewer)(spec[key], true);
+        result += requestBodyViewer(spec[key], true);
         break;
       case 'description':
       case 'summary':
@@ -40,3 +33,4 @@ function methodRequestBody(spec, path, server, reqtype, description, method) {
   });
   return "".concat(result, "</section>");
 }
+export { methodRequestBody };

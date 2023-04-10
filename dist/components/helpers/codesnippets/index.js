@@ -6,4 +6,3 @@
  * Important: To use this code please leave the copyright in place
  * Reallexi LLC, https://reallexi.com
  */
-"use strict";

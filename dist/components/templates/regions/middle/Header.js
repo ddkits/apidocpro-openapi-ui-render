@@ -1,17 +1,9 @@
-"use strict";
-
-require("core-js/modules/es.weak-map.js");
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = Header;
-require("core-js/modules/web.dom-collections.iterator.js");
-require("core-js/modules/es.symbol.description.js");
-var _react = _interopRequireWildcard(require("react"));
-var _propTypes = _interopRequireDefault(require("prop-types"));
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function _getRequireWildcardCache(nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
-function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+function _iterableToArrayLimit(arr, i) { var _i = null == arr ? null : "undefined" != typeof Symbol && arr[Symbol.iterator] || arr["@@iterator"]; if (null != _i) { var _s, _e, _x, _r, _arr = [], _n = !0, _d = !1; try { if (_x = (_i = _i.call(arr)).next, 0 === i) { if (Object(_i) !== _i) return; _n = !1; } else for (; !(_n = (_s = _x.call(_i)).done) && (_arr.push(_s.value), _arr.length !== i); _n = !0); } catch (err) { _d = !0, _e = err; } finally { try { if (!_n && null != _i.return && (_r = _i.return(), Object(_r) !== _r)) return; } finally { if (_d) throw _e; } } return _arr; } }
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 /**
  * ApiDocPro UI render, for AsyncAPI, Swagger and OpenApi
  * Built by Sam Ayoub, DDKits.com
@@ -20,84 +12,92 @@ function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && 
  * Important: To use this code please leave the copyright in place
  * Reallexi LLC, https://reallexi.com
  */
-
-function Header(props) {
-  const [loading, setLoading] = (0, _react.useState)(true);
-  const {
-    spectitle,
-    specversion,
-    specdescription,
-    specType,
-    specsummary,
-    speccontact,
-    specservers,
-    specexternaldocs
-  } = props;
+import React, { useEffect, useState } from 'react';
+import propTypes from 'prop-types';
+export default function Header(props) {
+  var _useState = useState(true),
+    _useState2 = _slicedToArray(_useState, 2),
+    loading = _useState2[0],
+    setLoading = _useState2[1];
+  var spectitle = props.spectitle,
+    specversion = props.specversion,
+    specdescription = props.specdescription,
+    specType = props.specType,
+    specsummary = props.specsummary,
+    speccontact = props.speccontact,
+    specservers = props.specservers,
+    specexternaldocs = props.specexternaldocs;
   //   const { data, type, contact, spec } = props;
 
-  (0, _react.useEffect)(() => {
+  useEffect(function () {
     setLoading(false);
   }, [props]);
-  return loading ? /*#__PURE__*/_react.default.createElement("div", {
+  return loading ? /*#__PURE__*/React.createElement("div", {
     className: "container"
-  }, /*#__PURE__*/_react.default.createElement("i", {
+  }, /*#__PURE__*/React.createElement("i", {
     className: "fa-solid fa-sync fa-spin"
-  })) : /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("div", {
+  })) : /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
     className: "m-0 p-3 bg-light text-dark"
-  }, /*#__PURE__*/_react.default.createElement("div", {
+  }, /*#__PURE__*/React.createElement("div", {
     className: "d-flex justify-space-between p-3"
-  }, /*#__PURE__*/_react.default.createElement("div", {
+  }, /*#__PURE__*/React.createElement("div", {
     className: "col-8 content-main"
-  }, /*#__PURE__*/_react.default.createElement("h1", {
+  }, /*#__PURE__*/React.createElement("h1", {
     className: "h3"
-  }, spectitle || '', " ")), /*#__PURE__*/_react.default.createElement("div", {
+  }, spectitle || '', " ")), /*#__PURE__*/React.createElement("div", {
     className: "col  content-secondary text-end"
-  }, /*#__PURE__*/_react.default.createElement("span", {
+  }, /*#__PURE__*/React.createElement("span", {
     className: "badge rounded-pill bg-warning text-dark"
-  }, specType || ''), /*#__PURE__*/_react.default.createElement("span", {
+  }, specType || ''), /*#__PURE__*/React.createElement("span", {
     className: "badge rounded-pill bg-primary"
-  }, specversion || ''))), /*#__PURE__*/_react.default.createElement("div", {
+  }, specversion || ''))), /*#__PURE__*/React.createElement("div", {
     className: "row  p-3 small"
-  }, specdescription || ''), /*#__PURE__*/_react.default.createElement("div", {
+  }, specdescription || ''), /*#__PURE__*/React.createElement("div", {
     className: "row  p-3 small"
-  }, specsummary || ''), specexternaldocs ? /*#__PURE__*/_react.default.createElement("div", {
+  }, specsummary || ''), specexternaldocs ? /*#__PURE__*/React.createElement("div", {
     className: " row col "
-  }, /*#__PURE__*/_react.default.createElement("a", {
+  }, /*#__PURE__*/React.createElement("a", {
     className: "badge rounded-pill col bg-dark text-light",
     href: specexternaldocs.url,
     key: specexternaldocs.url
-  }, specexternaldocs.title || specexternaldocs.name || specexternaldocs.description || "External Link"), speccontact ? Object.keys(speccontact).map(key => /*#__PURE__*/_react.default.createElement("div", {
-    className: "badge rounded-pill col bg-dark text-light",
-    key: "".concat(key, "-key")
-  }, "".concat(key, ":  ").concat(speccontact[key]))) : '') : '', specservers ? /*#__PURE__*/_react.default.createElement("div", {
+  }, specexternaldocs.title || specexternaldocs.name || specexternaldocs.description || "External Link"), speccontact ? Object.keys(speccontact).map(function (key) {
+    return /*#__PURE__*/React.createElement("div", {
+      className: "badge rounded-pill col bg-dark text-light",
+      key: "".concat(key, "-key")
+    }, "".concat(key, ":  ").concat(speccontact[key]));
+  }) : '') : '', specservers ? /*#__PURE__*/React.createElement("div", {
     className: "row  p-3 small"
-  }, /*#__PURE__*/_react.default.createElement("select", {
+  }, /*#__PURE__*/React.createElement("select", {
     value: specservers[0],
-    onChange: e => console.log(e.target.value)
-  }, specservers.map(x => /*#__PURE__*/_react.default.createElement("option", {
-    value: x.url,
-    key: x.url
-  }, x.url)))) : ''));
+    onChange: function onChange(e) {
+      return console.log(e.target.value);
+    }
+  }, specservers.map(function (x) {
+    return /*#__PURE__*/React.createElement("option", {
+      value: x.url,
+      key: x.url
+    }, x.url);
+  }))) : ''));
 }
 Header.propTypes = {
   /** specdata props, spec contents/string/object */
-  specdata: _propTypes.default.any,
+  specdata: propTypes.any,
   /** spec summary */
-  specsummary: _propTypes.default.string,
+  specsummary: propTypes.string,
   /** spec contact info */
-  speccontact: _propTypes.default.any,
+  speccontact: propTypes.any,
   /** spec contact title */
-  spectitle: _propTypes.default.string,
+  spectitle: propTypes.string,
   /** spec version info */
-  specversion: _propTypes.default.string,
+  specversion: propTypes.string,
   /** spec description info */
-  specdescription: _propTypes.default.string,
+  specdescription: propTypes.string,
   /** spec type info */
-  specType: _propTypes.default.string,
+  specType: propTypes.string,
   /** spec info */
-  spec: _propTypes.default.any,
+  spec: propTypes.any,
   /** spec servers array */
-  specservers: _propTypes.default.array,
+  specservers: propTypes.array,
   /** spec externaldocs or links info */
-  specexternaldocs: _propTypes.default.any
+  specexternaldocs: propTypes.any
 };

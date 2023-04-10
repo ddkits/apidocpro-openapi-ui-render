@@ -1,22 +1,9 @@
-"use strict";
-
-require("core-js/modules/es.weak-map.js");
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = LeftRegion;
-require("core-js/modules/web.dom-collections.iterator.js");
-require("core-js/modules/es.symbol.description.js");
-require("core-js/modules/es.regexp.exec.js");
-require("core-js/modules/es.string.replace.js");
-require("core-js/modules/esnext.string.replace-all.js");
-var _react = _interopRequireWildcard(require("react"));
-var _propTypes = _interopRequireDefault(require("prop-types"));
-var _leftside = require("../../core/leftside");
-var _reactScroll = require("react-scroll");
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function _getRequireWildcardCache(nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
-function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+function _iterableToArrayLimit(arr, i) { var _i = null == arr ? null : "undefined" != typeof Symbol && arr[Symbol.iterator] || arr["@@iterator"]; if (null != _i) { var _s, _e, _x, _r, _arr = [], _n = !0, _d = !1; try { if (_x = (_i = _i.call(arr)).next, 0 === i) { if (Object(_i) !== _i) return; _n = !1; } else for (; !(_n = (_s = _x.call(_i)).done) && (_arr.push(_s.value), _arr.length !== i); _n = !0); } catch (err) { _d = !0, _e = err; } finally { try { if (!_n && null != _i.return && (_r = _i.return(), Object(_r) !== _r)) return; } finally { if (_d) throw _e; } } return _arr; } }
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 /**
  * ApiDocPro UI render, for AsyncAPI, Swagger and OpenApi
  * Built by Sam Ayoub, DDKits.com
@@ -26,56 +13,61 @@ function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && 
  * Reallexi LLC, https://reallexi.com
  */
 /* eslint-disable no-unused-vars */
+import React, { useState, useEffect } from 'react';
+import propTypes from 'prop-types';
+import { createMenuItems } from '../../core/leftside';
+import { Link, Button, Element, Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll';
 
 // eslint-disable-next-line no-unused-vars
-function LeftRegion(props) {
-  const {
-    data,
-    spectype
-  } = props;
-  const [menuData, setMenuData] = (0, _react.useState)([]);
-  (0, _react.useEffect)(() => {
+export default function LeftRegion(props) {
+  var data = props.data,
+    spectype = props.spectype;
+  var _useState = useState([]),
+    _useState2 = _slicedToArray(_useState, 2),
+    menuData = _useState2[0],
+    setMenuData = _useState2[1];
+  useEffect(function () {
     if (data && spectype !== 'asyncapi') {
-      const final = (0, _leftside.createMenuItems)(data);
+      var final = createMenuItems(data);
       setMenuData(final);
     }
   }, [data]);
-  return /*#__PURE__*/_react.default.createElement("div", {
+  return /*#__PURE__*/React.createElement("div", {
     className: " pt-5 mt-5 sticky-top",
     id: "nav-bar"
-  }, /*#__PURE__*/_react.default.createElement("nav", {
+  }, /*#__PURE__*/React.createElement("nav", {
     className: "sidenav"
-  }, /*#__PURE__*/_react.default.createElement("ul", {
+  }, /*#__PURE__*/React.createElement("ul", {
     className: "main-buttons "
-  }, menuData && Object.keys(menuData).map(key => {
-    return /*#__PURE__*/_react.default.createElement("li", {
+  }, menuData && Object.keys(menuData).map(function (key) {
+    return /*#__PURE__*/React.createElement("li", {
       key: key
-    }, /*#__PURE__*/_react.default.createElement("i", {
+    }, /*#__PURE__*/React.createElement("i", {
       className: "fa fa-circle active-icon",
       id: key,
       title: "".concat(key),
       "data-bs-original-title": "".concat(key)
-    }), key, /*#__PURE__*/_react.default.createElement("ul", {
+    }), key, /*#__PURE__*/React.createElement("ul", {
       className: "hidden"
-    }, Object.keys(menuData[key]).map((menuItem, xds) => {
+    }, Object.keys(menuData[key]).map(function (menuItem, xds) {
       var _menuData$key$menuIte, _menuData$key$menuIte2, _menuData$key$menuIte3;
-      const idLabel = ((_menuData$key$menuIte = menuData[key][menuItem]) === null || _menuData$key$menuIte === void 0 ? void 0 : _menuData$key$menuIte.summary) || ((_menuData$key$menuIte2 = menuData[key][menuItem]) === null || _menuData$key$menuIte2 === void 0 ? void 0 : _menuData$key$menuIte2.description) || ((_menuData$key$menuIte3 = menuData[key][menuItem]) === null || _menuData$key$menuIte3 === void 0 ? void 0 : _menuData$key$menuIte3.operationId) || key;
-      const href = idLabel.replaceAll(' ', '_').replaceAll('.', '').replaceAll('{', '').replaceAll('}', '').replaceAll('/', '_');
-      return /*#__PURE__*/_react.default.createElement(_reactScroll.Link, {
+      var idLabel = ((_menuData$key$menuIte = menuData[key][menuItem]) === null || _menuData$key$menuIte === void 0 ? void 0 : _menuData$key$menuIte.summary) || ((_menuData$key$menuIte2 = menuData[key][menuItem]) === null || _menuData$key$menuIte2 === void 0 ? void 0 : _menuData$key$menuIte2.description) || ((_menuData$key$menuIte3 = menuData[key][menuItem]) === null || _menuData$key$menuIte3 === void 0 ? void 0 : _menuData$key$menuIte3.operationId) || key;
+      var href = idLabel.replaceAll(' ', '_').replaceAll('.', '').replaceAll('{', '').replaceAll('}', '').replaceAll('/', '_');
+      return /*#__PURE__*/React.createElement(Link, {
         activeClass: "active",
         smooth: true,
         spy: true,
         to: "".concat(href),
         key: menuData[key][menuItem] + xds
-      }, /*#__PURE__*/_react.default.createElement("li", {
+      }, /*#__PURE__*/React.createElement("li", {
         id: "".concat(href, "-link")
       }, menuData[key][menuItem].method, " - ", menuData[key][menuItem].summary), ' ');
     })));
   }))));
 }
 LeftRegion.propTypes = {
-  data: _propTypes.default.any,
-  spectype: _propTypes.default.string,
-  resolved: _propTypes.default.any,
-  theme: _propTypes.default.object
+  data: propTypes.any,
+  spectype: propTypes.string,
+  resolved: propTypes.any,
+  theme: propTypes.object
 };

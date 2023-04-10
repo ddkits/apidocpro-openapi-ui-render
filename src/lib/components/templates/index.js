@@ -6,7 +6,6 @@
  * Important: To use this code please leave the copyright in place
  * Reallexi LLC, https://reallexi.com
  */
-/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import propTypes from 'prop-types';
 import { jsonExample, yamlExample, yamlToJson } from '../helpers';
@@ -16,6 +15,7 @@ import RightRegion from './regions/RightRegion';
 import { resolveRefs } from '../core/resolver';
 import FileUploadPage from '../core/FileUploadPage';
 import ErrorBoundary from '../core/ErrorBoundary';
+import FileUrl from '../core/FileUrl';
 
 export default function ApiDocPro(props) {
   // eslint-disable-next-line react/prop-types
@@ -25,7 +25,7 @@ export default function ApiDocPro(props) {
   // eslint-disable-next-line no-unused-vars
   const [obj, setObj] = useState();
   const [resolved, setResolved] = useState();
-  const { title = '', spec, collapse, theme } = props;
+  const { title = '', spec, collapse, theme, leftregion, rightregion, header } = props;
   const [openCollapse, setopenCollapse] = useState(false);
   const [head, setHead] = useState(true);
   const [spectype, setspectype] = useState('');
@@ -59,7 +59,6 @@ export default function ApiDocPro(props) {
     } else {
       setspectype('openapi');
     }
-    console.log(spectype);
 
     if (newSpec) {
       try {
@@ -93,18 +92,18 @@ export default function ApiDocPro(props) {
   useEffect(() => {
     setLoading(true);
     rebuild(spec);
-    if (props?.leftregion) {
-      setLeft(props?.leftregion);
+    if (leftregion) {
+      setLeft(leftregion);
     } else {
       setLeft(false);
     }
-    if (props?.rightregion) {
-      setRight(props?.rightregion);
+    if (rightregion) {
+      setRight(rightregion);
     } else {
       setRight(false);
     }
-    if (props?.header) {
-      setHead(props?.header);
+    if (header) {
+      setHead(header);
     } else {
       setHead(false);
     }
@@ -123,25 +122,31 @@ export default function ApiDocPro(props) {
       {head && spectype !== '' && (
         <header className="row p-3 bg-light sticky-top shadow pt-5 pb-3 m-0 mb-3 maxw-100 ">
           <div className="col text-start">{title || 'APIDocPro UI'}</div>
-          <div className="col pull-right ">
+          <div className="col text-start">
+            <FileUrl handleFileCallback={(e) => handleFileCallback(e)} />
             <FileUploadPage handleFileCallback={(e) => handleFileCallback(e)} />
+          </div>
+          <div className="col pull-right">
             <button
-              className="icon badge rounded-pill bg-dark text-light"
+              className="icon badge rounded-pill bg-dark text-light form-control"
               onClick={() => setLeft(!left)}>
-              <i className="fa fa-caret-left"></i>
+              <i className="fa fa-caret-left"></i> Left-side Menu
             </button>
+
             <button
-              className="icon badge rounded-pill bg-dark text-light"
-              onClick={() => setopenCollapse(!openCollapse)}>
-              <i className="fa fa-bars"></i>
-            </button>
-            <button
-              className="icon badge rounded-pill bg-dark text-light"
+              className="icon badge rounded-pill bg-dark text-light form-control"
               onClick={() => setRight(!right)}>
-              <i className="fa fa-caret-right"></i>
+              Request Body <i className="fa fa-caret-right"></i>
             </button>
-            <button className="icon badge rounded-pill bg-dark text-light" onClick={goToDefault}>
-              Default
+            <button
+              className="icon badge rounded-pill bg-dark text-light form-control"
+              onClick={() => setopenCollapse(!openCollapse)}>
+              <i className="fa fa-bars"></i> Expand All
+            </button>
+            <button
+              className="icon badge rounded-pill bg-dark text-light form-control"
+              onClick={goToDefault}>
+              Reset
             </button>
           </div>
         </header>

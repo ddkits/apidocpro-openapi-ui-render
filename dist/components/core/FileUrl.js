@@ -16,257 +16,58 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
  * Important: To use this code please leave the copyright in place
  * Reallexi LLC, https://reallexi.com
  */
-import React, { useEffect, useState } from 'react';
-import propTypes from 'prop-types';
-import { jsonExample, yamlExample, yamlToJson } from '../helpers';
-import LeftRegion from './regions/LeftRegion';
-import MiddleRegion from './regions/MiddleRegion';
-import RightRegion from './regions/RightRegion';
-import { resolveRefs } from '../core/resolver';
-import FileUploadPage from '../core/FileUploadPage';
-import ErrorBoundary from '../core/ErrorBoundary';
-import FileUrl from '../core/FileUrl';
-export default function ApiDocPro(props) {
-  // eslint-disable-next-line react/prop-types
-  //   collapse, search, codesnippet
-  var _useState = useState(),
+/* eslint-disable react/prop-types */
+import React, { useState } from 'react';
+import { yamlToJson } from '../helpers';
+export default function FileUrl(props) {
+  var _useState = useState(''),
     _useState2 = _slicedToArray(_useState, 2),
-    left = _useState2[0],
-    setLeft = _useState2[1];
-  var _useState3 = useState(),
-    _useState4 = _slicedToArray(_useState3, 2),
-    right = _useState4[0],
-    setRight = _useState4[1];
-  // eslint-disable-next-line no-unused-vars
-  var _useState5 = useState(),
-    _useState6 = _slicedToArray(_useState5, 2),
-    obj = _useState6[0],
-    setObj = _useState6[1];
-  var _useState7 = useState(),
-    _useState8 = _slicedToArray(_useState7, 2),
-    resolved = _useState8[0],
-    setResolved = _useState8[1];
-  var _props$title = props.title,
-    title = _props$title === void 0 ? '' : _props$title,
-    spec = props.spec,
-    collapse = props.collapse,
-    theme = props.theme,
-    leftregion = props.leftregion,
-    rightregion = props.rightregion,
-    header = props.header;
-  var _useState9 = useState(false),
-    _useState10 = _slicedToArray(_useState9, 2),
-    openCollapse = _useState10[0],
-    setopenCollapse = _useState10[1];
-  var _useState11 = useState(true),
-    _useState12 = _slicedToArray(_useState11, 2),
-    head = _useState12[0],
-    setHead = _useState12[1];
-  var _useState13 = useState(''),
-    _useState14 = _slicedToArray(_useState13, 2),
-    spectype = _useState14[0],
-    setspectype = _useState14[1];
-  var _useState15 = useState(true),
-    _useState16 = _slicedToArray(_useState15, 2),
-    loading = _useState16[0],
-    setLoading = _useState16[1];
-  var _useState17 = useState(yamlExample),
-    _useState18 = _slicedToArray(_useState17, 2),
-    specification = _useState18[0],
-    setSpecification = _useState18[1];
-  var rebuild = /*#__PURE__*/function () {
-    var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-      var e,
-        finE,
-        newSpec,
-        ob,
-        reso,
-        _args = arguments;
+    message = _useState2[0],
+    setMessage = _useState2[1];
+  var handleSubmit = /*#__PURE__*/function () {
+    var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(e) {
+      var reader, getFile;
       return _regeneratorRuntime().wrap(function _callee$(_context) {
         while (1) switch (_context.prev = _context.next) {
           case 0:
-            e = _args.length > 0 && _args[0] !== undefined ? _args[0] : false;
-            setopenCollapse(collapse || false);
-            setResolved(null);
-            setObj(null);
-            setspectype('');
-            if (e) {
-              try {
-                finE = JSON.parse(e);
-              } catch (error) {
-                finE = e;
-              }
-            }
-            newSpec = finE ? finE : localStorage.getItem('spec') && localStorage.getItem('spec') !== '' ? JSON.parse(localStorage.getItem('spec')) : yamlExample;
-            if (newSpec && (newSpec.asyncapi || newSpec['asyncapi'])) {
-              setspectype('asyncapi');
-            } else if (newSpec && (newSpec.openapi || newSpec['openapi'])) {
-              setspectype('openapi');
-            } else if (newSpec && (newSpec.swagger || newSpec['swagger'])) {
-              setspectype('swagger');
-            } else {
-              setspectype('openapi');
-            }
-            if (newSpec) {
-              try {
-                setSpecification(JSON.parse(newSpec));
-              } catch (error) {
-                setSpecification(newSpec);
-              }
-            } else {
-              setSpecification(jsonExample);
-            }
-            ob = yamlToJson(newSpec) ? yamlToJson(newSpec) : newSpec;
-            setObj(ob);
-            reso = resolveRefs(newSpec); // Check Openapi or Async
-            setResolved(reso);
-            setTimeout(function () {
-              try {
-                var test = JSON.parse(resolved);
-                setResolved(test);
-              } catch (error) {
-                setResolved(reso);
-              }
-              setLoading(false);
-            }, 1000);
-          case 14:
+            e.preventDefault();
+            console.log(e);
+            reader = e.target[0].value;
+            getFile = function getFile(url) {
+              fetch(url).then(function (x) {
+                return x.text();
+              }).then(function (response) {
+                var ob = yamlToJson(response) ? yamlToJson(response) : response;
+                localStorage.setItem('spec', JSON.stringify(ob));
+                props === null || props === void 0 ? void 0 : props.handleFileCallback(ob);
+              }).catch(function (err) {
+                setMessage(JSON.stringify(err));
+              });
+            };
+            getFile(reader);
+          case 5:
           case "end":
             return _context.stop();
         }
       }, _callee);
     }));
-    return function rebuild() {
+    return function handleSubmit(_x2) {
       return _ref.apply(this, arguments);
     };
   }();
-  useEffect(function () {
-    setLoading(true);
-    rebuild(spec);
-  }, [spec]);
-  useEffect(function () {
-    setLoading(true);
-    rebuild(spec);
-    if (leftregion) {
-      setLeft(leftregion);
-    } else {
-      setLeft(false);
-    }
-    if (rightregion) {
-      setRight(rightregion);
-    } else {
-      setRight(false);
-    }
-    if (header) {
-      setHead(header);
-    } else {
-      setHead(false);
-    }
-  }, []);
-  var _handleFileCallback = function handleFileCallback(e) {
-    setLoading(true);
-    rebuild(e);
-  };
-  var goToDefault = function goToDefault() {
-    localStorage.removeItem('spec');
-    setLoading(true);
-    rebuild(specification);
-  };
-  return /*#__PURE__*/React.createElement("div", {
-    className: "container-fluid p-0 m-0"
-  }, head && spectype !== '' && /*#__PURE__*/React.createElement("header", {
-    className: "row p-3 bg-light sticky-top shadow pt-5 pb-3 m-0 mb-3 maxw-100 "
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "col text-start"
-  }, title || 'APIDocPro UI'), /*#__PURE__*/React.createElement("div", {
-    className: "col text-start"
-  }, /*#__PURE__*/React.createElement(FileUrl, {
-    handleFileCallback: function handleFileCallback(e) {
-      return _handleFileCallback(e);
-    }
-  }), /*#__PURE__*/React.createElement(FileUploadPage, {
-    handleFileCallback: function handleFileCallback(e) {
-      return _handleFileCallback(e);
-    }
-  })), /*#__PURE__*/React.createElement("div", {
-    className: "col pull-right"
-  }, /*#__PURE__*/React.createElement("button", {
-    className: "icon badge rounded-pill bg-dark text-light form-control",
-    onClick: function onClick() {
-      return setLeft(!left);
-    }
-  }, /*#__PURE__*/React.createElement("i", {
-    className: "fa fa-caret-left"
-  }), " Left-side Menu"), /*#__PURE__*/React.createElement("button", {
-    className: "icon badge rounded-pill bg-dark text-light form-control",
-    onClick: function onClick() {
-      return setRight(!right);
-    }
-  }, "Request Body ", /*#__PURE__*/React.createElement("i", {
-    className: "fa fa-caret-right"
-  })), /*#__PURE__*/React.createElement("button", {
-    className: "icon badge rounded-pill bg-dark text-light form-control",
-    onClick: function onClick() {
-      return setopenCollapse(!openCollapse);
-    }
-  }, /*#__PURE__*/React.createElement("i", {
-    className: "fa fa-bars"
-  }), " Expand All"), /*#__PURE__*/React.createElement("button", {
-    className: "icon badge rounded-pill bg-dark text-light form-control",
-    onClick: goToDefault
-  }, "Reset"))), loading && spectype !== '' ? /*#__PURE__*/React.createElement("div", {
-    className: "container justify-content-middle"
-  }, /*#__PURE__*/React.createElement("i", {
-    className: "fa-solid fa-sync fa-spin"
-  })) : /*#__PURE__*/React.createElement("main", {
-    className: "d-flex m-0 col-sx-12"
-  }, /*#__PURE__*/React.createElement(ErrorBoundary, null, left ? /*#__PURE__*/React.createElement("div", {
-    id: "apidocpro-leftsidemenu",
-    className: "sidenav d-none d-md-block col-2 m-0",
-    "data-mdb-hidden": "false"
-  }, /*#__PURE__*/React.createElement(LeftRegion, {
-    data: resolved,
-    resolved: resolved,
-    menuClicked: function menuClicked() {
-      return console.log('menu clicked');
-    },
-    theme: theme,
-    spectype: spectype
-  })) : [], /*#__PURE__*/React.createElement("div", {
-    id: "apidocpro-middleregion",
-    className: right && left ? 'col-12 col-sm-12 col-md-7 ' : right && !left ? 'col-12 col-sm-12 col-md-9 ' : left && !right ? 'col-12 col-sm-12 col-md-10 ' : 'col-12 col-sm-12 col-md-12 '
-  }, /*#__PURE__*/React.createElement(MiddleRegion, {
-    data: resolved,
-    resolved: resolved,
-    openCollapse: openCollapse,
-    theme: theme,
-    spectype: spectype
-  })), right ? /*#__PURE__*/React.createElement("div", {
-    id: "apidocpro-rightregion",
-    className: "d-none d-md-block  bg-dark text-light col-3 pt-3 minh-100 m-0"
-  }, /*#__PURE__*/React.createElement(RightRegion, {
-    data: resolved,
-    resolved: resolved,
-    theme: theme,
-    openCollapse: openCollapse,
-    spectype: spectype
-  })) : [])), /*#__PURE__*/React.createElement("footer", {
-    className: "sticky-bottom bg-white p-2 m-0"
-  }, /*#__PURE__*/React.createElement("div", {
-    id: "copyright",
-    className: "badge rounded-pill bg-light text-dark "
-  }, "Copyright @ ", /*#__PURE__*/React.createElement("a", {
-    href: "//apidocpro.com/editor"
-  }, "APIDocPro UI"), ",", /*#__PURE__*/React.createElement("a", {
-    href: "//reallexi.com"
-  }, "RealLexi LLC"))));
+  return /*#__PURE__*/React.createElement(React.Fragment, null, message, /*#__PURE__*/React.createElement("form", {
+    onSubmit: handleSubmit,
+    className: "d-flex"
+  }, /*#__PURE__*/React.createElement("input", {
+    className: "col form-control",
+    placeholder: "File URL",
+    name: "url",
+    id: "url",
+    type: "url",
+    required: true,
+    accept: ".yaml,.json, application/json, application/yaml"
+  }), /*#__PURE__*/React.createElement("button", {
+    type: "submit",
+    className: "col form-control"
+  }, "Generate")));
 }
-ApiDocPro.propTypes = {
-  spec: propTypes.oneOfType([propTypes.string, propTypes.object]),
-  resolved: propTypes.any,
-  title: propTypes.string,
-  leftregion: propTypes.bool,
-  rightregion: propTypes.bool,
-  collapse: propTypes.bool,
-  header: propTypes.bool,
-  theme: propTypes.object
-};

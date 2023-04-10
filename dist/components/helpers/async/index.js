@@ -1,26 +1,4 @@
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.jsonViewerAsync = jsonViewerAsync;
-exports.loopInNestedAsyncObject = void 0;
-exports.requestBodyViewerAsync = requestBodyViewerAsync;
-exports.yamlToJson = void 0;
-require("core-js/modules/es.regexp.exec.js");
-require("core-js/modules/es.string.replace.js");
-require("core-js/modules/esnext.string.replace-all.js");
-require("core-js/modules/es.array.includes.js");
-require("core-js/modules/es.symbol.description.js");
-require("core-js/modules/es.json.stringify.js");
-var _react = _interopRequireDefault(require("react"));
-var _jsYaml = _interopRequireDefault(require("js-yaml"));
-var _apidocpro = require("../../templates/theme/noTheme/apidocpro");
-var _Body = _interopRequireDefault(require("../../templates/regions/middle/Body"));
-var _Header = _interopRequireDefault(require("../../templates/regions/middle/Header"));
-var _resolver = require("./../resolver");
-var _ = require("..");
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 /**
  * ApiDocPro UI render, for AsyncAPI, Swagger and OpenApi
  * Built by Sam Ayoub, DDKits.com
@@ -34,24 +12,29 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * API Doc Pro helpers
  * By Sam Ayoub
  */
-
-const yamlToJson = yamlString => {
-  const obj = _jsYaml.default.load(yamlString);
+import React from 'react';
+import yaml from 'js-yaml';
+import { TEMPLATESASYNC, REQUESTBODY, JSONTEMPLATES } from '../../templates/theme/noTheme/apidocpro';
+import Body from '../../templates/regions/middle/Body';
+import Header from '../../templates/regions/middle/Header';
+import { resolveRef } from './../resolver';
+import { merge } from '..';
+var yamlToJson = function yamlToJson(yamlString) {
+  var obj = yaml.load(yamlString);
   return obj;
 };
-exports.yamlToJson = yamlToJson;
-const loopInNestedAsyncObject = function loopInNestedAsyncObject() {
-  let json = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  let collapsible = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
-  let theme = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
-  const schemas = json.components;
-  const custom = ['[[Prototype]]', 'defaultContentType'];
-  const TEMPLATESNOW = theme.TEMPLATESASYNC ? theme.TEMPLATESASYNC : _apidocpro.TEMPLATESASYNC;
+var loopInNestedAsyncObject = function loopInNestedAsyncObject() {
+  var json = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var collapsible = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+  var theme = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+  var schemas = json.components;
+  var custom = ['[[Prototype]]', 'defaultContentType'];
+  var TEMPLATESNOW = theme.TEMPLATESASYNC ? theme.TEMPLATESASYNC : TEMPLATESASYNC;
   function createItem(key, value, type) {
     if (key.split('').length < 2) {
       key = '';
     }
-    let element = TEMPLATESNOW.item.replaceAll('%KEY%', key);
+    var element = TEMPLATESNOW.item.replaceAll('%KEY%', key);
     if (type == 'string') {
       element = element.replaceAll('%VALUE%', '"' + value + '"').replaceAll('%KEY%', key);
     } else {
@@ -67,7 +50,7 @@ const loopInNestedAsyncObject = function loopInNestedAsyncObject() {
   function createCollapsibleItem(key, value, type, children) {
     var tpl = 'itemCollapsible';
     if (key === '$ref') {
-      value = (0, _resolver.resolveRef)(key, schemas);
+      value = resolveRef(key, schemas);
     }
     if (collapsible) {
       tpl = 'itemCollapsibleOpen';
@@ -85,7 +68,7 @@ const loopInNestedAsyncObject = function loopInNestedAsyncObject() {
     var html = '';
     for (var item in value) {
       var _key = item,
-        _val = (0, _.merge)(value[item]);
+        _val = merge(value[item]);
       if (_key.split('').length < 3) {
         _key = '';
       }
@@ -94,11 +77,11 @@ const loopInNestedAsyncObject = function loopInNestedAsyncObject() {
     return createCollapsibleItem(key, value, type, html);
   }
   function handleItem(key, value) {
-    var type = typeof value;
+    var type = _typeof(value);
     if (key.split('').length < 3) {
       key = '';
     }
-    if (typeof value === 'object') {
+    if (_typeof(value) === 'object') {
       return handleChildren(key, value, type);
     }
     if (!custom.includes(key)) {
@@ -111,8 +94,8 @@ const loopInNestedAsyncObject = function loopInNestedAsyncObject() {
     if (obj.length === 0) {
       return;
     }
-    let result = '<section>';
-    let title,
+    var result = '<section>';
+    var title,
       version,
       description,
       contact,
@@ -123,7 +106,7 @@ const loopInNestedAsyncObject = function loopInNestedAsyncObject() {
       externalDocs,
       serversNow = [];
     for (var item in obj) {
-      let key = item,
+      var key = item,
         value = obj[item];
       switch (key) {
         case 'openapi':
@@ -157,9 +140,9 @@ const loopInNestedAsyncObject = function loopInNestedAsyncObject() {
       }
     }
     result += '</section>';
-    return /*#__PURE__*/_react.default.createElement("div", {
+    return /*#__PURE__*/React.createElement("div", {
       className: "apidocpro-details"
-    }, /*#__PURE__*/_react.default.createElement(_Header.default, {
+    }, /*#__PURE__*/React.createElement(Header, {
       spectitle: title,
       specversion: version,
       specdescription: description,
@@ -170,7 +153,7 @@ const loopInNestedAsyncObject = function loopInNestedAsyncObject() {
       speclicense: license,
       specsummary: summary,
       specexternaldocs: externalDocs || []
-    }), /*#__PURE__*/_react.default.createElement(_Body.default, {
+    }), /*#__PURE__*/React.createElement(Body, {
       data: result.replaceAll('undefined', ''),
       servers: servers,
       spec: json,
@@ -179,11 +162,10 @@ const loopInNestedAsyncObject = function loopInNestedAsyncObject() {
   }
   return parseObject(json);
 };
-exports.loopInNestedAsyncObject = loopInNestedAsyncObject;
 function jsonViewerAsync(json) {
-  let collapsible = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
-  let theme = arguments.length > 2 ? arguments[2] : undefined;
-  const TEMPLATESNOW = theme !== null && theme !== void 0 && theme.JSONTEMPLATES ? theme === null || theme === void 0 ? void 0 : theme.JSONTEMPLATES : _apidocpro.JSONTEMPLATES;
+  var collapsible = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+  var theme = arguments.length > 2 ? arguments[2] : undefined;
+  var TEMPLATESNOW = theme !== null && theme !== void 0 && theme.JSONTEMPLATES ? theme === null || theme === void 0 ? void 0 : theme.JSONTEMPLATES : JSONTEMPLATES;
   function createItem(key, value, type) {
     var element = TEMPLATESNOW.item.replaceAll('%KEY%', key);
     if (key.split('').length < 2) {
@@ -218,24 +200,24 @@ function jsonViewerAsync(json) {
     }
     for (var item in value) {
       var _key = item,
-        _val = (0, _.merge)(value[item]);
+        _val = merge(value[item]);
       html += handleItem(_key, _val);
     }
     return createCollapsibleItem(key, value, type, html);
   }
   function handleItem(key, value) {
-    var type = typeof value;
+    var type = _typeof(value);
     if (key.split('').length < 3) {
       key = '';
     }
-    if (typeof value === 'object') {
+    if (_typeof(value) === 'object') {
       return handleChildren(key, value, type);
     } else if (typeof value === 'string') {
       return createItem(key, value, type);
     }
   }
   function parseObject(obj) {
-    let _result = '<div class="json">';
+    var _result = '<div class="json">';
     for (var item in obj) {
       var key = item,
         value = obj[item];
@@ -247,13 +229,13 @@ function jsonViewerAsync(json) {
   return parseObject(json);
 }
 function requestBodyViewerAsync(json) {
-  let collapsible = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
-  let theme = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
-  const custom = ['type', '[[Prototype]]', 'tags'];
-  const TEMPLATESNOW = theme.REQUESTBODY ? theme.REQUESTBODY : _apidocpro.REQUESTBODY;
+  var collapsible = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+  var theme = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+  var custom = ['type', '[[Prototype]]', 'tags'];
+  var TEMPLATESNOW = theme.REQUESTBODY ? theme.REQUESTBODY : REQUESTBODY;
   function createItem(key, value, type) {
-    let desc = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : '';
-    let html = '';
+    var desc = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : '';
+    var html = '';
     if (key !== '') {
       var element = TEMPLATESNOW.item.replaceAll('%KEY%', key);
       if (type === 'string') {
@@ -268,7 +250,7 @@ function requestBodyViewerAsync(json) {
     return html;
   }
   function createCollapsibleItem(key, value, type, children) {
-    let desc = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : '';
+    var desc = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : '';
     var tpl = 'itemCollapsible';
     if (collapsible) {
       tpl = 'itemCollapsibleOpen';
@@ -284,16 +266,16 @@ function requestBodyViewerAsync(json) {
     var result = '';
     for (var item in value) {
       var _key = item,
-        _val = (0, _.merge)(value[item]);
+        _val = merge(value[item]);
       html += handleItem(_key, _val);
     }
     result += createCollapsibleItem(key, value, type, html);
     return result;
   }
   function handleItem(key, value) {
-    let _result = '';
-    var type = typeof value;
-    let desc = value['description'] || value['summary'] || '';
+    var _result = '';
+    var type = _typeof(value);
+    var desc = value['description'] || value['summary'] || '';
     if (type === 'object') {
       _result += handleChildren(key, value, type, desc);
     } else if (type === 'string') {
@@ -302,26 +284,26 @@ function requestBodyViewerAsync(json) {
     return _result;
   }
   function parseObject(obj) {
-    const idLabel = obj ? obj !== null && obj !== void 0 && obj.summary ? obj === null || obj === void 0 ? void 0 : obj.summary : obj !== null && obj !== void 0 && obj.description ? obj === null || obj === void 0 ? void 0 : obj.description : obj !== null && obj !== void 0 && obj.operationId ? obj === null || obj === void 0 ? void 0 : obj.operationId : Math.random() : Math.random();
-    const href = idLabel.replaceAll(' ', '_').replaceAll('.', '').replaceAll('{', '').replaceAll('}', '').replaceAll('/', '_');
-    let _result = "<section class=\"container-fluid border p-3\" id=\"".concat(href, "\">");
+    var idLabel = obj ? obj !== null && obj !== void 0 && obj.summary ? obj === null || obj === void 0 ? void 0 : obj.summary : obj !== null && obj !== void 0 && obj.description ? obj === null || obj === void 0 ? void 0 : obj.description : obj !== null && obj !== void 0 && obj.operationId ? obj === null || obj === void 0 ? void 0 : obj.operationId : Math.random() : Math.random();
+    var href = idLabel.replaceAll(' ', '_').replaceAll('.', '').replaceAll('{', '').replaceAll('}', '').replaceAll('/', '_');
+    var _result = "<section class=\"container-fluid border p-3\" id=\"".concat(href, "\">");
     for (var item in obj) {
       var key = item,
         value = obj[item];
-      let desc = value['description'] ? value['description'] : value['summary'] ? value['summary'] : '';
+      var desc = value['description'] ? value['description'] : value['summary'] ? value['summary'] : '';
       _result += handleItem(key, value, desc);
     }
     _result += '</tbody></table>';
     return _result;
   }
-  let _result = '';
-  Object.keys(JSON.parse(JSON.stringify(json, 'utf8'))).forEach((type, xds) => {
-    let result = "<details class=\"treeview ".concat(xds, "\" ").concat(collapsible ? 'open' : '', "><summary>").concat(type, "  %TYPERESULTS%</summary>");
-    let element = '';
-    Object.keys(json[type]).forEach((schema, xds2) => {
+  var _result = '';
+  Object.keys(JSON.parse(JSON.stringify(json, 'utf8'))).forEach(function (type, xds) {
+    var result = "<details class=\"treeview ".concat(xds, "\" ").concat(collapsible ? 'open' : '', "><summary>").concat(type, "  %TYPERESULTS%</summary>");
+    var element = '';
+    Object.keys(json[type]).forEach(function (schema, xds2) {
       var _json$type, _json$type2;
       result += "<details class=\"p-3 ".concat(xds, " ").concat(xds2, "\" ").concat(collapsible ? 'open' : '', "><summary>").concat(schema, "</summary><p>").concat((_json$type = json[type]) !== null && _json$type !== void 0 && _json$type.description ? (_json$type2 = json[type]) === null || _json$type2 === void 0 ? void 0 : _json$type2.description : '', "</p>");
-      Object.keys(json[type][schema]).forEach((key, xds3) => {
+      Object.keys(json[type][schema]).forEach(function (key, xds3) {
         if (!custom.includes(key)) {
           var _json$type$schema$key, _json$type$schema$key2;
           result += "<details class=\"p-3 ".concat(xds, " ").concat(xds2, " ").concat(xds3, "\" ").concat(collapsible ? 'open' : '', "><summary>").concat(key, "</summary><p>").concat((_json$type$schema$key = json[type][schema][key]) !== null && _json$type$schema$key !== void 0 && _json$type$schema$key.description ? (_json$type$schema$key2 = json[type][schema][key]) === null || _json$type$schema$key2 === void 0 ? void 0 : _json$type$schema$key2.description : '', "</p>").concat(parseObject(json[type][schema][key]), " </details>");
@@ -336,3 +318,4 @@ function requestBodyViewerAsync(json) {
   });
   return _result;
 }
+export { yamlToJson, loopInNestedAsyncObject, jsonViewerAsync, requestBodyViewerAsync };

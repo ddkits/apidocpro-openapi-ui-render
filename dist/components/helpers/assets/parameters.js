@@ -1,11 +1,3 @@
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.parametersTable = parametersTable;
-require("core-js/modules/es.json.stringify.js");
-require("core-js/modules/es.symbol.description.js");
 /**
  * ApiDocPro UI render, for AsyncAPI, Swagger and OpenApi
  * Built by Sam Ayoub, DDKits.com
@@ -16,11 +8,11 @@ require("core-js/modules/es.symbol.description.js");
  */
 /* eslint-disable no-unused-vars */
 function parametersTable() {
-  let parameters = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  const params = JSON.parse(JSON.stringify(parameters));
-  let res = '';
-  let inRes = '';
-  const results = params.map(param => {
+  var parameters = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var params = JSON.parse(JSON.stringify(parameters));
+  var res = '';
+  var inRes = '';
+  var results = params.map(function (param) {
     var _param$in, _param$schema, _param$schema2, _param$schema3, _param$schema4;
     if (!param.name) {
       inRes += '';
@@ -33,3 +25,4 @@ function parametersTable() {
   res += " </tbody>\n    </table> ";
   return res;
 }
+export { parametersTable };

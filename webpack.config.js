@@ -1,35 +1,44 @@
 const path = require('path');
-const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
+const glob = require('glob');
 
 module.exports = {
-  context: __dirname,
-  entry: path.join(__dirname, 'app.js'),
-  devtool: '#source-map',
-  mode: 'development',
-  output: {
-    path: path.join(__dirname, 'build'),
-    filename: '[name].js',
-    chunkFilename: '[name].js'
+  entry: {
+    'bundle.js': glob
+      .sync('build/static/?(js|css)/main.*.?(js|css)')
+      .map((f) => path.resolve(__dirname, f))
   },
-  plugins: [
-    new webpack.DllReferencePlugin({
-      context: __dirname,
-      manifest: require('./vendor/vendor-manifest.json')
-    }),
-    new HtmlWebpackPlugin(),
-    new AddAssetHtmlPlugin({
-      filepath: path.resolve(__dirname, './build/vendor.js')
-    })
-  ]
-};
-
-module.exports = {
-  entry: ['./src/lib/components/pro/index.js'],
   output: {
-    filename: 'bundle.js',
-    path: path.resolve(__dirname, 'dist')
-  }
-  // optimization: { minimize: false },
+    filename: 'build/static/js/bundle.min.js'
+  },
+  module: {
+    rules: [
+      {
+        test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[name].[ext]',
+              outputPath: 'fonts/'
+            }
+          }
+        ]
+      },
+      {
+        test: /\.(css|sass|scss)$/,
+        use: [
+          {
+            loader: 'style-loader'
+          },
+          {
+            loader: 'css-loader'
+          },
+          {
+            loader: 'sass-loader'
+          }
+        ]
+      }
+    ]
+  },
+  watch: true
 };

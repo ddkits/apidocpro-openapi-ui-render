@@ -1,12 +1,3 @@
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = Body;
-var _react = _interopRequireDefault(require("react"));
-var _propTypes = _interopRequireDefault(require("prop-types"));
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 /**
  * ApiDocPro UI render, for AsyncAPI, Swagger and OpenApi
  * Built by Sam Ayoub, DDKits.com
@@ -15,12 +6,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Important: To use this code please leave the copyright in place
  * Reallexi LLC, https://reallexi.com
  */
-
-function Body(props) {
-  const {
-    data
-  } = props;
-  return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("div", {
+import React from 'react';
+import propTypes from 'prop-types';
+export default function Body(props) {
+  var data = props.data;
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
     className: "p-3",
     dangerouslySetInnerHTML: {
       __html: data
@@ -29,5 +19,5 @@ function Body(props) {
 }
 Body.propTypes = {
   /** Data is where the spec we are going to use, must be string, can include HTML tags */
-  data: _propTypes.default.string
+  data: propTypes.string
 };

@@ -7,15 +7,10 @@
  * Reallexi LLC, https://reallexi.com
  */
 /* eslint-disable react/prop-types */
-import React, { useState } from 'react';
+import React from 'react';
 import { yamlToJson } from '../helpers';
 
 export default function FileUploadPage(props) {
-  const [file, setFile] = useState('');
-
-  function handleChange(event) {
-    setFile(event.target.files[0]);
-  }
   const handleSubmit = async (e) => {
     e.preventDefault();
     const reader = new FileReader();
@@ -25,20 +20,18 @@ export default function FileUploadPage(props) {
       localStorage.setItem('spec', JSON.stringify(ob));
       props?.handleFileCallback(ob);
     };
-    reader.readAsText(file);
+    reader.readAsText(e.target.files[0]);
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        name="new-spec"
-        id="new-spec"
-        type="file"
-        onChange={handleChange}
-        required
-        accept=".yaml,.json, application/json, application/yaml"
-      />
-      <button type="submit">Upload New Spec</button>
-    </form>
+    <input
+      className="form-control"
+      name="new-spec"
+      id="new-spec"
+      type="file"
+      onChange={(e) => handleSubmit(e)}
+      required
+      accept=".yaml,.json, application/json, application/yaml"
+    />
   );
 }

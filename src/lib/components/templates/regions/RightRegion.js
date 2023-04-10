@@ -23,6 +23,9 @@ export default function RightRegion(props) {
   const [methodChange, setMethodChange] = useState('');
   const [codeSnippetsMethods, setCodeSnippetsMethods] = useState([]);
 
+  const setMethodChangeCall = (e) => {
+    setMethodChange(e.target.value);
+  };
   const createCodeRequests = async (data) => {
     const paths = data?.paths || {};
     let pathsList = [];
@@ -42,7 +45,7 @@ export default function RightRegion(props) {
         x.methods.push({ method: key, code: curlSnippet(data, p, key, spectype, theme) });
       });
     });
-
+    setMethodChange(pathsList[0].methods[0].method);
     setCodeSnippetsPaths(pathsList);
     setCodeSnippetsMethods(pathsList[0].methods);
     setCodeSnippets(pathsList[0].methods[0].code);
@@ -75,6 +78,7 @@ export default function RightRegion(props) {
       createAsyncCodeRequests(data);
     }
   }, [data]);
+  useEffect(() => {}, [codeSnippets]);
   useEffect(() => {
     if (pathChange !== '' && spectype !== 'asyncapi') {
       const results = codeSnippetsPaths[pathChange].methods[0]?.code;
@@ -121,10 +125,7 @@ export default function RightRegion(props) {
               })}
           </select>
           {spectype !== 'asyncapi' ? (
-            <select
-              className="col-12  p-1"
-              value={methodChange}
-              onChange={(e) => setMethodChange(e.target.value)}>
+            <select className="col-12 p-1" value={methodChange} onChange={setMethodChangeCall}>
               {codeSnippetsMethods.length &&
                 Object.keys(codeSnippetsMethods).map((xx) => {
                   return (

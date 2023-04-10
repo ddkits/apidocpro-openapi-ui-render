@@ -1,11 +1,3 @@
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = TryItOut;
-require("core-js/modules/es.json.stringify.js");
-require("core-js/modules/es.promise.js");
 /**
  * ApiDocPro UI render, for AsyncAPI, Swagger and OpenApi
  * Built by Sam Ayoub, DDKits.com
@@ -20,18 +12,20 @@ require("core-js/modules/es.promise.js");
  * @param {Object} userData - The data for the new user
  * @returns {Promise} A Promise that resolves with the created user's data
  */
-function TryItOut(method, url, body) {
-  const options = {
+export default function TryItOut(method, url, body) {
+  var options = {
     method: "".concat(method.toUpperCase()),
     headers: {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(body)
   };
-  return fetch(url, options).then(response => response.json()).then(data => {
+  return fetch(url, options).then(function (response) {
+    return response.json();
+  }).then(function (data) {
     // handle successful response
     return data;
-  }).catch(error => {
+  }).catch(function (error) {
     // handle error
     console.error(error);
   });
