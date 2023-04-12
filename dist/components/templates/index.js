@@ -26,7 +26,9 @@ import { resolveRefs } from '../core/resolver';
 import FileUploadPage from '../core/FileUploadPage';
 import ErrorBoundary from '../core/ErrorBoundary';
 import FileUrl from '../core/FileUrl';
+import '../core/assets/styles.scss';
 export default function ApiDocPro(props) {
+  var _theme$styles, _theme$styles2, _theme$styles3, _theme$styles4, _theme$styles5, _theme$styles6, _theme$styles7, _theme$styles8, _theme$styles9, _theme$styles10, _theme$styles11, _theme$styles12;
   // eslint-disable-next-line react/prop-types
   //   collapse, search, codesnippet
   var _useState = useState(),
@@ -213,7 +215,7 @@ export default function ApiDocPro(props) {
   }), " Expand All"), /*#__PURE__*/React.createElement("button", {
     className: "icon badge rounded-pill bg-dark text-light form-control",
     onClick: goToDefault
-  }, "Reset"))), loading && spectype !== '' ? /*#__PURE__*/React.createElement("div", {
+  }, "Reset"))), loading && spectype === '' ? /*#__PURE__*/React.createElement("div", {
     className: "container justify-content-middle"
   }, /*#__PURE__*/React.createElement("i", {
     className: "fa-solid fa-sync fa-spin"
@@ -221,7 +223,7 @@ export default function ApiDocPro(props) {
     className: "d-flex m-0 col-sx-12"
   }, /*#__PURE__*/React.createElement(ErrorBoundary, null, left ? /*#__PURE__*/React.createElement("div", {
     id: "apidocpro-leftsidemenu",
-    className: "sidenav d-none d-md-block col-2 m-0",
+    className: "sidenav d-none d-md-block col-2 m-0 ".concat(theme === null || theme === void 0 ? void 0 : (_theme$styles = theme.styles) === null || _theme$styles === void 0 ? void 0 : _theme$styles.left, " ").concat(theme === null || theme === void 0 ? void 0 : (_theme$styles2 = theme.styles) === null || _theme$styles2 === void 0 ? void 0 : _theme$styles2.lefttext, " "),
     "data-mdb-hidden": "false"
   }, /*#__PURE__*/React.createElement(LeftRegion, {
     data: resolved,
@@ -233,7 +235,7 @@ export default function ApiDocPro(props) {
     spectype: spectype
   })) : [], /*#__PURE__*/React.createElement("div", {
     id: "apidocpro-middleregion",
-    className: right && left ? 'col-12 col-sm-12 col-md-7 ' : right && !left ? 'col-12 col-sm-12 col-md-9 ' : left && !right ? 'col-12 col-sm-12 col-md-10 ' : 'col-12 col-sm-12 col-md-12 '
+    className: right && left ? "col-12 col-sm-12 col-md-7 ".concat(theme === null || theme === void 0 ? void 0 : (_theme$styles3 = theme.styles) === null || _theme$styles3 === void 0 ? void 0 : _theme$styles3.middle, " ").concat(theme === null || theme === void 0 ? void 0 : (_theme$styles4 = theme.styles) === null || _theme$styles4 === void 0 ? void 0 : _theme$styles4.middletext) : right && !left ? "col-12 col-sm-12 col-md-9 ".concat(theme === null || theme === void 0 ? void 0 : (_theme$styles5 = theme.styles) === null || _theme$styles5 === void 0 ? void 0 : _theme$styles5.middle, " ").concat(theme === null || theme === void 0 ? void 0 : (_theme$styles6 = theme.styles) === null || _theme$styles6 === void 0 ? void 0 : _theme$styles6.middletext) : left && !right ? "col-12 col-sm-12 col-md-10 ".concat(theme === null || theme === void 0 ? void 0 : (_theme$styles7 = theme.styles) === null || _theme$styles7 === void 0 ? void 0 : _theme$styles7.middle, " ").concat(theme === null || theme === void 0 ? void 0 : (_theme$styles8 = theme.styles) === null || _theme$styles8 === void 0 ? void 0 : _theme$styles8.middletext) : "col-12 col-sm-12 col-md-12 ".concat(theme === null || theme === void 0 ? void 0 : (_theme$styles9 = theme.styles) === null || _theme$styles9 === void 0 ? void 0 : _theme$styles9.middle, " ").concat(theme === null || theme === void 0 ? void 0 : (_theme$styles10 = theme.styles) === null || _theme$styles10 === void 0 ? void 0 : _theme$styles10.middletext)
   }, /*#__PURE__*/React.createElement(MiddleRegion, {
     data: resolved,
     resolved: resolved,
@@ -242,7 +244,7 @@ export default function ApiDocPro(props) {
     spectype: spectype
   })), right ? /*#__PURE__*/React.createElement("div", {
     id: "apidocpro-rightregion",
-    className: "d-none d-md-block  bg-dark text-light col-3 pt-3 minh-100 m-0"
+    className: "d-none d-md-block pt-3 pb-5 col-3 pt-3 minh-100 m-0 ".concat(theme === null || theme === void 0 ? void 0 : (_theme$styles11 = theme.styles) === null || _theme$styles11 === void 0 ? void 0 : _theme$styles11.right, " ").concat(theme === null || theme === void 0 ? void 0 : (_theme$styles12 = theme.styles) === null || _theme$styles12 === void 0 ? void 0 : _theme$styles12.righttext, " ")
   }, /*#__PURE__*/React.createElement(RightRegion, {
     data: resolved,
     resolved: resolved,

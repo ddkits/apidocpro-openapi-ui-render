@@ -173,7 +173,7 @@ export default function RightRegion(props) {
     }
   }, [methodChange]);
   return /*#__PURE__*/React.createElement("div", {
-    className: " pt-5 mt-5 bg-dark text-light "
+    className: " pt-5 mt-5 "
   }, /*#__PURE__*/React.createElement("div", {
     id: "apidocpro-codesnippet",
     className: "shadow-sm maxw-100 rounded"

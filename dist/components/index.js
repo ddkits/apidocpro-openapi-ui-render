@@ -8,11 +8,5 @@
  * Reallexi LLC, https://reallexi.com
  */
 import * as React from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'font-awesome/css/font-awesome.min.css';
-import 'bootstrap/dist/js/bootstrap.bundle.min.js';
-import * as APIDOCPRONOTHEME from './templates/theme/default/apidocpro';
-import * as APIDOCPROTHEME from './templates/theme/default/apidocpro';
-import * as APIDOCPROTHEMEGREEN from './templates/theme/green/apidocpro';
 import ApiDocPro from './templates';
-export { ApiDocPro, APIDOCPROTHEME, APIDOCPROTHEMEGREEN, APIDOCPRONOTHEME };
+export { ApiDocPro };

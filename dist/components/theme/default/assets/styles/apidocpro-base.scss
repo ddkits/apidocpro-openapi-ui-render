@@ -1,0 +1,248 @@
+@import './apidocpro-variables.scss';
+
+html,
+body {
+    max-width: 100%;
+    display: block;
+    min-height: 100vh;
+}
+
+#apidocpro-rightRegion,
+#apidocpro-leftRegion {
+    height: 100%;
+    text-align: left;
+}
+div{
+    max-width: 100%;
+}
+select{
+        display: inline-block;
+        max-width: 100%;
+        background-color: $dark;
+        color: $light;
+        margin: 0;
+}
+pre{
+    max-height: 300px;
+    overflow: auto;
+    counter-reset: line;
+    padding-left: 2em;
+    text-align: left;
+    position: relative;
+    font-size: 10px;
+    padding: 15px;
+    &::before {
+        counter-increment: line;
+        content: counter(line);
+        display: inline-block;
+        position: absolute;
+        width: 5px;
+        top: 0;
+        left: 5px;
+        text-align: right;
+        color: gray;
+      }
+}
+ 
+.apidocpro {
+
+    details {
+        // border-left: 1px solid black;
+        transition: all 2s;
+        summary {
+            padding: 10px;
+            // border-left: 1px solid gray;
+            transition: all 2s;
+        }
+        summary[class^="apidocpro__method--"] {
+            text-transform: uppercase;
+            margin: 5px;
+            line-height: 150%;
+            color: white;
+            padding: 5px;
+            background-color: var(--bs-blue);
+            border-color: var(--bs-blue);
+        }
+    }
+    min-height: 80vh;
+    scroll-behavior: smooth;
+    font-family: 'Source Code Pro', monospace;
+    font-size: 16px;
+    text-align: left;
+    transition: all 2s;
+    overflow-x: hidden;
+    word-wrap: break-word;
+
+    pre {
+        height: 250px;
+        word-wrap: break-word;
+        overflow: auto;
+    }
+
+    &> {
+        .apidocpro__item {
+            display: block;
+        }
+    }
+
+    .apidocpro__item {
+        display: none;
+        padding-left: 20px;
+        user-select: none;
+    }
+
+    .apidocpro__item--collapsible {
+        cursor: pointer;
+        overflow: hidden;
+        position: relative;
+        border: none;
+        // border-left: 1px solid black;
+
+        &::before {
+            content: '+';
+            margin-left: 5px;
+        }
+
+        &::after {
+            background-color: lightgrey;
+            content: '';
+            height: 100%;
+            left: 9px;
+            top: 26px;
+            width: 1px;
+        }
+
+        &:hover {
+
+            &>.apidocpro__key,
+            &>.apidocpro__value {
+                text-decoration: underline;
+            }
+        }
+    }
+
+    .apidocpro__toggle {
+        display: none;
+        transition: all .5s linear;
+
+        &:checked~.apidocpro__item {
+            display: block;
+        }
+    }
+
+    .apidocpro__key {
+        color: var(--bs-gradient);
+        display: inline;
+
+        &::after {
+            content: ' ';
+        }
+    }
+
+    .apidocpro__value {
+        display: inline;
+    }
+
+    .apidocpro__value--string {
+        text-transform: uppercase;
+        line-height: 150%;
+        color: white;
+        padding: 5px;
+        margin: 5px;
+        color: var(--bs-success);
+    }
+
+    .apidocpro__value--number {
+        text-transform: uppercase;
+        line-height: 150%;
+        color: white;
+        padding: 5px;
+        margin: 5px;
+        color: var(--bs-blue);
+    }
+
+    .apidocpro__value--boolean {
+        text-transform: uppercase;
+        line-height: 150%;
+        color: white;
+        padding: 5px;
+        margin: 5px;
+        background-color: var(--bs-danger);
+        border-color: var(--bs-danger);
+    }
+
+    // Methods
+    .apidocpro__method--get {
+        text-transform: uppercase;
+        line-height: 150%;
+        color: white;
+        padding: 5px;
+        margin: 5px;
+        background-color: var(--bs-success);
+        border-color: var(--bs-success);
+    }
+
+    .apidocpro__method--post {
+        text-transform: uppercase;
+        line-height: 150%;
+        color: white;
+        padding: 5px;
+        margin: 5px;
+        background-color: var(--bs-success);
+        border-color: var(--bs-success);
+    }
+
+    .apidocpro__method--delete {
+        text-transform: uppercase;
+        line-height: 150%;
+        color: white;
+        margin: 5px;
+        padding: 5px;
+        background-color: var(--bs-danger);
+        border-color: var(--bs-danger);
+    }
+
+    .apidocpro__method--put {
+        text-transform: uppercase;
+        line-height: 150%;
+        margin: 5px;
+        color: white;
+        padding: 5px;
+        background-color: var(--bs-success);
+        border-color: var(--bs-success);
+    }
+
+    .apidocpro__method--patch {
+        text-transform: uppercase;
+        margin: 5px;
+        line-height: 150%;
+        color: white;
+        padding: 5px;
+        background-color: var(--bs-blue);
+        border-color: var(--bs-blue);
+    }
+
+
+
+    transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0),
+    opacity 0.55s ease;
+
+}
+
+
+footer {
+    #copyright {
+        content: 'Copyright @ RealLexi LLC, Apidocpro.com';
+        display: block;
+        position: fixed;
+        font-size: 8px;
+        padding: 10px;
+        line-height: 100%;
+        bottom: 0;
+        left: 0;
+        color: black;
+        text-align: center;
+    }
+
+}
+

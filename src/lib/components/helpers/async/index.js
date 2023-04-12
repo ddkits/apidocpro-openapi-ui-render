@@ -13,11 +13,7 @@
  */
 import React from 'react';
 import yaml from 'js-yaml';
-import {
-  TEMPLATESASYNC,
-  REQUESTBODY,
-  JSONTEMPLATES
-} from '../../templates/theme/noTheme/apidocpro';
+import { TEMPLATESASYNC, REQUESTBODY, JSONTEMPLATES } from '../../theme/noTheme/apidocpro';
 import Body from '../../templates/regions/middle/Body';
 import Header from '../../templates/regions/middle/Header';
 import { resolveRef } from './../resolver';
@@ -107,7 +103,7 @@ const loopInNestedAsyncObject = (json = {}, collapsible = false, theme = {}) => 
     if (obj.length === 0) {
       return;
     }
-    let result = '<section>';
+    let result = '<section >';
     let title,
       version,
       description,
@@ -117,6 +113,7 @@ const loopInNestedAsyncObject = (json = {}, collapsible = false, theme = {}) => 
       specType,
       summary,
       externalDocs,
+      specVersion,
       serversNow = [];
     for (var item in obj) {
       let key = item,
@@ -124,12 +121,15 @@ const loopInNestedAsyncObject = (json = {}, collapsible = false, theme = {}) => 
       switch (key) {
         case 'openapi':
           specType = key.toUpperCase();
+          specVersion = value;
           break;
         case 'swagger':
           specType = key.toUpperCase();
+          specVersion = value;
           break;
         case 'asyncapi':
           specType = key.toUpperCase();
+          specVersion = value;
           break;
         case 'info':
           title = value['title'];
@@ -157,7 +157,8 @@ const loopInNestedAsyncObject = (json = {}, collapsible = false, theme = {}) => 
       <div className="apidocpro-details">
         <Header
           spectitle={title}
-          specversion={version}
+          specversion={specVersion}
+          version={version}
           specdescription={description}
           specType={specType}
           speccontact={contact}
@@ -166,11 +167,13 @@ const loopInNestedAsyncObject = (json = {}, collapsible = false, theme = {}) => 
           speclicense={license}
           specsummary={summary}
           specexternaldocs={externalDocs || []}
+          theme={theme}
         />
         <Body
           data={result.replaceAll('undefined', '')}
           servers={servers}
           spec={json}
+          theme={theme}
           collapsible={collapsible}
         />
       </div>
@@ -184,14 +187,12 @@ function jsonViewerAsync(json, collapsible = false, theme) {
   const TEMPLATESNOW = theme?.JSONTEMPLATES ? theme?.JSONTEMPLATES : JSONTEMPLATES;
 
   function createItem(key, value, type) {
-    var element = TEMPLATESNOW.item.replaceAll('%KEY%', key);
-    if (key.split('').length < 2) {
-      key = type.toUpperCase();
-    }
+    var element = TEMPLATESNOW.item;
+
     if (type == 'string') {
-      element = element.replaceAll('%VALUE%', '"' + value + '"');
+      element = element.replace('%VALUE%', '"' + value + '"').replace('%KEY%', `${key}: `);
     } else {
-      element = element.replaceAll('%VALUE%', value);
+      element = element.replace('%VALUE%', value).replace('%KEY%', key);
     }
 
     element = element.replaceAll('%TYPE%', type);
@@ -267,17 +268,16 @@ function requestBodyViewerAsync(json, collapsible = false, theme = {}) {
 
   function createItem(key, value, type, desc = '') {
     let html = '';
-    if (key !== '') {
-      var element = TEMPLATESNOW.item.replaceAll('%KEY%', key);
-      if (type === 'string') {
-        element = element.replaceAll('%VALUE%', '"' + value + '"');
-      } else {
-        element = element.replaceAll('%VALUE%', value);
-      }
-      element = element.replaceAll('%TYPE%', type);
-      element = element.replaceAll('%DESC%', desc);
-      html += element;
+    var element = TEMPLATESNOW.item;
+
+    if (type == 'string') {
+      element = element.replace('%VALUE%', '"' + value + '"').replace('%KEY%', `${key}: `);
+    } else {
+      element = element.replace('%VALUE%', value).replace('%KEY%', key);
     }
+    element = element.replaceAll('%TYPE%', type);
+    element = element.replaceAll('%DESC%', desc);
+    html += element;
     return html;
   }
 

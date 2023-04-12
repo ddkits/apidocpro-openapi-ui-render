@@ -9,14 +9,18 @@
 import React from 'react';
 import propTypes from 'prop-types';
 export default function Body(props) {
-  const { data } = props;
+  const { data, theme } = props;
   return (
     <>
-      <div className="p-3" dangerouslySetInnerHTML={{ __html: data }} />
+      <div
+        className={`p-3 ${theme?.styles?.body} ${theme?.styles?.bodytext}`}
+        dangerouslySetInnerHTML={{ __html: data }}
+      />
     </>
   );
 }
 Body.propTypes = {
   /** Data is where the spec we are going to use, must be string, can include HTML tags */
-  data: propTypes.string
+  data: propTypes.string,
+  theme: propTypes.object
 };

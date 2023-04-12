@@ -10,11 +10,12 @@ To configure the basic usage of APIDocPro UI render for any of the specification
 
 ```text
 // React Component
-import {ApiDocPro, APIDOCPROTHEME} from 'openapi-asyncapi-ui-render'
+import { ApiDocPro } from 'openapi-asyncapi-ui-render'
 // Custom Theme can be clones from Default example when needed
-import { APIDOCPROTHEME } from 'openapi-asyncapi-ui-render'
+import * as THEME from 'openapi-asyncapi-ui-render/theme/default/apidocpro';
 // Styles import
 import 'openapi-asyncapi-ui-render/templates/theme/default/assets/styles/apidocpro-styles.scss';
+
 ...
 
    <ApiDocPro

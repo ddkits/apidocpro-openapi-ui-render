@@ -1,6 +1,6 @@
 {
   "name": "openapi-asyncapi-ui-render",
-  "version": "1.0.12",
+  "version": "1.0.13",
   "description": "API Doc Pro UI is the best choice for dynamically rendering any spec SwaggerAPI, OpenAPI, or AsyncAPI, all in one with one design. By Reallexi LLC @ Apidocpro.com",
   "author": "Sam Ayoub",
   "url": "https://ui.apidocpro.com",
@@ -40,8 +40,6 @@
   },
   "dependencies": {
     "@babel/polyfill": "^7",
-    "bootstrap": "^5",
-    "font-awesome": "^4.7.0",
     "js-beautify": "^1",
     "js-yaml": "^4",
     "polyfills": "^2",
@@ -53,9 +51,9 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "npm run build:react",
+    "build": "npm run build:react ",
     "build:react": "react-scripts build",
-    "build:bundle": "webpack --env mode=production --config  webpack.config.js",
+    "build:bundle": "webpack --config webpack.config.js",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "buildp": "rm -rf dist && NODE_ENV=production babel src/lib --out-dir dist --copy-files",

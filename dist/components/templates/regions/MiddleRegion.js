@@ -42,7 +42,7 @@ export default function MiddleRegion(props) {
     className: "fa-solid fa-sync fa-spin"
   })) : /*#__PURE__*/React.createElement("div", {
     id: "middle-region",
-    className: "text-start"
+    className: "text-start "
   }, data ? spectype === 'openapi' ? loopInNestedObject(resolved, openCollapse ? openCollapse : false, theme) : loopInNestedAsyncObject(resolved, openCollapse ? openCollapse : false, theme) : /*#__PURE__*/React.createElement("div", {
     className: "alert alert-danger"
   }, "ApiDocPro UI render only support OS 2.x, 3.x and Async 2.x, the spec been passed is none\n          of them, or having syntax's problems"));

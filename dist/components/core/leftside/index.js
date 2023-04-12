@@ -66,4 +66,41 @@ var createMenuItems = function createMenuItems(data) {
     }));
   }
 };
-export { createMenuItems };
+var createAsyncMenuItems = function createAsyncMenuItems(data) {
+  var parsedSpec = data;
+  if (parsedSpec.channels) {
+    var newMenuData = [];
+    for (var _i3 = 0, _Object$entries3 = Object.entries(parsedSpec.channels); _i3 < _Object$entries3.length; _i3++) {
+      var _Object$entries3$_i = _slicedToArray(_Object$entries3[_i3], 2),
+        path = _Object$entries3$_i[0],
+        pathObj = _Object$entries3$_i[1];
+      console.log(parsedSpec.channels);
+      var menuItem = {
+        tag: '',
+        path: path,
+        method: '',
+        tags: [],
+        summary: '',
+        description: '',
+        item: {}
+      };
+      // eslint-disable-next-line no-unused-vars
+      for (var _i4 = 0, _Object$entries4 = Object.entries(pathObj); _i4 < _Object$entries4.length; _i4++) {
+        var _Object$entries4$_i = _slicedToArray(_Object$entries4[_i4], 2),
+          method = _Object$entries4$_i[0],
+          methodObj = _Object$entries4$_i[1];
+        menuItem.method = method.toUpperCase();
+        menuItem.tags.push(method.toUpperCase());
+        menuItem.tag = methodObj.tags && methodObj.tags[0] ? methodObj.tags[0] : 'Other';
+        menuItem.summary = methodObj.summary ? methodObj.summary : path;
+        menuItem.description = methodObj.description ? methodObj.description : 'N/A';
+        menuItem.item = methodObj;
+      }
+      newMenuData.push(menuItem);
+    }
+    return groupedMenu(newMenuData.filter(function (x) {
+      return x;
+    }));
+  }
+};
+export { createMenuItems, createAsyncMenuItems };

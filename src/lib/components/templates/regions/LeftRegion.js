@@ -9,7 +9,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import propTypes from 'prop-types';
-import { createMenuItems } from '../../core/leftside';
+import { createAsyncMenuItems, createMenuItems } from '../../core/leftside';
 import {
   Link,
   Button,
@@ -22,30 +22,43 @@ import {
 
 // eslint-disable-next-line no-unused-vars
 export default function LeftRegion(props) {
-  const { data, spectype } = props;
+  const { data, spectype, theme } = props;
   const [menuData, setMenuData] = useState([]);
 
   useEffect(() => {
     if (data && spectype !== 'asyncapi') {
       const final = createMenuItems(data);
       setMenuData(final);
+    } else {
+      setMenuData([]);
     }
+    // else {
+    //   if (data && spectype !== 'asyncapi') {
+    //     const final = createAsyncMenuItems(data);
+    //     setMenuData(final);
+    //   }
+    // }
   }, [data]);
   return (
     <div className=" pt-5 mt-5 sticky-top" id="nav-bar">
-      <nav className="sidenav">
+      <nav className={`sidenav ${theme?.styles?.apinav} ${theme?.styles?.apinavtext}`}>
         <ul className="main-buttons ">
           {menuData &&
             Object.keys(menuData).map((key) => {
               return (
                 <li key={key}>
-                  <i
-                    className="fa fa-circle active-icon"
-                    id={key}
-                    title={`${key}`}
-                    data-bs-original-title={`${key}`}></i>
+                  {theme?.styles?.icon ? (
+                    <i
+                      className="fa fa-circle active-icon"
+                      id={key}
+                      title={`${key}`}
+                      data-bs-original-title={`${key}`}></i>
+                  ) : (
+                    ''
+                  )}
                   {key}
-                  <ul className="hidden">
+                  <ul
+                    className={`hidden ${theme?.styles?.apinavsmc} ${theme?.styles?.apinavsmctext}`}>
                     {Object.keys(menuData[key]).map((menuItem, xds) => {
                       const idLabel =
                         menuData[key][menuItem]?.summary ||
@@ -62,6 +75,7 @@ export default function LeftRegion(props) {
                       return (
                         <Link
                           activeClass="active"
+                          className={`${theme?.styles?.apinavsmc} ${theme?.styles?.apinavsmctext}`}
                           smooth
                           spy
                           to={`${href}`}

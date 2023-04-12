@@ -12,7 +12,7 @@
  */
 import React from 'react';
 import yaml from 'js-yaml';
-import { TEMPLATES, REQUESTBODY, JSONTEMPLATES } from '../templates/theme/noTheme/apidocpro';
+import { TEMPLATES, REQUESTBODY, JSONTEMPLATES } from '../theme/noTheme/apidocpro';
 import Body from '../templates/regions/middle/Body';
 import Header from '../templates/regions/middle/Header';
 import { jsonExample, yamlExample } from './examples';
@@ -68,6 +68,9 @@ const loopInNestedObject = (json = {}, collapsible = false, theme = {}) => {
       '%KEY%',
       value?.title || value?.name || value?.summary || value?.description || key
     );
+    if (key === 'description' || key === 'summary') {
+      key = '';
+    }
     if (type == 'string') {
       element = element.replaceAll('%VALUE%', '"' + value + '"').replaceAll('%KEY%', key);
     } else {
@@ -128,7 +131,7 @@ const loopInNestedObject = (json = {}, collapsible = false, theme = {}) => {
     if (key == 'info') {
       return {
         title: value['title'] || '',
-        version: value['version'] || '',
+        specversion: value['version'] || '',
         contact: value['contact'] || [],
         description: value['description'] || '',
         summary: value['summary'] || '',
@@ -189,19 +192,31 @@ const loopInNestedObject = (json = {}, collapsible = false, theme = {}) => {
       return;
     }
     let result = '<section class="apidocpro">';
-    let title, version, description, contact, servers, license, specType, summary, externalDocs;
+    let title,
+      version,
+      description,
+      contact,
+      servers,
+      license,
+      specType,
+      summary,
+      externalDocs,
+      specVersion;
     for (var item in obj) {
       let key = item,
         value = obj[item];
       switch (key) {
         case 'openapi':
           specType = key.toUpperCase();
+          specVersion = value;
           break;
         case 'swagger':
           specType = key.toUpperCase();
+          specVersion = value;
           break;
         case 'async':
           specType = key.toUpperCase();
+          specVersion = value;
           break;
         case 'info':
           title = value['title'];
@@ -232,7 +247,8 @@ const loopInNestedObject = (json = {}, collapsible = false, theme = {}) => {
       <div className="apidocpro-details">
         <Header
           spectitle={title}
-          specversion={version}
+          specversion={specVersion}
+          version={version}
           specdescription={description}
           specType={specType}
           speccontact={contact}
@@ -241,12 +257,14 @@ const loopInNestedObject = (json = {}, collapsible = false, theme = {}) => {
           speclicense={license}
           specsummary={summary}
           specexternaldocs={externalDocs || []}
+          theme={theme}
         />
         <Body
           data={result.replaceAll('undefined', '')}
           servers={servers}
           spec={json}
           collapsible={collapsible}
+          theme={theme}
         />
       </div>
     );
@@ -267,14 +285,14 @@ function jsonViewer(json, collapsible = false, theme) {
 
   function createItem(key, value, type) {
     if (key.split('').length < 3) {
-      key = type.toUpperCase();
+      key = '';
     }
-    var element = TEMPLATESNOW.item.replaceAll('%KEY%', key);
+    var element = TEMPLATESNOW.item;
 
     if (type == 'string') {
-      element = element.replaceAll('%VALUE%', '"' + value + '"');
+      element = element.replace('%VALUE%', '"' + value + '"').replace('%KEY%', `${key}: `);
     } else {
-      element = element.replaceAll('%VALUE%', value);
+      element = element.replace('%VALUE%', value).replace('%KEY%', key);
     }
 
     element = element.replaceAll('%TYPE%', type);
@@ -284,7 +302,7 @@ function jsonViewer(json, collapsible = false, theme) {
 
   function createCollapsibleItem(key, value, type, children) {
     if (key.split('').length < 3) {
-      key = type.toUpperCase();
+      key = '';
     }
     var tpl = 'itemCollapsible';
 
@@ -343,7 +361,7 @@ function jsonViewer(json, collapsible = false, theme) {
 
     _result += '</div>';
 
-    return _result;
+    return _result.replaceAll('undefined', '');
   }
 
   return parseObject(json);

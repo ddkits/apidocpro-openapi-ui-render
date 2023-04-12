@@ -9,9 +9,11 @@
 import React from 'react';
 import propTypes from 'prop-types';
 export default function Body(props) {
-  var data = props.data;
+  var _theme$styles, _theme$styles2;
+  var data = props.data,
+    theme = props.theme;
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
-    className: "p-3",
+    className: "p-3 ".concat(theme === null || theme === void 0 ? void 0 : (_theme$styles = theme.styles) === null || _theme$styles === void 0 ? void 0 : _theme$styles.body, " ").concat(theme === null || theme === void 0 ? void 0 : (_theme$styles2 = theme.styles) === null || _theme$styles2 === void 0 ? void 0 : _theme$styles2.bodytext),
     dangerouslySetInnerHTML: {
       __html: data
     }
@@ -19,5 +21,6 @@ export default function Body(props) {
 }
 Body.propTypes = {
   /** Data is where the spec we are going to use, must be string, can include HTML tags */
-  data: propTypes.string
+  data: propTypes.string,
+  theme: propTypes.object
 };

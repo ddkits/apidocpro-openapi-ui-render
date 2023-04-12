@@ -34,14 +34,19 @@ export default function FileUrl(props) {
             console.log(e);
             reader = e.target[0].value;
             getFile = function getFile(url) {
+              setMessage('Fetching');
               fetch(url).then(function (x) {
                 return x.text();
               }).then(function (response) {
                 var ob = yamlToJson(response) ? yamlToJson(response) : response;
                 localStorage.setItem('spec', JSON.stringify(ob));
                 props === null || props === void 0 ? void 0 : props.handleFileCallback(ob);
+                setMessage('');
               }).catch(function (err) {
-                setMessage(JSON.stringify(err));
+                setMessage(err.message);
+                setTimeout(function () {
+                  setMessage('');
+                }, 5000);
               });
             };
             getFile(reader);
@@ -55,7 +60,11 @@ export default function FileUrl(props) {
       return _ref.apply(this, arguments);
     };
   }();
-  return /*#__PURE__*/React.createElement(React.Fragment, null, message, /*#__PURE__*/React.createElement("form", {
+  return /*#__PURE__*/React.createElement(React.Fragment, null, message !== '' ? /*#__PURE__*/React.createElement("div", {
+    className: "form-control container justify-content-middle"
+  }, /*#__PURE__*/React.createElement("i", {
+    className: "fa-solid fa-sync fa-spin"
+  }), " ", message) : /*#__PURE__*/React.createElement("form", {
     onSubmit: handleSubmit,
     className: "d-flex"
   }, /*#__PURE__*/React.createElement("input", {

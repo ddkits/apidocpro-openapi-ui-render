@@ -7,23 +7,18 @@
  * Reallexi LLC, https://reallexi.com
  */
 import { js_beautify } from 'js-beautify';
+import { TEMPLATESASYNC } from '../../theme/noTheme/apidocpro';
 
-function apidocprocodeViewer(json, collapsible = false) {
-  var TEMPLATES = {
-    item: '<div class="json__item"><div class="json__key">%KEY%</div><div class="json__value json__value--%TYPE%">%VALUE%</div></div>',
-    itemCollapsible:
-      '<label class="json__item json__item--collapsible"><input type="checkbox" class="json__toggle"/><div class="json__key">%KEY%</div><div class="json__value json__value--type-%TYPE%">%VALUE%</div>%CHILDREN%</label>',
-    itemCollapsibleOpen:
-      '<label class="json__item json__item--collapsible"><input type="checkbox" checked class="json__toggle"/><div class="json__key">%KEY%</div><div class="json__value json__value--type-%TYPE%">%VALUE%</div>%CHILDREN%</label>'
-  };
+function apidocprocodeViewer(json, collapsible = false, theme = {}) {
+  const TEMPLATESNOW = theme.TEMPLATESASYNC ? theme.TEMPLATESASYNC : TEMPLATESASYNC;
 
   function createItem(key, value, type) {
-    var element = TEMPLATES.item.replace('%KEY%', key);
+    var element = TEMPLATESNOW.item;
 
     if (type == 'string') {
-      element = element.replace('%VALUE%', '"' + value + '"');
+      element = element.replace('%VALUE%', '"' + value + '"').replace('%KEY%', `${key}: `);
     } else {
-      element = element.replace('%VALUE%', value);
+      element = element.replace('%VALUE%', value).replace('%KEY%', key);
     }
 
     element = element.replace('%TYPE%', type);
@@ -38,7 +33,7 @@ function apidocprocodeViewer(json, collapsible = false) {
       tpl = 'itemCollapsibleOpen';
     }
 
-    var element = TEMPLATES[tpl].replace('%KEY%', key);
+    var element = TEMPLATESNOW[tpl].replace('%KEY%', key);
 
     element = element.replace('%VALUE%', type);
     element = element.replace('%TYPE%', type);

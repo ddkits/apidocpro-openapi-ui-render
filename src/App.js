@@ -1,10 +1,16 @@
 /* eslint-disable no-unused-vars */
 // import logo from './logo.svg';
 import React, { useEffect, useState } from 'react';
-import './App.css';
 import { ApiDocPro } from './lib/components';
 // Custom Theme can be clones from Default example when needed
-// import * as THEME from './lib/components/templates/theme/default/apidocpro';
+import * as THEME from './lib/components/theme/default/apidocpro';
+// Custom Theme can be clones from green example when needed
+// import * as GREEN from './lib/components/theme/green/apidocpro';
+// Custom Theme can be clones from noTheme example when needed
+// import * as NOTHEME from './lib/components/theme/noTheme/apidocpro';
+// Custom Theme can be clones from red example when needed
+// import * as RED from './lib/components/theme/red/apidocpro';
+
 function App() {
   const [spec, setSpec] = useState();
   const [loading, setLoading] = useState(true);
@@ -38,7 +44,7 @@ function App() {
         rightregion={true} // Bool default false
         leftregion={true} // Bool default false
         header={true} // Bool default false
-        // theme={THEME} // Object of const default can be clones for new theme design or contribute
+        theme={THEME} // Object of const default can be clones for new theme design or contribute
         spec={spec} // string/object
       />
     </div>

@@ -1,7 +1,9 @@
 const path = require('path');
+const TerserPlugin = require('terser-webpack-plugin');
 const glob = require('glob');
 
 module.exports = {
+  mode: 'production',
   entry: {
     'bundle.js': glob
       .sync('build/static/?(js|css)/main.*.?(js|css)')
@@ -13,32 +15,13 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
-        use: [
-          {
-            loader: 'file-loader',
-            options: {
-              name: '[name].[ext]',
-              outputPath: 'fonts/'
-            }
-          }
-        ]
-      },
-      {
         test: /\.(css|sass|scss)$/,
-        use: [
-          {
-            loader: 'style-loader'
-          },
-          {
-            loader: 'css-loader'
-          },
-          {
-            loader: 'sass-loader'
-          }
-        ]
+        use: ['style-loader', 'css-loader', 'sass-loader']
       }
     ]
   },
-  watch: true
+  optimization: {
+    minimize: true,
+    minimizer: [new TerserPlugin()]
+  }
 };

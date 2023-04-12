@@ -9,7 +9,8 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
 import { codeRequestSetup } from '../codeRequestSetup';
-
+import { jsonViewer } from '../../../helpers';
+import '../../assets/codesnippet/styles.scss';
 /**
  * curlSnippet
  * @param {spec} spec
@@ -52,7 +53,7 @@ export var curlSnippet = function curlSnippet() {
         body = parameter.schema;
       }
     });
-    var curlCommand = "curl --location --request ".concat(method, " \n '").concat(url, "' \n ").concat(JSON.stringify(headers, null, 2), " \n    \n ").concat(body ? "--data-raw  ".concat(JSON.stringify(body, null, 2)) : '');
+    var curlCommand = "curl --location --request ".concat(method, " \n '").concat(url, "' \n ").concat(JSON.stringify(headers, null, 2), " \n    \n ").concat(body ? "--data-raw  ".concat(jsonViewer(body, true, theme)) : '');
     return curlCommand;
   };
   if (!method || !path) {

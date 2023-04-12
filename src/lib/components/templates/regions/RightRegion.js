@@ -100,7 +100,7 @@ export default function RightRegion(props) {
     }
   }, [methodChange]);
   return (
-    <div className=" pt-5 mt-5 bg-dark text-light ">
+    <div className=" pt-5 mt-5 ">
       <div id="apidocpro-codesnippet" className="shadow-sm maxw-100 rounded">
         <h3>
           {spectype === 'openapi'

@@ -29,7 +29,7 @@ export default function MiddleRegion(props) {
       <i className="fa-solid fa-sync fa-spin"></i>
     </div>
   ) : (
-    <div id="middle-region" className="text-start">
+    <div id="middle-region" className="text-start ">
       {data ? (
         spectype === 'openapi' ? (
           loopInNestedObject(resolved, openCollapse ? openCollapse : false, theme)

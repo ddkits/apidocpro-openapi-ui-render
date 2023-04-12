@@ -15,18 +15,21 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 import React, { useEffect, useState } from 'react';
 import propTypes from 'prop-types';
 export default function Header(props) {
+  var _theme$styles, _theme$styles2;
   var _useState = useState(true),
     _useState2 = _slicedToArray(_useState, 2),
     loading = _useState2[0],
     setLoading = _useState2[1];
   var spectitle = props.spectitle,
     specversion = props.specversion,
+    version = props.version,
     specdescription = props.specdescription,
     specType = props.specType,
     specsummary = props.specsummary,
     speccontact = props.speccontact,
     specservers = props.specservers,
-    specexternaldocs = props.specexternaldocs;
+    specexternaldocs = props.specexternaldocs,
+    theme = props.theme;
   //   const { data, type, contact, spec } = props;
 
   useEffect(function () {
@@ -37,7 +40,7 @@ export default function Header(props) {
   }, /*#__PURE__*/React.createElement("i", {
     className: "fa-solid fa-sync fa-spin"
   })) : /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
-    className: "m-0 p-3 bg-light text-dark"
+    className: "m-0 p-3 ".concat(theme === null || theme === void 0 ? void 0 : (_theme$styles = theme.styles) === null || _theme$styles === void 0 ? void 0 : _theme$styles.header, " ").concat(theme === null || theme === void 0 ? void 0 : (_theme$styles2 = theme.styles) === null || _theme$styles2 === void 0 ? void 0 : _theme$styles2.headertext)
   }, /*#__PURE__*/React.createElement("div", {
     className: "d-flex justify-space-between p-3"
   }, /*#__PURE__*/React.createElement("div", {
@@ -48,9 +51,9 @@ export default function Header(props) {
     className: "col  content-secondary text-end"
   }, /*#__PURE__*/React.createElement("span", {
     className: "badge rounded-pill bg-warning text-dark"
-  }, specType || ''), /*#__PURE__*/React.createElement("span", {
+  }, "".concat(specType || '', "   ").concat(specversion || '')), /*#__PURE__*/React.createElement("span", {
     className: "badge rounded-pill bg-primary"
-  }, specversion || ''))), /*#__PURE__*/React.createElement("div", {
+  }, version || ''))), /*#__PURE__*/React.createElement("div", {
     className: "row  p-3 small"
   }, specdescription || ''), /*#__PURE__*/React.createElement("div", {
     className: "row  p-3 small"
@@ -90,6 +93,8 @@ Header.propTypes = {
   spectitle: propTypes.string,
   /** spec version info */
   specversion: propTypes.string,
+  /** version info */
+  version: propTypes.string,
   /** spec description info */
   specdescription: propTypes.string,
   /** spec type info */
@@ -99,5 +104,6 @@ Header.propTypes = {
   /** spec servers array */
   specservers: propTypes.array,
   /** spec externaldocs or links info */
-  specexternaldocs: propTypes.any
+  specexternaldocs: propTypes.any,
+  theme: propTypes.object
 };

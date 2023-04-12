@@ -17,15 +17,20 @@ export default function FileUrl(props) {
     console.log(e);
     const reader = e.target[0].value;
     const getFile = (url) => {
+      setMessage('Fetching');
       fetch(url)
         .then((x) => x.text())
         .then((response) => {
           const ob = yamlToJson(response) ? yamlToJson(response) : response;
           localStorage.setItem('spec', JSON.stringify(ob));
           props?.handleFileCallback(ob);
+          setMessage('');
         })
         .catch((err) => {
-          setMessage(JSON.stringify(err));
+          setMessage(err.message);
+          setTimeout(() => {
+            setMessage('');
+          }, 5000);
         });
     };
     getFile(reader);
@@ -33,22 +38,27 @@ export default function FileUrl(props) {
 
   return (
     <>
-      {message}
-      <form onSubmit={handleSubmit} className="d-flex">
-        <input
-          className="col form-control"
-          placeholder="File URL"
-          name="url"
-          id="url"
-          type="url"
-          required
-          accept=".yaml,.json, application/json, application/yaml"
-        />
+      {message !== '' ? (
+        <div className="form-control container justify-content-middle">
+          <i className="fa-solid fa-sync fa-spin"></i> {message}
+        </div>
+      ) : (
+        <form onSubmit={handleSubmit} className="d-flex">
+          <input
+            className="col form-control"
+            placeholder="File URL"
+            name="url"
+            id="url"
+            type="url"
+            required
+            accept=".yaml,.json, application/json, application/yaml"
+          />
 
-        <button type="submit" className="col form-control">
-          Generate
-        </button>
-      </form>
+          <button type="submit" className="col form-control">
+            Generate
+          </button>
+        </form>
+      )}
     </>
   );
 }

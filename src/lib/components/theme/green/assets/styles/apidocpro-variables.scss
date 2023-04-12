@@ -1,0 +1,64 @@
+// Body
+$light: #f8fafc;
+$dark: #084a69;
+$color-light: #f8fafc;
+$color-dark: #084a69;
+$color-green: #1a5e23;
+$width-compressed: 10rem;
+$white-navbar: rgba(#FFFFFF, .96);
+$primary-navbar: rgba(#000000, .98);
+$info-navbar: rgba(#5BCAFF, .98);
+$success-navbar: rgba(#4CD964, .98);
+$warning-navbar: rgba(#FF9500, .98);
+$danger-navbar: rgba(#FF4C40, .98);
+// Typography
+$font-family-sans-serif: 'Nunito', sans-serif;
+$font-size-base: 0.9rem;
+$line-height-base: 1.6;
+
+// navigation
+.apidocpro-nav{
+    background-color:$dark;
+}
+.apidocpro-nav-text{
+    color: $white-navbar;
+}
+.apidocpro-nav-smc{
+    background-color: $primary-navbar;
+}
+
+.apidocpro-nav-smc-text{
+    color: $light;
+}
+// Base Classes
+.header{
+    background-color: $light;
+}
+.header-text{
+     color: $primary-navbar;
+}
+.body{
+    background-color: $light;
+}
+.body-text{
+    color: $primary-navbar;
+}
+.middle{
+    background-color: $color-light;
+}
+.middle-text{
+    color: $primary-navbar;
+}
+.right{
+    background-color: $dark;
+}
+.left{
+    background-color: $light;
+}
+.right-text{
+    color: $light;
+}
+.left-text{
+    color: $light;
+}
+

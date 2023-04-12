@@ -18,6 +18,7 @@ import { loopInNestedAsyncObject } from '..';
 import Header from '../../../templates/regions/middle/Header';
 import propTypes from 'prop-types';
 import Body from '../../../templates/regions/middle/Body';
+import '../../../core/assets/codesnippet/styles.scss';
 export default function AsyncApiTable(props) {
   var data = props.data,
     collapsible = props.collapsible,

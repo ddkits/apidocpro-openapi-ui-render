@@ -52,5 +52,33 @@ const createMenuItems = (data) => {
     return groupedMenu(newMenuData.filter((x) => x));
   }
 };
-
-export { createMenuItems };
+const createAsyncMenuItems = (data) => {
+  const parsedSpec = data;
+  if (parsedSpec.channels) {
+    const newMenuData = [];
+    for (const [path, pathObj] of Object.entries(parsedSpec.channels)) {
+      console.log(parsedSpec.channels);
+      const menuItem = {
+        tag: '',
+        path,
+        method: '',
+        tags: [],
+        summary: '',
+        description: '',
+        item: {}
+      };
+      // eslint-disable-next-line no-unused-vars
+      for (const [method, methodObj] of Object.entries(pathObj)) {
+        menuItem.method = method.toUpperCase();
+        menuItem.tags.push(method.toUpperCase());
+        menuItem.tag = methodObj.tags && methodObj.tags[0] ? methodObj.tags[0] : 'Other';
+        menuItem.summary = methodObj.summary ? methodObj.summary : path;
+        menuItem.description = methodObj.description ? methodObj.description : 'N/A';
+        menuItem.item = methodObj;
+      }
+      newMenuData.push(menuItem);
+    }
+    return groupedMenu(newMenuData.filter((x) => x));
+  }
+};
+export { createMenuItems, createAsyncMenuItems };

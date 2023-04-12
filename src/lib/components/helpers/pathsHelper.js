@@ -12,7 +12,7 @@ import React from 'react';
 import { merge } from '.';
 import { methodRequestBody } from '../core/codesnippets/methodRequestBody';
 import { methodResponses } from '../core/codesnippets/methodResponses';
-import { PATHS, TABS } from '../templates/theme/noTheme/apidocpro';
+import { PATHS, TABS } from '../theme/noTheme/apidocpro';
 import { parametersTable } from './assets/parameters';
 import { resolveRef } from './resolver';
 
@@ -50,7 +50,9 @@ const loopInNestedObjectPaths = (
       if (key === '$ref') {
         value = resolveRef(value, schemas);
       }
-
+      if (key === 'description' || key === 'summary') {
+        key = '';
+      }
       if (type == 'string') {
         element = element.replaceAll('%VALUE%', '"' + value + '"').replaceAll('%KEY%', key);
       } else {

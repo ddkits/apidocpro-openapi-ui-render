@@ -9,7 +9,8 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
 import { codeRequestSetup } from '../codeRequestSetup';
-
+import { jsonViewer } from '../../../helpers';
+import '../../assets/codesnippet/styles.scss';
 /**
  * curlSnippet
  * @param {spec} spec
@@ -69,7 +70,7 @@ export const curlSnippet = (
       null,
       2
     )} 
-    \n ${body ? `--data-raw  ${JSON.stringify(body, null, 2)}` : ''}`;
+    \n ${body ? `--data-raw  ${jsonViewer(body, true, theme)}` : ''}`;
     return curlCommand;
   };
   if (!method || !path) {

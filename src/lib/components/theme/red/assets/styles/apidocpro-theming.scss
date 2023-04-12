@@ -1,0 +1,48 @@
+@import './apidocpro-variables.scss';
+
+// navigation
+.apidocpro-nav{
+    background-color:$primary-navbar;
+}
+.apidocpro-nav-text{
+    color: $white-navbar;
+}
+.apidocpro-nav-smc{
+    background-color: $primary-navbar;
+}
+
+.apidocpro-nav-smc-text{
+    color: $white-navbar;
+}
+// Base Classes
+.header{
+    background-color: $light;
+}
+.header-text{
+     color: $dark;
+}
+.body{
+    background-color: $light;
+}
+.body-text{
+    color: $dark;
+}
+.middle{
+    background-color: $color-light;
+}
+.middle-text{
+    color: $color-dark;
+}
+.right{
+    background-color: $dark;
+}
+.left{
+    background-color: $light;
+}
+.right-text{
+    color: $light;
+}
+.left-text{
+    color: $light;
+}
+

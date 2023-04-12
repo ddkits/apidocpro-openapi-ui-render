@@ -16,6 +16,7 @@ import { resolveRefs } from '../core/resolver';
 import FileUploadPage from '../core/FileUploadPage';
 import ErrorBoundary from '../core/ErrorBoundary';
 import FileUrl from '../core/FileUrl';
+import '../core/assets/styles.scss';
 
 export default function ApiDocPro(props) {
   // eslint-disable-next-line react/prop-types
@@ -151,7 +152,7 @@ export default function ApiDocPro(props) {
           </div>
         </header>
       )}
-      {loading && spectype !== '' ? (
+      {loading && spectype === '' ? (
         <div className="container justify-content-middle">
           <i className="fa-solid fa-sync fa-spin"></i>
         </div>
@@ -161,7 +162,7 @@ export default function ApiDocPro(props) {
             {left ? (
               <div
                 id="apidocpro-leftsidemenu"
-                className="sidenav d-none d-md-block col-2 m-0"
+                className={`sidenav d-none d-md-block col-2 m-0 ${theme?.styles?.left} ${theme?.styles?.lefttext} `}
                 data-mdb-hidden="false">
                 <LeftRegion
                   data={resolved}
@@ -178,12 +179,12 @@ export default function ApiDocPro(props) {
               id="apidocpro-middleregion"
               className={
                 right && left
-                  ? 'col-12 col-sm-12 col-md-7 '
+                  ? `col-12 col-sm-12 col-md-7 ${theme?.styles?.middle} ${theme?.styles?.middletext}`
                   : right && !left
-                  ? 'col-12 col-sm-12 col-md-9 '
+                  ? `col-12 col-sm-12 col-md-9 ${theme?.styles?.middle} ${theme?.styles?.middletext}`
                   : left && !right
-                  ? 'col-12 col-sm-12 col-md-10 '
-                  : 'col-12 col-sm-12 col-md-12 '
+                  ? `col-12 col-sm-12 col-md-10 ${theme?.styles?.middle} ${theme?.styles?.middletext}`
+                  : `col-12 col-sm-12 col-md-12 ${theme?.styles?.middle} ${theme?.styles?.middletext}`
               }>
               <MiddleRegion
                 data={resolved}
@@ -196,7 +197,7 @@ export default function ApiDocPro(props) {
             {right ? (
               <div
                 id="apidocpro-rightregion"
-                className="d-none d-md-block  bg-dark text-light col-3 pt-3 minh-100 m-0">
+                className={`d-none d-md-block pt-3 pb-5 col-3 pt-3 minh-100 m-0 ${theme?.styles?.right} ${theme?.styles?.righttext} `}>
                 <RightRegion
                   data={resolved}
                   resolved={resolved}

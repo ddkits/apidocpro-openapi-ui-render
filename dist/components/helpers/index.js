@@ -18,7 +18,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
  */
 import React from 'react';
 import yaml from 'js-yaml';
-import { TEMPLATES, REQUESTBODY, JSONTEMPLATES } from '../templates/theme/noTheme/apidocpro';
+import { TEMPLATES, REQUESTBODY, JSONTEMPLATES } from '../theme/noTheme/apidocpro';
 import Body from '../templates/regions/middle/Body';
 import Header from '../templates/regions/middle/Header';
 import { jsonExample, yamlExample } from './examples';
@@ -66,6 +66,9 @@ var loopInNestedObject = function loopInNestedObject() {
   var TEMPLATESNOW = theme.TEMPLATES ? theme.TEMPLATES : TEMPLATES;
   function createItem(key, value, type) {
     var element = TEMPLATESNOW.item.replaceAll('%KEY%', (value === null || value === void 0 ? void 0 : value.title) || (value === null || value === void 0 ? void 0 : value.name) || (value === null || value === void 0 ? void 0 : value.summary) || (value === null || value === void 0 ? void 0 : value.description) || key);
+    if (key === 'description' || key === 'summary') {
+      key = '';
+    }
     if (type == 'string') {
       element = element.replaceAll('%VALUE%', '"' + value + '"').replaceAll('%KEY%', key);
     } else {
@@ -115,7 +118,7 @@ var loopInNestedObject = function loopInNestedObject() {
     if (key == 'info') {
       return {
         title: value['title'] || '',
-        version: value['version'] || '',
+        specversion: value['version'] || '',
         contact: value['contact'] || [],
         description: value['description'] || '',
         summary: value['summary'] || '',
@@ -171,19 +174,22 @@ var loopInNestedObject = function loopInNestedObject() {
       return;
     }
     var result = '<section class="apidocpro">';
-    var title, version, description, contact, servers, license, specType, summary, externalDocs;
+    var title, version, description, contact, servers, license, specType, summary, externalDocs, specVersion;
     for (var item in obj) {
       var key = item,
         value = obj[item];
       switch (key) {
         case 'openapi':
           specType = key.toUpperCase();
+          specVersion = value;
           break;
         case 'swagger':
           specType = key.toUpperCase();
+          specVersion = value;
           break;
         case 'async':
           specType = key.toUpperCase();
+          specVersion = value;
           break;
         case 'info':
           title = value['title'];
@@ -214,7 +220,8 @@ var loopInNestedObject = function loopInNestedObject() {
       className: "apidocpro-details"
     }, /*#__PURE__*/React.createElement(Header, {
       spectitle: title,
-      specversion: version,
+      specversion: specVersion,
+      version: version,
       specdescription: description,
       specType: specType,
       speccontact: contact,
@@ -222,12 +229,14 @@ var loopInNestedObject = function loopInNestedObject() {
       specservers: servers || [],
       speclicense: license,
       specsummary: summary,
-      specexternaldocs: externalDocs || []
+      specexternaldocs: externalDocs || [],
+      theme: theme
     }), /*#__PURE__*/React.createElement(Body, {
       data: result.replaceAll('undefined', ''),
       servers: servers,
       spec: json,
-      collapsible: collapsible
+      collapsible: collapsible,
+      theme: theme
     }));
   }
   return parseObject(json);
@@ -246,20 +255,20 @@ function jsonViewer(json) {
   var TEMPLATESNOW = theme.JSONTEMPLATES ? theme.JSONTEMPLATES : JSONTEMPLATES;
   function createItem(key, value, type) {
     if (key.split('').length < 3) {
-      key = type.toUpperCase();
+      key = '';
     }
-    var element = TEMPLATESNOW.item.replaceAll('%KEY%', key);
+    var element = TEMPLATESNOW.item;
     if (type == 'string') {
-      element = element.replaceAll('%VALUE%', '"' + value + '"');
+      element = element.replace('%VALUE%', '"' + value + '"').replace('%KEY%', "".concat(key, ": "));
     } else {
-      element = element.replaceAll('%VALUE%', value);
+      element = element.replace('%VALUE%', value).replace('%KEY%', key);
     }
     element = element.replaceAll('%TYPE%', type);
     return element;
   }
   function createCollapsibleItem(key, value, type, children) {
     if (key.split('').length < 3) {
-      key = type.toUpperCase();
+      key = '';
     }
     var tpl = 'itemCollapsible';
     if (collapsible) {
@@ -305,7 +314,7 @@ function jsonViewer(json) {
       _result += handleItem(key, value);
     }
     _result += '</div>';
-    return _result;
+    return _result.replaceAll('undefined', '');
   }
   return parseObject(json);
 }

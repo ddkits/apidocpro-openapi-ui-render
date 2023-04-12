@@ -15,13 +15,15 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import propTypes from 'prop-types';
-import { createMenuItems } from '../../core/leftside';
+import { createAsyncMenuItems, createMenuItems } from '../../core/leftside';
 import { Link, Button, Element, Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll';
 
 // eslint-disable-next-line no-unused-vars
 export default function LeftRegion(props) {
+  var _theme$styles, _theme$styles2;
   var data = props.data,
-    spectype = props.spectype;
+    spectype = props.spectype,
+    theme = props.theme;
   var _useState = useState([]),
     _useState2 = _slicedToArray(_useState, 2),
     menuData = _useState2[0],
@@ -30,31 +32,41 @@ export default function LeftRegion(props) {
     if (data && spectype !== 'asyncapi') {
       var final = createMenuItems(data);
       setMenuData(final);
+    } else {
+      setMenuData([]);
     }
+    // else {
+    //   if (data && spectype !== 'asyncapi') {
+    //     const final = createAsyncMenuItems(data);
+    //     setMenuData(final);
+    //   }
+    // }
   }, [data]);
   return /*#__PURE__*/React.createElement("div", {
     className: " pt-5 mt-5 sticky-top",
     id: "nav-bar"
   }, /*#__PURE__*/React.createElement("nav", {
-    className: "sidenav"
+    className: "sidenav ".concat(theme === null || theme === void 0 ? void 0 : (_theme$styles = theme.styles) === null || _theme$styles === void 0 ? void 0 : _theme$styles.apinav, " ").concat(theme === null || theme === void 0 ? void 0 : (_theme$styles2 = theme.styles) === null || _theme$styles2 === void 0 ? void 0 : _theme$styles2.apinavtext)
   }, /*#__PURE__*/React.createElement("ul", {
     className: "main-buttons "
   }, menuData && Object.keys(menuData).map(function (key) {
+    var _theme$styles3, _theme$styles4, _theme$styles5;
     return /*#__PURE__*/React.createElement("li", {
       key: key
-    }, /*#__PURE__*/React.createElement("i", {
+    }, theme !== null && theme !== void 0 && (_theme$styles3 = theme.styles) !== null && _theme$styles3 !== void 0 && _theme$styles3.icon ? /*#__PURE__*/React.createElement("i", {
       className: "fa fa-circle active-icon",
       id: key,
       title: "".concat(key),
       "data-bs-original-title": "".concat(key)
-    }), key, /*#__PURE__*/React.createElement("ul", {
-      className: "hidden"
+    }) : '', key, /*#__PURE__*/React.createElement("ul", {
+      className: "hidden ".concat(theme === null || theme === void 0 ? void 0 : (_theme$styles4 = theme.styles) === null || _theme$styles4 === void 0 ? void 0 : _theme$styles4.apinavsmc, " ").concat(theme === null || theme === void 0 ? void 0 : (_theme$styles5 = theme.styles) === null || _theme$styles5 === void 0 ? void 0 : _theme$styles5.apinavsmctext)
     }, Object.keys(menuData[key]).map(function (menuItem, xds) {
-      var _menuData$key$menuIte, _menuData$key$menuIte2, _menuData$key$menuIte3;
+      var _menuData$key$menuIte, _menuData$key$menuIte2, _menuData$key$menuIte3, _theme$styles6, _theme$styles7;
       var idLabel = ((_menuData$key$menuIte = menuData[key][menuItem]) === null || _menuData$key$menuIte === void 0 ? void 0 : _menuData$key$menuIte.summary) || ((_menuData$key$menuIte2 = menuData[key][menuItem]) === null || _menuData$key$menuIte2 === void 0 ? void 0 : _menuData$key$menuIte2.description) || ((_menuData$key$menuIte3 = menuData[key][menuItem]) === null || _menuData$key$menuIte3 === void 0 ? void 0 : _menuData$key$menuIte3.operationId) || key;
       var href = idLabel.replaceAll(' ', '_').replaceAll('.', '').replaceAll('{', '').replaceAll('}', '').replaceAll('/', '_');
       return /*#__PURE__*/React.createElement(Link, {
         activeClass: "active",
+        className: "".concat(theme === null || theme === void 0 ? void 0 : (_theme$styles6 = theme.styles) === null || _theme$styles6 === void 0 ? void 0 : _theme$styles6.apinavsmc, " ").concat(theme === null || theme === void 0 ? void 0 : (_theme$styles7 = theme.styles) === null || _theme$styles7 === void 0 ? void 0 : _theme$styles7.apinavsmctext),
         smooth: true,
         spy: true,
         to: "".concat(href),

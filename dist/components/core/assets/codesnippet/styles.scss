@@ -1,0 +1,91 @@
+// response schema
+
+
+.json {
+
+
+
+    font-family: 'Source Code Pro', monospace;
+    font-size: 12px;
+    text-align: left;
+    padding: 10px 5px ;
+    background-color: black;
+    &> {
+
+        .json__item {
+           
+            display: block;
+        }
+    }
+}
+
+.json__item {
+    display: none;
+    margin-top: 10px;
+    padding-left: 20px;
+    user-select: none;
+    &::before {
+        counter-increment: line;
+        content: '\27F1';
+        display: inline-block;
+        position: absolute;
+        width: 5px;
+        top: 0;
+        left: 5px;
+        text-align: right;
+        color: white;
+    }
+}
+
+.json__item--collapsible {
+    cursor: pointer;
+    overflow: hidden;
+    position: relative;
+
+    
+    &:hover {
+
+        &>.json__key,
+        &>.json__value {
+            text-decoration: underline;
+        }
+    }
+}
+
+.json__toggle {
+    display: none;
+
+    &:checked~.json__item {
+        display: block;
+    }
+}
+
+.json__key {
+    color: gray;
+    display: inline;
+
+    &::after {
+        content: ' ';
+    }
+}
+
+.json__value {
+    display: inline;
+}
+
+.json__value--string {
+    color: lightgreen;
+}
+
+.json__value--number {
+    color: lightblue;
+}
+
+.json__value--boolean {
+    color: lightgoldenrodyellow;
+}
+
+// Async styles
+// .accordion-body{
+//     border-left: 1px solid gray;
+// }
