@@ -43,7 +43,7 @@ export default function LeftRegion(props) {
     // }
   }, [data]);
   return /*#__PURE__*/React.createElement("div", {
-    className: " pt-5 mt-5 sticky-top",
+    className: " pt-5 mt-5",
     id: "nav-bar"
   }, /*#__PURE__*/React.createElement("nav", {
     className: "sidenav ".concat(theme === null || theme === void 0 ? void 0 : (_theme$styles = theme.styles) === null || _theme$styles === void 0 ? void 0 : _theme$styles.apinav, " ").concat(theme === null || theme === void 0 ? void 0 : (_theme$styles2 = theme.styles) === null || _theme$styles2 === void 0 ? void 0 : _theme$styles2.apinavtext)

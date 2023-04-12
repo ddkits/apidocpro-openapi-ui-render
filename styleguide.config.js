@@ -4,26 +4,50 @@ let { version } = require('./package');
 /* eslint-disable no-undef */
 module.exports = {
   require: [path.resolve(__dirname, 'styleguide/setup.js')],
-
+  printBuildInstructions(config) {
+    console.log(`Style guide published to ${config.styleguideDir}. Something else interesting.`);
+  },
+  styles: function () {
+    return {
+      logo: {
+        logo: {
+          // we can now change the color used in the logo item to use the theme's `link` color
+          color: 'rgba(22, 115, 177, 0.25)'
+        }
+      }
+    };
+  },
+  skipComponentsWithoutExample: true,
   sections: [
     {
+      name: 'Home',
+      external: true,
+      href: 'https://ui.apidocpro.com'
+    },
+    {
+      name: 'Introduction',
       content: 'docs/introduction.md'
     },
     {
       name: 'Documentation',
+      description:
+        'API Doc Pro UI Render, is the smallest and fastest Async and Open API UI rendering, using React and Bootstrap.',
       sections: [
         {
           name: 'Installation',
-          content: 'docs/installation.md'
+          content: 'docs/installation.md',
+          description: 'Simple to use'
         },
         {
           name: 'Configuration',
-          content: 'docs/configuration.md'
+          content: 'docs/configuration.md',
+          description: 'Simple to configure using the examples below, also simple React ref'
         },
         {
           name: 'APIDocPro Editor',
           external: true,
-          href: 'https://apidocpro.com/editor'
+          href: 'https://apidocpro.com/editor',
+          description: 'Example of a Laravel/React base editor, for live preview'
         }
       ]
     },
@@ -40,34 +64,36 @@ module.exports = {
     {
       name: 'Core',
       components: 'src/lib/components/core/**/*.js',
-      defaultExample: false
+      defaultExample: false,
+      sectionDepth: 0
     },
     {
       name: 'Templates',
       components: 'src/lib/components/templates/**/*.js',
-      defaultExample: false
+      defaultExample: false,
+      sectionDepth: 0
     },
     {
       name: 'Themes & Theming',
-      content: 'src/lib/components/theme/Readme.md'
+      content: 'src/lib/components/theme/Readme.md',
+      sectionDepth: 0
     },
     {
       name: 'Helpers',
       components: 'src/lib/components/helpers/**/*.js',
-      defaultExample: false
+      defaultExample: false,
+      sectionDepth: 0
     }
   ],
   moduleAliases: {
     'rsg-example': path.resolve(__dirname, 'src')
   },
   components: 'src/**/[A-Z]*.js',
-  usageMode: 'expand',
   version,
   ribbon: {
     text: 'Sponsor Me!',
     url: 'https://opencollective.com/reallexi'
   },
-  version,
   webpackConfig: {
     module: {
       rules: [
@@ -87,7 +113,11 @@ module.exports = {
       ]
     }
   },
-  exampleMode: 'hide', // 'hide' | 'collapse' | 'expand'
+  // Don't include an Object.assign ponyfill, we have our own
+  pagePerSection: process.env.NODE_ENV !== 'production',
+  mountPointId: 'apidocpro',
+  tocMode: 'collapse', //'collapse' | 'expand'
+  exampleMode: 'collapse', // 'hide' | 'collapse' | 'expand'
   usageMode: 'hide', // 'hide' | 'collapse' | 'expand',
   updateExample(props, exampleFilePath) {
     // props.settings are passed by any fenced code block, in this case
@@ -144,6 +174,5 @@ module.exports = {
     fontFamily: {
       base: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"'
     }
-  },
-  styles: {}
+  }
 };

@@ -40,7 +40,7 @@ export default function LeftRegion(props) {
     // }
   }, [data]);
   return (
-    <div className=" pt-5 mt-5 sticky-top" id="nav-bar">
+    <div className=" pt-5 mt-5" id="nav-bar">
       <nav className={`sidenav ${theme?.styles?.apinav} ${theme?.styles?.apinavtext}`}>
         <ul className="main-buttons ">
           {menuData &&

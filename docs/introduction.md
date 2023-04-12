@@ -1,4 +1,4 @@
-# APIDocPro UI renderrer for Swagger, OpenAPI and AsyncAPI
+## APIDocPro UI renderrer for Swagger, OpenAPI and AsyncAPI
 
 API Doc Pro UI is the best choice for dynamically rendering any spec SwaggerAPI, OpenAPI, or AsyncAPI, all in one with one design. By Reallexi LLC @ Apidocpro.com
 
@@ -27,3 +27,9 @@ API Doc Pro UI is the best choice for dynamically rendering any spec SwaggerAPI,
 - 8- Supports 2.x AsyncAPI
 - 9- Try it Out (SOON)
 - 10- Different Codesnippets Languages (SOON)
+
+### Themes
+- No Theme
+- Default
+- Red
+- Green
