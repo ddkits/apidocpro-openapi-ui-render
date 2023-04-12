@@ -14,7 +14,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
  */
 import React from 'react';
 import yaml from 'js-yaml';
-import { TEMPLATESASYNC, REQUESTBODY, JSONTEMPLATES } from '../../theme/noTheme/apidocpro';
+import { TEMPLATESASYNC, REQUESTBODY, JSONTEMPLATES } from '../../theme/noTheme/noTheme';
 import Body from '../../templates/regions/middle/Body';
 import Header from '../../templates/regions/middle/Header';
 import { resolveRef } from './../resolver';

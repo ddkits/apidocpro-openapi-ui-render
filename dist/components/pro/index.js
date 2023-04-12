@@ -8,6 +8,6 @@
  * Reallexi LLC, https://reallexi.com
  */
 import * as React from 'react';
-import * as APIDOCPROTHEME from '../theme/noTheme/apidocpro';
+import * as APIDOCPROTHEME from '../theme/noTheme/noTheme';
 import ApiDocPro from '../templates';
 export { ApiDocPro, APIDOCPROTHEME };

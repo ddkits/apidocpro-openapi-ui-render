@@ -7,7 +7,7 @@
  * Reallexi LLC, https://reallexi.com
  */
 //
-// APIDocPro Default Theme
+// APIDocPro Red Theme
 //
 import './assets/styles/apidocpro-styles.scss';
 var TEMPLATES = {

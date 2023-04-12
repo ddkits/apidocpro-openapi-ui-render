@@ -7,7 +7,7 @@
  * Reallexi LLC, https://reallexi.com
  */
 import { js_beautify } from 'js-beautify';
-import { TEMPLATESASYNC } from '../../theme/noTheme/apidocpro';
+import { TEMPLATESASYNC } from '../../theme/noTheme/noTheme';
 
 function apidocprocodeViewer(json, collapsible = false, theme = {}) {
   const TEMPLATESNOW = theme.TEMPLATESASYNC ? theme.TEMPLATESASYNC : TEMPLATESASYNC;

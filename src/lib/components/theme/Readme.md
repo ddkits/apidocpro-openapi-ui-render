@@ -56,7 +56,7 @@ import 'openapi-asyncapi-ui-render/theme/red/assets/styles/apidocpro-theming.scs
 ### Create custom theme
 
 Basic file structure to customize your own theme
-```js {"file": "../noTheme/apidocpro.js"}
+```js {"file": "../noTheme/noTheme.js"}
 
 
 ```

@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { ApiDocPro } from './lib/components';
 // Custom Theme can be clones from Default example when needed
-import * as THEME from './lib/components/theme/default/apidocpro';
+import * as THEME from './lib/components/theme/default/default';
 // Custom Theme can be clones from green example when needed
 // import * as GREEN from './lib/components/theme/green/apidocpro';
 // Custom Theme can be clones from noTheme example when needed

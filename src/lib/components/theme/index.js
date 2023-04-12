@@ -7,8 +7,8 @@
  * Important: To use this code please leave the copyright in place
  * Reallexi LLC, https://reallexi.com
  */
-import * as APIDOCPRONOTHEME from './default/apidocpro';
-import * as APIDOCPROTHEME from './default/apidocpro';
-import * as APIDOCPROTHEMEGREEN from './green/apidocpro';
-import * as APIDOCPROTHEMERED from './red/apidocpro';
+import * as APIDOCPRONOTHEME from './noTheme/noTheme';
+import * as APIDOCPROTHEME from './default/default';
+import * as APIDOCPROTHEMEGREEN from './green/green';
+import * as APIDOCPROTHEMERED from './red/red';
 export { APIDOCPROTHEME, APIDOCPROTHEMEGREEN, APIDOCPRONOTHEME, APIDOCPROTHEMERED };

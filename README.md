@@ -78,7 +78,7 @@ import { useEffect, useState } from 'react';
 import './App.css';
 import { ApiDocPro } from 'openapi-asyncapi-ui-render';
 // Custom Theme can be clones from Default example when needed
-import * as THEME from 'openapi-asyncapi-ui-render/theme/default/apidocpro';
+import * as THEME from 'openapi-asyncapi-ui-render/theme/default/default';
 // Styles import
 import 'openapi-asyncapi-ui-render/templates/theme/default/assets/styles/apidocpro-styles.scss';
 

@@ -12,7 +12,7 @@ import React from 'react';
 import { merge } from '.';
 import { methodRequestBody } from '../core/codesnippets/methodRequestBody';
 import { methodResponses } from '../core/codesnippets/methodResponses';
-import { PATHS, TABS } from '../theme/noTheme/apidocpro';
+import { PATHS, TABS } from '../theme/noTheme/noTheme';
 import { parametersTable } from './assets/parameters';
 import { resolveRef } from './resolver';
 

@@ -14,7 +14,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
  * Reallexi LLC, https://reallexi.com
  */
 import { js_beautify } from 'js-beautify';
-import { TEMPLATESASYNC } from '../../theme/noTheme/apidocpro';
+import { TEMPLATESASYNC } from '../../theme/noTheme/noTheme';
 function apidocprocodeViewer(json) {
   var collapsible = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
   var theme = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};

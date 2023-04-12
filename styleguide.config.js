@@ -38,15 +38,23 @@ module.exports = {
       //   defaultExample: true,
     },
     {
-      name: 'Themes',
-      components: 'src/lib/components/templates/theme/**/*.js',
+      name: 'Core',
+      components: 'src/lib/components/core/**/*.js',
       defaultExample: false
     },
     {
-      name: 'OpenAPI AsyncAPI UI Render',
-      components: 'src/lib/**/*.js',
-      exclude: 'src/lib/components/templates/theme/**/*.js',
-      defaultExample: true
+      name: 'Templates',
+      components: 'src/lib/components/templates/**/*.js',
+      defaultExample: false
+    },
+    {
+      name: 'Themes & Theming',
+      content: 'src/lib/components/theme/Readme.md'
+    },
+    {
+      name: 'Helpers',
+      components: 'src/lib/components/helpers/**/*.js',
+      defaultExample: false
     }
   ],
   moduleAliases: {

@@ -1,5 +1,5 @@
 ApiDocPro Code
 
-```js { "file": "../apidocpro.js" }
+```js { "file": "../green.js" }
 
 ```

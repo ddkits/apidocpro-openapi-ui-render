@@ -18,7 +18,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
  */
 import React from 'react';
 import yaml from 'js-yaml';
-import { TEMPLATES, REQUESTBODY, JSONTEMPLATES } from '../theme/noTheme/apidocpro';
+import { TEMPLATES, REQUESTBODY, JSONTEMPLATES } from '../theme/noTheme/noTheme';
 import Body from '../templates/regions/middle/Body';
 import Header from '../templates/regions/middle/Header';
 import { jsonExample, yamlExample } from './examples';
