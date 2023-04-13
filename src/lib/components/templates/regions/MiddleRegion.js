@@ -19,11 +19,8 @@ export default function MiddleRegion(props) {
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
-    }, 50);
-  }, [openCollapse]);
-  useEffect(() => {
-    setLoading(false);
-  }, []);
+    }, 100);
+  }, [data, openCollapse]);
   return loading ? (
     <div className="container">
       <i className="fa-solid fa-sync fa-spin"></i>

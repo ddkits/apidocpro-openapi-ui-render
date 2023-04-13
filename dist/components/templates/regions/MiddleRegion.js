@@ -31,11 +31,8 @@ export default function MiddleRegion(props) {
     setLoading(true);
     setTimeout(function () {
       setLoading(false);
-    }, 50);
-  }, [openCollapse]);
-  useEffect(function () {
-    setLoading(false);
-  }, []);
+    }, 100);
+  }, [data, openCollapse]);
   return loading ? /*#__PURE__*/React.createElement("div", {
     className: "container"
   }, /*#__PURE__*/React.createElement("i", {
