@@ -106,7 +106,7 @@ Header.propTypes = {
   /** spec info */
   spec: propTypes.any,
   /** spec servers array */
-  specservers: propTypes.array,
+  specservers: propTypes.oneOfType([propTypes.array, propTypes.object]),
   /** spec externaldocs or links info */
   specexternaldocs: propTypes.any,
   theme: propTypes.object
