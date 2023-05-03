@@ -9,4 +9,5 @@
  */
 import * as React from 'react';
 import ApiDocPro from './templates';
-export { ApiDocPro };
+import { yamlToJson } from './helpers';
+export { ApiDocPro, yamlToJson };
