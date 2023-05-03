@@ -11,7 +11,7 @@ API Doc Pro UI is the best choice for dynamically rendering any spec SwaggerAPI,
 
 ### Based on:
 
-- 1- ReactS
+- 1- ReactJS
 - 2- Bootstrap
 
 ### Features
