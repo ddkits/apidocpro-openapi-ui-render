@@ -16,7 +16,7 @@ npm i openapi-asyncapi-ui-render
 ```
 ...
 // React Component
-import { ApiDocPro } from 'openapi-asyncapi-ui-render/dist/components';
+import { ApiDocPro } from 'openapi-asyncapi-ui-render';
 
 // Custom Theme can be clones from Default example when needed
 import * as THEME from 'openapi-asyncapi-ui-render/dist/components/theme/green/green';
